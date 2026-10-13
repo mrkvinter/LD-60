@@ -1,0 +1,19 @@
+<!-- Copies of link.xml files from ThirdParty packages: Unity ignores link.xml inside packages. -->
+<linker>
+    <!-- Odin (ThirdParty/Odin/Sirenix/Assemblies/link.xml) -->
+    <assembly fullname="Sirenix.OdinInspector.Attributes" preserve="all"/>
+    <assembly fullname="Sirenix.Serialization.Config" preserve="all"/>
+    <assembly fullname="Sirenix.Serialization" preserve="all"/>
+    <assembly fullname="Sirenix.Utilities" preserve="all"/>
+
+    <!-- Quantum Console (ThirdParty/QuantumConsole/Source/Scripts/link.xml) -->
+    <assembly fullname="QFSW.QC" preserve="all"/>
+    <assembly fullname="QFSW.QC.Parsers" preserve="all"/>
+    <assembly fullname="QFSW.QC.Grammar" preserve="all"/>
+    <assembly fullname="QFSW.QC.Serializers" preserve="all"/>
+    <assembly fullname="QFSW.QC.Suggestors" preserve="all"/>
+    <assembly fullname="QFSW.QC.Extras" preserve="all"/>
+    <assembly fullname="System.Core">
+        <type fullname="System.Linq.Expressions.Interpreter.LightLambda" preserve="all" />
+    </assembly>
+</linker>

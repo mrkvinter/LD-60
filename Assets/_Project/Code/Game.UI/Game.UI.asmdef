@@ -1,0 +1,28 @@
+{
+    "name": "Game.UI",
+    "rootNamespace": "",
+    "references": [
+        "DOTween.Modules",
+        "Unity.TextMeshPro",
+        "UniTask",
+        "UniTask.DOTween",
+        "Game.Utilities",
+        "DefinitionSystem.Core",
+        "DefinitionSystem.UnityAdapter",
+        "Game.Core",
+        "Unity.Timeline",
+        "KvintessentialGames",
+        "Kybernetik.Animancer",
+        "Unity.RenderPipelines.Core.Runtime",
+        "VolFx"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

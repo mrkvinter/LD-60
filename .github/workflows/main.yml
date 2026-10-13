@@ -1,0 +1,64 @@
+name: Build and Deploy to itch.io
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# A newer push makes the running build pointless: cancel it.
+concurrency:
+  group: itch-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  webgl:
+    name: WebGL to itch.io
+    runs-on: [self-hosted, macOS]
+    steps:
+      - name: Checkout (with private submodules)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # Keep Library/ between runs on the self-hosted runner: much faster rebuilds.
+          clean: false
+          lfs: true
+          submodules: recursive
+          # GITHUB_TOKEN cannot read Kvinter-Games/Kvintessential and Kvinter-Games/ThirdParty.
+          token: ${{ secrets.SUBMODULES_TOKEN }}
+
+      - name: Pull LFS objects of submodules
+        run: git submodule foreach --recursive git lfs pull
+
+      - name: Build Unity project
+        id: build
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          targetPlatform: WebGL
+          versioning: Semantic
+          buildMethod: UnityBuilderAction.BuildScript.Build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: webgl
+          path: build/WebGL/WebGL
+
+      - name: Install butler
+        run: |
+          curl -fsSL -o butler.zip https://broth.itch.zone/butler/darwin-amd64/LATEST/archive/default
+          unzip -o -q butler.zip -d butler-bin
+          chmod +x butler-bin/butler
+          butler-bin/butler -V
+
+      - name: Push to itch.io
+        run: >
+          butler-bin/butler push build/WebGL/WebGL
+          "${{ vars.ITCH_USER }}/${{ vars.ITCH_GAME_ID }}:webgl"
+          --userversion "${{ steps.build.outputs.buildVersion }}"
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}

@@ -1,0 +1,22 @@
+{
+    "name": "Game.Core",
+    "rootNamespace": "",
+    "references": [
+        "DefinitionSystem.Core",
+        "VContainer",
+        "Game.Utilities",
+        "KvintessentialGames",
+        "Kvintessential.Core",
+        "Executors",
+        "Kvintessential.Saves"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

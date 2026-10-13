@@ -1,0 +1,9 @@
+{
+  "type": "Game.UI.Base.WidgetProps",
+  "Id": "BlackScreen",
+  "<Prefab>k__BackingField": {
+    "guid": "b56a4ea3a08e44d4986caad26499e8c7",
+    "fileID": 1347306929960347767
+  },
+  "<Target>k__BackingField": 1
+}

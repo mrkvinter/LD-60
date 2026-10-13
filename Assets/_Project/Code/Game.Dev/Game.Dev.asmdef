@@ -1,0 +1,15 @@
+{
+    "name": "Game.Dev",
+    "references": [
+        "Game.Utilities",
+        "Game.Core",
+        "DefinitionSystem.Core",
+        "QFSW.QC",
+        "Unity.Cinemachine",
+        "VContainer",
+        "KvintessentialGames",
+        "DevPanel",
+        "Kvintessential.Core",
+        "Kvintessential.Saves"
+    ]
+}

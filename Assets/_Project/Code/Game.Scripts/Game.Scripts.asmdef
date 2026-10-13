@@ -1,0 +1,41 @@
+{
+    "name": "Game.Scripts",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9f83f8dfcf56405badc08adb0b2839cf",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:3cc9ca5574f2a5b49bed8c865ba7d146",
+        "GUID:516a5277b8c3b4f4c8cc86b77b1591ff",
+        "GUID:4cc60f707c2c46aaac236062e0e28cb1",
+        "GUID:4c25c05f410a3a447a75c3b0909152ef",
+        "GUID:029c1c1b674aaae47a6841a0b89ad80e",
+        "GUID:d0a478f1f9c162448a8fafece43eea41",
+        "GUID:86b487f7dbf14794ac660a836156b94c",
+        "GUID:b0214a6008ed146ff8f122a6a9c2f6cc",
+        "Game.Utilities",
+        "GUID:4307f53044263cf4b835bd812fc161a4",
+        "GUID:425b393c5ba14b668f3952e827074612",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:fb24642277b1db2449da7ac148ce939d",
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9",
+        "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
+        "GUID:0ca03966c5a54215b05f615e171a2a3f",
+        "Executors",
+        "ValueTables",
+        "Kvintessential.Core",
+        "Kvintessential.Entities"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [
+        "Newtonsoft.Json.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

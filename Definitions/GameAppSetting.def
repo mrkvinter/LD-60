@@ -1,0 +1,4 @@
+{
+  "type": "Game.Main.Settings.GameAppSetting",
+  "GameScene": "Game"
+}

@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4483802456067499598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5409707741428323500}
+  - component: {fileID: 1808835566367841318}
+  m_Layer: 0
+  m_Name: Sounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5409707741428323500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4483802456067499598}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.5151384, y: -0.105014905, z: -0.16991656, w: 0.8335063}
+  m_LocalPosition: {x: -3.27, y: 0.052, z: 4.025}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1808835566367841318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4483802456067499598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf4d032a74a8b4a43bbc18a380220e30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: KvintessentialGames::KvinterGames.AudioService
+  sounds:
+  - Name: ImpactBread
+    Clips:
+    - {fileID: 8300000, guid: 4bf53ab99f3724842ad08b5a399356b8, type: 3}
+    - {fileID: 8300000, guid: 69d5ce4749b86ac459a37be5149fccb2, type: 3}
+  - Name: ImpactCheese
+    Clips:
+    - {fileID: 8300000, guid: f718406fce4b1154cbfed00d0d9e46a2, type: 3}
+    - {fileID: 8300000, guid: 9864324db57e4814c9790c0bbfe72dbd, type: 3}
+  - Name: ImpactMeat
+    Clips:
+    - {fileID: 8300000, guid: a0abbd3fe5c7dc64b96fb56107744bed, type: 3}
+    - {fileID: 8300000, guid: 41e603167b1d3cd468e96c9aad96d1e0, type: 3}
+  - Name: ImpactGeneric
+    Clips:
+    - {fileID: 8300000, guid: 4bf53ab99f3724842ad08b5a399356b8, type: 3}
+    - {fileID: 8300000, guid: 69d5ce4749b86ac459a37be5149fccb2, type: 3}
+    - {fileID: 8300000, guid: f718406fce4b1154cbfed00d0d9e46a2, type: 3}
+    - {fileID: 8300000, guid: 9864324db57e4814c9790c0bbfe72dbd, type: 3}
+    - {fileID: 8300000, guid: a0abbd3fe5c7dc64b96fb56107744bed, type: 3}
+    - {fileID: 8300000, guid: 41e603167b1d3cd468e96c9aad96d1e0, type: 3}
+  - Name: KingMouthOpen
+    Clips:
+    - {fileID: 8300000, guid: 5688b98ead769364cbfbdbd5fc2e953d, type: 3}
+  - Name: KingChew
+    Clips:
+    - {fileID: 8300000, guid: a9ff466b6bd74fc4caa29614bc68af98, type: 3}
+    - {fileID: 8300000, guid: 031a37fc3296a24488f93ecebfe3040f, type: 3}
+    - {fileID: 8300000, guid: e2956529db6b1184493ebe5bf216c61c, type: 3}
+  - Name: KingChewLong
+    Clips:
+    - {fileID: 8300000, guid: f7acc30fc4be4f74e83ce7fc153d6ac8, type: 3}
+  - Name: StomachRumble
+    Clips:
+    - {fileID: 8300000, guid: 7550977abeda490468c86f8aa582c5de, type: 3}
+  - Name: Music
+    Clips:
+    - {fileID: 8300000, guid: bac7388f6bbf19a40808e088a5d77c06, type: 3}
+  - Name: click
+    Clips:
+    - {fileID: 8300000, guid: d061788f2d8485d4ba35ad43ecf4af78, type: 3}
+  - Name: Typing_Default
+    Clips:
+    - {fileID: 8300000, guid: d061788f2d8485d4ba35ad43ecf4af78, type: 3}
+  - Name: Typing_Narrator
+    Clips:
+    - {fileID: 8300000, guid: d061788f2d8485d4ba35ad43ecf4af78, type: 3}
+  - Name: Typing_King
+    Clips:
+    - {fileID: 8300000, guid: 93fcd1955381ea54c8b6e97952f2bccb, type: 3}
+  mixerGroups:
+  - Name: default
+    Group: {fileID: 24300002, guid: e72cdcda570f21c4e8b3c81257b74d43, type: 2}

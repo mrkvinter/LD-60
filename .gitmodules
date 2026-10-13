@@ -1,0 +1,6 @@
+[submodule "Kvintessential"]
+	path = Kvintessential
+	url = https://github.com/Kvinter-Games/Kvintessential.git
+[submodule "ThirdParty"]
+	path = ThirdParty
+	url = https://github.com/Kvinter-Games/ThirdParty.git

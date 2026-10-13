@@ -1,0 +1,33 @@
+{
+    "name": "Game.Editor",
+    "rootNamespace": "",
+    "references": [
+        "DefinitionSystem.Core",
+        "DefinitionSystem.UnityAdapter",
+        "UniTask",
+        "VContainer",
+        "Game.Core",
+        "Game.UI",
+        "Game.Utilities",
+        "KvintessentialGames",
+        "Game.Main",
+        "Game.Dev",
+        "Game.Scripts",
+        "MessagePipe",
+        "Kvintessential.Core",
+        "Executors",
+        "DevPanel",
+        "Kvintessential.Entities"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,7 @@
+{
+	"name": "Game.Utilities",
+  "references": [
+    "VContainer",
+    "UniTask"
+  ]
+}
