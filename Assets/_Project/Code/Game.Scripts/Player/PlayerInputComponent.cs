@@ -20,10 +20,12 @@ namespace Game.Scripts.Player
         public bool Crouch { get; private set; }
         public bool IsInteractHeld { get; private set; }
         public bool IsThrowHeld { get; private set; }
+        public float Scroll { get; private set; }
 
         public event Action InteractPressed;
         public event Action InteractReleased;
         public event Action ThrowPressed;
+        public event Action<int> Scrolled;
 
         public PlayerInputComponent(CursorService cursorService)
         {
@@ -94,6 +96,16 @@ namespace Game.Scripts.Player
             else if (context.canceled)
             {
                 IsThrowHeld = false;
+            }
+        }
+
+        public void OnScroll(InputAction.CallbackContext context)
+        {
+            Scroll = context.ReadValue<float>();
+
+            if (context.performed && !Mathf.Approximately(Scroll, 0f))
+            {
+                Scrolled?.Invoke(Scroll > 0f ? 1 : -1);
             }
         }
     }

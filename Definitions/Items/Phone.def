@@ -1,0 +1,29 @@
+{
+  "type": "Game.Scripts.Items.TrashDef",
+  "Name": "Phone",
+  "Prefab": {
+    "guid": "fd0dbd3d2a48b6949b9e746045a414d4",
+    "fileID": 3590486054563813473
+  },
+  "SpawnCount": 60,
+  "HeldScale": 0.35,
+  "RackType": 2,
+  "RackLayout": {
+    "Count": {
+      "x": 12,
+      "y": 1,
+      "z": 5
+    },
+    "Spacing": {
+      "x": 0.24,
+      "y": 0.65,
+      "z": 0.32
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "Phone"
+}

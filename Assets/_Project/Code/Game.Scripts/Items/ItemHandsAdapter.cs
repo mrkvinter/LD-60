@@ -10,18 +10,14 @@ namespace Game.Scripts.Items
     {
         [SerializeField] private Transform anchor;
 
-        [Tooltip("Offset of each next item from the previous one, in anchor space.")]
-        [SerializeField] private Vector3 slotStep = new(-0.035f, 0.012f, -0.008f);
-
-        [Tooltip("Roll of each next item around the view axis, in degrees.")]
-        [SerializeField] private float slotRoll = 7f;
+        [Tooltip("Where the item in hand slides to when hidden on switch, in anchor space.")]
+        [SerializeField] private Vector3 swapOffset = new(0f, -0.25f, 0f);
 
         private readonly Dictionary<ItemDef, GameObject> ghosts = new();
         private GameObject shownGhost;
 
         public Transform Anchor => anchor;
-
-        public Pose GetSlot(int index) => new(slotStep * index, Quaternion.Euler(0f, 0f, slotRoll * index));
+        public Vector3 SwapOffset => swapOffset;
 
         public void ShowGhost(BaseItem item, Transform parent, Vector3 localPosition)
         {

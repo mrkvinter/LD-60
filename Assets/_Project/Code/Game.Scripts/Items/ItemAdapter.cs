@@ -13,6 +13,7 @@ namespace Game.Scripts.Items
     {
         private const float HighlightBlend = 0.6f;
         private const float ReleaseSpin = 2f;
+        private const float SwapScale = 0.01f;
 
         private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
 
@@ -27,6 +28,7 @@ namespace Game.Scripts.Items
         private MaterialPropertyBlock propertyBlock;
         private Color[] baseColors = Array.Empty<Color>();
         private Vector3 baseScale = Vector3.one;
+        private bool isVisible = true;
 
         public void Setup(DefRef<ItemDef> itemDef)
         {
@@ -97,6 +99,11 @@ namespace Game.Scripts.Items
             }
         }
 
+        void IItemView.SetVisible(bool visible)
+        {
+            SetRenderersEnabled(visible);
+        }
+
         void IItemView.SetMode(ItemMode mode)
         {
             if (pickCollider != null) pickCollider.enabled = mode is ItemMode.Loose or ItemMode.Stored;
@@ -135,6 +142,35 @@ namespace Game.Scripts.Items
             transform.DOScale(localScale, duration).SetEase(Ease.OutCubic);
         }
 
+        void IItemView.SwapIn(Transform parent, Vector3 localPosition, Quaternion localRotation, float scale,
+            Vector3 fromLocalPosition)
+        {
+            transform.SetParent(parent, true);
+            transform.DOKill();
+
+            if (!isVisible)
+            {
+                transform.SetLocalPositionAndRotation(fromLocalPosition, localRotation);
+                transform.localScale = baseScale * SwapScale;
+                SetRenderersEnabled(true);
+            }
+
+            var duration = DefManager.GetSingletonDef<ItemSettingsDef>().SwapDuration;
+            transform.DOLocalMove(localPosition, duration).SetEase(Ease.OutCubic);
+            transform.DOLocalRotateQuaternion(localRotation, duration).SetEase(Ease.OutCubic);
+            transform.DOScale(baseScale * scale, duration).SetEase(Ease.OutCubic);
+        }
+
+        void IItemView.SwapOut(Vector3 toLocalPosition)
+        {
+            transform.DOKill();
+
+            var duration = DefManager.GetSingletonDef<ItemSettingsDef>().SwapDuration;
+            transform.DOLocalMove(toLocalPosition, duration).SetEase(Ease.InCubic);
+            transform.DOScale(baseScale * SwapScale, duration).SetEase(Ease.InCubic)
+                .OnComplete(() => SetRenderersEnabled(false));
+        }
+
         void IItemView.Release(Vector3 position, Quaternion rotation, Vector3 velocity)
         {
             transform.DOKill();
@@ -150,6 +186,15 @@ namespace Game.Scripts.Items
             body.rotation = rotation;
             body.linearVelocity = velocity;
             body.angularVelocity = velocity == Vector3.zero ? Vector3.zero : Random.insideUnitSphere * ReleaseSpin;
+        }
+
+        private void SetRenderersEnabled(bool visible)
+        {
+            isVisible = visible;
+            foreach (var target in renderers)
+            {
+                if (target != null) target.enabled = visible;
+            }
         }
 
         private void CaptureColors()

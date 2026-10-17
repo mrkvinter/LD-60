@@ -18,6 +18,9 @@ namespace Game.Scripts.Items
         [Tooltip("Scale of the item while carried, so big things do not cover the view.")]
         [Min(0.01f)] public float HeldScale = 1f;
 
+        [Tooltip("Which racks take these items. Racks of another type keep them off.")]
+        public RackType RackType;
+
         [Tooltip("How these items stand on a rack.")]
         public RackLayout RackLayout = new();
 

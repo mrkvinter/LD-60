@@ -1,0 +1,29 @@
+{
+  "type": "Game.Scripts.Items.TrashDef",
+  "Name": "Green crystal",
+  "Prefab": {
+    "guid": "519e25780545b4f4b825157eb5d6e605",
+    "fileID": 8259721716225400332
+  },
+  "SpawnCount": 65,
+  "HeldScale": 0.35,
+  "RackType": "Small",
+  "RackLayout": {
+    "Count": {
+      "x": 13,
+      "y": 1,
+      "z": 5
+    },
+    "Spacing": {
+      "x": 0.23,
+      "y": 0.6,
+      "z": 0.27
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "GreenCrystal"
+}

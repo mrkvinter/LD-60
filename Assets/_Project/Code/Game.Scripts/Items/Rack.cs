@@ -17,7 +17,10 @@ namespace Game.Scripts.Items
         private BaseItem[] slots = Array.Empty<BaseItem>();
 
         public Transform SlotRoot { get; }
+        public RackType Type { get; }
         public RackFilter Filter { get; }
+
+        public RackLayout Layout { get; }
 
         public ItemDef StoredDef { get; private set; }
 
@@ -29,18 +32,24 @@ namespace Game.Scripts.Items
 
         public event Action Changed;
 
-        public Rack(Transform slotRoot, RackFilter filter = RackFilter.Any)
+        public Rack(Transform slotRoot, RackType type = RackType.None, RackFilter filter = RackFilter.Any,
+            RackLayout layout = null)
         {
             SlotRoot = slotRoot;
+            Type = type;
             Filter = filter;
+            Layout = layout;
         }
 
-        public bool Accepts(BaseItem item) => Filter switch
-        {
-            RackFilter.Trash => item is TrashItem,
-            RackFilter.Resource => item is ResourceItem,
-            _ => true
-        };
+        public bool Accepts(BaseItem item) =>
+            (Type == RackType.None || Type == item.Def.RackType) && Filter switch
+            {
+                RackFilter.Trash => item is TrashItem,
+                RackFilter.Resource => item is ResourceItem,
+                _ => true
+            };
+
+        public RackLayout LayoutFor(ItemDef def) => Layout ?? def.RackLayout;
 
         public bool CanPut(BaseItem item) => item != null && Accepts(item) && FindFreeSlot(item.Def, null) >= 0;
 
@@ -50,7 +59,7 @@ namespace Game.Scripts.Items
         public bool TryGetNextSlot(BaseItem item, Vector3? viewer, out Vector3 localPosition)
         {
             var index = CanPut(item) ? FindFreeSlot(item.Def, viewer) : -1;
-            localPosition = index >= 0 ? item.Def.RackLayout.GetPosition(index) : default;
+            localPosition = index >= 0 ? LayoutFor(item.Def).GetPosition(index) : default;
             return index >= 0;
         }
 
@@ -67,7 +76,7 @@ namespace Game.Scripts.Items
             if (StoredDef == null)
             {
                 StoredDef = item.Def;
-                slots = new BaseItem[item.Def.RackLayout.Capacity];
+                slots = new BaseItem[LayoutFor(item.Def).Capacity];
             }
 
             slots[index] = item;
@@ -84,7 +93,7 @@ namespace Game.Scripts.Items
             var index = Array.IndexOf(slots, item);
             if (index < 0) return false;
 
-            var layout = StoredDef.RackLayout;
+            var layout = LayoutFor(StoredDef);
             var cell = layout.GetCell(index);
             for (var y = cell.y; y < layout.Count.y; y++)
             {
@@ -126,7 +135,7 @@ namespace Game.Scripts.Items
         {
             if (StoredDef != null && !Equals(StoredDef, def)) return -1;
 
-            var layout = def.RackLayout;
+            var layout = LayoutFor(def);
             var first = StoredDef == null ? (layout.Capacity > 0 ? 0 : -1) : Array.IndexOf(slots, null);
             if (first < 0 || viewer == null) return first;
 
@@ -153,7 +162,7 @@ namespace Game.Scripts.Items
 
         private void PlaceAt(int index, bool instant)
         {
-            slots[index].Place(SlotRoot, StoredDef.RackLayout.GetPosition(index), Quaternion.identity, instant: instant);
+            slots[index].Place(SlotRoot, LayoutFor(StoredDef).GetPosition(index), Quaternion.identity, instant: instant);
         }
     }
 }

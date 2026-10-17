@@ -1,0 +1,29 @@
+{
+  "type": "Game.Scripts.Items.TrashDef",
+  "Name": "Red crystal",
+  "Prefab": {
+    "guid": "b532b9200c26c664c94612c80c08da1e",
+    "fileID": 1437819910137903135
+  },
+  "SpawnCount": 65,
+  "HeldScale": 0.35,
+  "RackType": "Small",
+  "RackLayout": {
+    "Count": {
+      "x": 13,
+      "y": 1,
+      "z": 5
+    },
+    "Spacing": {
+      "x": 0.23,
+      "y": 0.6,
+      "z": 0.27
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "RedCrystal"
+}

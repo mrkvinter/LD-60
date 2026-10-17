@@ -1,0 +1,29 @@
+{
+  "type": "Game.Scripts.Items.TrashDef",
+  "Name": "Display",
+  "Prefab": {
+    "guid": "bb4eb6f5e30d32c4ba03f6b78a496ef4",
+    "fileID": 6801515090761715587
+  },
+  "SpawnCount": 36,
+  "HeldScale": 0.3,
+  "RackType": 1,
+  "RackLayout": {
+    "Count": {
+      "x": 4,
+      "y": 3,
+      "z": 3
+    },
+    "Spacing": {
+      "x": 0.72,
+      "y": 0.75,
+      "z": 0.6
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "Display"
+}

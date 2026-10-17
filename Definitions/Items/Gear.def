@@ -1,0 +1,29 @@
+{
+  "type": "Game.Scripts.Items.ResourceDef",
+  "Name": "Gear",
+  "Prefab": {
+    "guid": "5780b89afb86b9849bebd5f8d2b26aa9",
+    "fileID": 8916877870217832583
+  },
+  "SpawnCount": 64,
+  "HeldScale": 0.4,
+  "RackType": 3,
+  "RackLayout": {
+    "Count": {
+      "x": 4,
+      "y": 8,
+      "z": 2
+    },
+    "Spacing": {
+      "x": 0.6,
+      "y": 0.072,
+      "z": 0.6
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "Gear"
+}

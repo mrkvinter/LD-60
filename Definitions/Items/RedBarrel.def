@@ -1,0 +1,29 @@
+{
+  "type": "Game.Scripts.Items.TrashDef",
+  "Name": "Red barrel",
+  "Prefab": {
+    "guid": "7afbea1e49654b343b35899d5e6a1be1",
+    "fileID": 8861099243402403150
+  },
+  "SpawnCount": 24,
+  "HeldScale": 0.2,
+  "RackType": "Big",
+  "RackLayout": {
+    "Count": {
+      "x": 4,
+      "y": 2,
+      "z": 3
+    },
+    "Spacing": {
+      "x": 0.725,
+      "y": 1.011,
+      "z": 0.725
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "RedBarrel"
+}

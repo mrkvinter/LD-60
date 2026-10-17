@@ -1,0 +1,29 @@
+{
+  "type": "Game.Scripts.Items.ResourceDef",
+  "Name": "Wood",
+  "Prefab": {
+    "guid": "b50b8cdf5642ea2469a0ebaee3b74c81",
+    "fileID": 3098431755472036023
+  },
+  "SpawnCount": 32,
+  "HeldScale": 0.4,
+  "RackType": 3,
+  "RackLayout": {
+    "Count": {
+      "x": 8,
+      "y": 3,
+      "z": 2
+    },
+    "Spacing": {
+      "x": 0.35,
+      "y": 0.34,
+      "z": 0.65
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "Wood"
+}

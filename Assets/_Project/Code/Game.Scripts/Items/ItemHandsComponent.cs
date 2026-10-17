@@ -11,7 +11,7 @@ namespace Game.Scripts.Items
     public interface IItemHandsRig
     {
         Transform Anchor { get; }
-        Pose GetSlot(int index);
+        Vector3 SwapOffset { get; }
 
         void ShowGhost(BaseItem item, Transform parent, Vector3 localPosition);
         void HideGhost();
@@ -43,11 +43,16 @@ namespace Game.Scripts.Items
         private Transform view;
         private float repeatTimer;
         private HandsAction heldAction;
+        private int activeIndex;
+        private BaseItem shown;
 
         public int Count => items.Count;
         public int Capacity => settings.HandsCapacity;
         public ItemMode Mode => ItemMode.Held;
         public IReadOnlyList<BaseItem> Items => items;
+
+        public int ActiveIndex => activeIndex;
+        public BaseItem Active => items.Count > 0 ? items[activeIndex] : null;
 
         public Rack PutTarget { get; private set; }
 
@@ -72,6 +77,7 @@ namespace Game.Scripts.Items
 
             input.InteractPressed += OnInteractPressed;
             input.ThrowPressed += OnThrowPressed;
+            input.Scrolled += OnItemScroll;
         }
 
         public void Dispose()
@@ -80,6 +86,7 @@ namespace Game.Scripts.Items
 
             input.InteractPressed -= OnInteractPressed;
             input.ThrowPressed -= OnThrowPressed;
+            input.Scrolled -= OnItemScroll;
         }
 
         public void Tick()
@@ -106,29 +113,31 @@ namespace Game.Scripts.Items
         {
             items.Add(item);
             item.SetContainer(this);
+            activeIndex = items.Count - 1;
 
-            Relayout();
+            ShowActive(swapIn: false);
             Changed?.Invoke();
         }
 
-        public BaseItem TakeLast()
+        public BaseItem TakeActive() => Take(activeIndex);
+
+        public BaseItem TakeLast() => Take(items.Count - 1);
+
+        public void Cycle(int step)
         {
-            if (items.Count == 0) return null;
+            if (items.Count < 2 || step == 0) return;
 
-            var item = items[^1];
-            items.RemoveAt(items.Count - 1);
+            activeIndex = ((activeIndex + step) % items.Count + items.Count) % items.Count;
 
-            Relayout();
+            ShowActive(swapIn: true);
             Changed?.Invoke();
-
-            return item;
         }
 
         public bool TryPutOn(Rack rack)
         {
-            if (items.Count == 0 || rack == null || !rack.CanPut(items[^1])) return false;
+            if (Active == null || rack == null || !rack.CanPut(Active)) return false;
 
-            rack.Put(TakeLast(), ViewPosition);
+            rack.Put(TakeActive(), ViewPosition);
             return true;
         }
 
@@ -162,6 +171,11 @@ namespace Game.Scripts.Items
             heldAction = Throw();
         }
 
+        private void OnItemScroll(int direction)
+        {
+            Cycle(-direction);
+        }
+
         private HandsAction Use(HandsAction action)
         {
             if (action != HandsAction.Take && TryPutOn(PutTarget)) return HandsAction.Put;
@@ -174,23 +188,36 @@ namespace Game.Scripts.Items
         {
             if (items.Count == 0 || rig.Anchor == null || view == null) return HandsAction.None;
 
-            var item = TakeLast();
-            var slot = rig.GetSlot(items.Count);
-            item.Release(
-                rig.Anchor.TransformPoint(slot.position),
-                rig.Anchor.rotation * slot.rotation,
-                view.forward * settings.ThrowSpeed);
+            TakeActive().Release(rig.Anchor.position, rig.Anchor.rotation, view.forward * settings.ThrowSpeed);
 
             return HandsAction.Throw;
         }
 
+        private BaseItem Take(int index)
+        {
+            if (items.Count == 0) return null;
+
+            var item = items[index];
+            items.RemoveAt(index);
+            item.SetVisible(true);
+            if (item == shown) shown = null;
+
+            if (index < activeIndex || activeIndex >= items.Count) activeIndex = Mathf.Max(activeIndex - 1, 0);
+
+            ShowActive(swapIn: true);
+            Changed?.Invoke();
+
+            return item;
+        }
+
         private void UpdatePutTarget()
         {
-            var rack = items.Count > 0 ? ProbeRack() : null;
-            if (rack != null && rack.TryGetNextSlot(items[^1], ViewPosition, out var slot))
+            var active = Active;
+            var rack = active != null ? ProbeRack() : null;
+            if (rack != null && rack.TryGetNextSlot(active, ViewPosition, out var slot))
             {
                 PutTarget = rack;
-                rig.ShowGhost(items[^1], rack.SlotRoot, slot);
+                rig.ShowGhost(active, rack.SlotRoot, slot);
                 return;
             }
 
@@ -224,12 +251,22 @@ namespace Game.Scripts.Items
             return null;
         }
 
-        private void Relayout()
+        private void ShowActive(bool swapIn)
         {
-            for (var i = 0; i < items.Count; i++)
+            var active = Active;
+            if (active == shown) return;
+
+            shown?.SwapOut(rig.SwapOffset);
+            shown = active;
+            if (active == null) return;
+
+            if (swapIn)
             {
-                var slot = rig.GetSlot(i);
-                items[i].Place(rig.Anchor, slot.position, slot.rotation, items[i].Def.HeldScale);
+                active.SwapIn(rig.Anchor, Vector3.zero, Quaternion.identity, active.Def.HeldScale, rig.SwapOffset);
+            }
+            else
+            {
+                active.Place(rig.Anchor, Vector3.zero, Quaternion.identity, active.Def.HeldScale);
             }
         }
     }

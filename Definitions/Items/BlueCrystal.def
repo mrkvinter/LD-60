@@ -1,0 +1,29 @@
+{
+  "type": "Game.Scripts.Items.TrashDef",
+  "Name": "Blue crystal",
+  "Prefab": {
+    "guid": "217a28b758e22c04c98de051b5d7fd95",
+    "fileID": 1603035558619468363
+  },
+  "SpawnCount": 65,
+  "HeldScale": 0.35,
+  "RackType": "Small",
+  "RackLayout": {
+    "Count": {
+      "x": 13,
+      "y": 1,
+      "z": 5
+    },
+    "Spacing": {
+      "x": 0.23,
+      "y": 0.6,
+      "z": 0.27
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "BlueCrystal"
+}

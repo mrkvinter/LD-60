@@ -14,21 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Defs>k__BackingField: []
   <Definitions>k__BackingField:
-  - rid: 3053703724747194594
-  - rid: 3053703724747194595
-  - rid: 3053703724747194596
-  - rid: 3053703724747194597
-  - rid: 3053703724747194598
-  - rid: 3053703724747194599
+  - rid: 3053703724747194934
+  - rid: 3053703724747194935
+  - rid: 3053703724747194936
+  - rid: 3053703724747194937
+  - rid: 3053703724747194938
+  - rid: 3053703724747194939
+  - rid: 3053703724747194940
+  - rid: 3053703724747194941
+  - rid: 3053703724747194942
+  - rid: 3053703724747194943
+  - rid: 3053703724747194944
+  - rid: 3053703724747194945
+  - rid: 3053703724747194946
+  - rid: 3053703724747194947
+  - rid: 3053703724747194948
+  - rid: 3053703724747194949
+  - rid: 3053703724747194950
+  - rid: 3053703724747194951
+  - rid: 3053703724747194952
   references:
     version: 2
     RefIds:
-    - rid: 3053703724747194594
+    - rid: 3053703724747194934
       type: {class: GameAppSetting, ns: Game.Main.Settings, asm: Game.Main}
       data:
         <Id>k__BackingField: 
         GameScene: Game
-    - rid: 3053703724747194595
+    - rid: 3053703724747194935
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Barrel
@@ -36,39 +49,211 @@ MonoBehaviour:
         Prefab: {fileID: 425030900545061901, guid: a00ad009833fef94d837748a8d651140, type: 3}
         SpawnCount: 24
         HeldScale: 0.2
+        RackType: 1
         RackLayout:
           Count: {x: 4, y: 2, z: 3}
           Spacing: {x: 0.725, y: 1.011, z: 0.725}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194596
+    - rid: 3053703724747194936
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: BlueCrystal
+        Name: Blue crystal
+        Prefab: {fileID: 1603035558619468363, guid: 217a28b758e22c04c98de051b5d7fd95, type: 3}
+        SpawnCount: 65
+        HeldScale: 0.35
+        RackType: 2
+        RackLayout:
+          Count: {x: 13, y: 1, z: 5}
+          Spacing: {x: 0.23, y: 0.6, z: 0.27}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194937
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Box
         Name: Box
         Prefab: {fileID: 1774491697571013951, guid: 1332598ff4f2aef47bcdb001a853442c, type: 3}
-        SpawnCount: 8
+        SpawnCount: 12
         HeldScale: 0.16
+        RackType: 1
         RackLayout:
           Count: {x: 3, y: 2, z: 2}
           Spacing: {x: 1, y: 1, z: 1}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194597
+    - rid: 3053703724747194938
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Display
+        Name: Display
+        Prefab: {fileID: 6801515090761715587, guid: bb4eb6f5e30d32c4ba03f6b78a496ef4, type: 3}
+        SpawnCount: 36
+        HeldScale: 0.3
+        RackType: 1
+        RackLayout:
+          Count: {x: 4, y: 3, z: 3}
+          Spacing: {x: 0.72, y: 0.75, z: 0.6}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194939
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: EnergyDrink
+        Name: Energy drink
+        Prefab: {fileID: 3351485915588059920, guid: 9df847a6379a4bf44b7ed96c995ad91c, type: 3}
+        SpawnCount: 128
+        HeldScale: 0.6
+        RackType: 2
+        RackLayout:
+          Count: {x: 16, y: 1, z: 8}
+          Spacing: {x: 0.17, y: 0.315, z: 0.17}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194940
+      type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Gear
+        Name: Gear
+        Prefab: {fileID: 8916877870217832583, guid: 5780b89afb86b9849bebd5f8d2b26aa9, type: 3}
+        SpawnCount: 64
+        HeldScale: 0.4
+        RackType: 3
+        RackLayout:
+          Count: {x: 4, y: 8, z: 2}
+          Spacing: {x: 0.6, y: 0.072, z: 0.6}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194941
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: GreenBarrel
+        Name: Green barrel
+        Prefab: {fileID: 2621707190641151006, guid: 4cfee693cd90f3c4889d559818109cd5, type: 3}
+        SpawnCount: 24
+        HeldScale: 0.2
+        RackType: 1
+        RackLayout:
+          Count: {x: 4, y: 2, z: 3}
+          Spacing: {x: 0.725, y: 1.011, z: 0.725}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194942
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: GreenCrystal
+        Name: Green crystal
+        Prefab: {fileID: 8259721716225400332, guid: 519e25780545b4f4b825157eb5d6e605, type: 3}
+        SpawnCount: 65
+        HeldScale: 0.35
+        RackType: 2
+        RackLayout:
+          Count: {x: 13, y: 1, z: 5}
+          Spacing: {x: 0.23, y: 0.6, z: 0.27}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194943
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Phone
+        Name: Phone
+        Prefab: {fileID: 3590486054563813473, guid: fd0dbd3d2a48b6949b9e746045a414d4, type: 3}
+        SpawnCount: 60
+        HeldScale: 0.35
+        RackType: 2
+        RackLayout:
+          Count: {x: 12, y: 1, z: 5}
+          Spacing: {x: 0.24, y: 0.65, z: 0.32}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194944
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: PurpleCrystal
+        Name: Purple crystal
+        Prefab: {fileID: 7697399056706553263, guid: 46768198c6256b1499467622d5808156, type: 3}
+        SpawnCount: 65
+        HeldScale: 0.35
+        RackType: 2
+        RackLayout:
+          Count: {x: 13, y: 1, z: 5}
+          Spacing: {x: 0.23, y: 0.6, z: 0.27}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194945
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: RedBarrel
+        Name: Red barrel
+        Prefab: {fileID: 8861099243402403150, guid: 7afbea1e49654b343b35899d5e6a1be1, type: 3}
+        SpawnCount: 24
+        HeldScale: 0.2
+        RackType: 1
+        RackLayout:
+          Count: {x: 4, y: 2, z: 3}
+          Spacing: {x: 0.725, y: 1.011, z: 0.725}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194946
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: RedCrystal
+        Name: Red crystal
+        Prefab: {fileID: 1437819910137903135, guid: b532b9200c26c664c94612c80c08da1e, type: 3}
+        SpawnCount: 65
+        HeldScale: 0.35
+        RackType: 2
+        RackLayout:
+          Count: {x: 13, y: 1, z: 5}
+          Spacing: {x: 0.23, y: 0.6, z: 0.27}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194947
+      type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Steel
+        Name: Steel
+        Prefab: {fileID: 2207567647213034928, guid: af526011feb84cf41b370fed8440b157, type: 3}
+        SpawnCount: 32
+        HeldScale: 0.4
+        RackType: 3
+        RackLayout:
+          Count: {x: 8, y: 4, z: 2}
+          Spacing: {x: 0.34, y: 0.14, z: 0.6}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194948
+      type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Wood
+        Name: Wood
+        Prefab: {fileID: 3098431755472036023, guid: b50b8cdf5642ea2469a0ebaee3b74c81, type: 3}
+        SpawnCount: 32
+        HeldScale: 0.4
+        RackType: 3
+        RackLayout:
+          Count: {x: 8, y: 3, z: 2}
+          Spacing: {x: 0.35, y: 0.34, z: 0.65}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194949
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: YellowCrystal
+        Name: Yellow crystal
+        Prefab: {fileID: 1493129245565064629, guid: b537d34778ffa80498b1b874ddc3e260, type: 3}
+        SpawnCount: 65
+        HeldScale: 0.35
+        RackType: 2
+        RackLayout:
+          Count: {x: 13, y: 1, z: 5}
+          Spacing: {x: 0.23, y: 0.6, z: 0.27}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194950
       type: {class: ItemSettingsDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
         DefaultPrefab: {fileID: 6812285120347540418, guid: 80c5787914607c948aa826996d1b7211, type: 3}
         HighlightColor: {r: 0.45, g: 1, b: 0.45, a: 1}
         FlightDuration: 0.25
+        SwapDuration: 0.15
         GhostMaterial: {fileID: 2100000, guid: af9344759d6e12c498b7ef4c2493668d, type: 2}
-    - rid: 3053703724747194598
+    - rid: 3053703724747194951
       type: {class: PlayerSettingsDef, ns: Game.Scripts.Player, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
         InteractDistance: 3
-        HandsCapacity: 5
+        HandsCapacity: 500
         RepeatInterval: 0.15
         ThrowSpeed: 3.5
-    - rid: 3053703724747194599
+    - rid: 3053703724747194952
       type: {class: WidgetProps, ns: Game.UI.Base, asm: Game.UI}
       data:
         <Id>k__BackingField: BlackScreen

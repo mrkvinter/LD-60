@@ -14,8 +14,11 @@ namespace Game.Scripts.Items
     public interface IItemView
     {
         void SetHighlighted(bool highlighted);
+        void SetVisible(bool visible);
         void SetMode(ItemMode mode);
         void FlyTo(Transform parent, Vector3 localPosition, Quaternion localRotation, float scale, bool instant);
+        void SwapIn(Transform parent, Vector3 localPosition, Quaternion localRotation, float scale, Vector3 fromLocalPosition);
+        void SwapOut(Vector3 toLocalPosition);
         void Release(Vector3 position, Quaternion rotation, Vector3 velocity);
     }
 
@@ -44,6 +47,17 @@ namespace Game.Scripts.Items
             View.FlyTo(parent, localPosition, localRotation, scale, instant);
         }
 
+        public void SwapIn(Transform parent, Vector3 localPosition, Quaternion localRotation, float scale,
+            Vector3 fromLocalPosition)
+        {
+            View.SwapIn(parent, localPosition, localRotation, scale, fromLocalPosition);
+        }
+
+        public void SwapOut(Vector3 toLocalPosition)
+        {
+            View.SwapOut(toLocalPosition);
+        }
+
         public void Release(Vector3 position, Quaternion rotation, Vector3 velocity)
         {
             SetContainer(null);
@@ -53,6 +67,11 @@ namespace Game.Scripts.Items
         public void SetHighlighted(bool highlighted)
         {
             View.SetHighlighted(highlighted);
+        }
+
+        public void SetVisible(bool visible)
+        {
+            View.SetVisible(visible);
         }
     }
 }

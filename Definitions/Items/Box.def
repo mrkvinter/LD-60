@@ -7,6 +7,7 @@
   },
   "SpawnCount": 12,
   "HeldScale": 0.16,
+  "RackType": 1,
   "RackLayout": {
     "Count": {
       "x": 3,

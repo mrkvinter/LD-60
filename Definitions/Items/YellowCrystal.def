@@ -1,0 +1,29 @@
+{
+  "type": "Game.Scripts.Items.TrashDef",
+  "Name": "Yellow crystal",
+  "Prefab": {
+    "guid": "b537d34778ffa80498b1b874ddc3e260",
+    "fileID": 1493129245565064629
+  },
+  "SpawnCount": 65,
+  "HeldScale": 0.35,
+  "RackType": "Small",
+  "RackLayout": {
+    "Count": {
+      "x": 13,
+      "y": 1,
+      "z": 5
+    },
+    "Spacing": {
+      "x": 0.23,
+      "y": 0.6,
+      "z": 0.27
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "YellowCrystal"
+}
