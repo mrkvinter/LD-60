@@ -14,17 +14,61 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Defs>k__BackingField: []
   <Definitions>k__BackingField:
-  - rid: 3053703640921145346
-  - rid: 3053703640921145347
+  - rid: 3053703724747194594
+  - rid: 3053703724747194595
+  - rid: 3053703724747194596
+  - rid: 3053703724747194597
+  - rid: 3053703724747194598
+  - rid: 3053703724747194599
   references:
     version: 2
     RefIds:
-    - rid: 3053703640921145346
+    - rid: 3053703724747194594
       type: {class: GameAppSetting, ns: Game.Main.Settings, asm: Game.Main}
       data:
         <Id>k__BackingField: 
         GameScene: Game
-    - rid: 3053703640921145347
+    - rid: 3053703724747194595
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Barrel
+        Name: Barrel
+        Prefab: {fileID: 425030900545061901, guid: a00ad009833fef94d837748a8d651140, type: 3}
+        SpawnCount: 24
+        HeldScale: 0.2
+        RackLayout:
+          Count: {x: 4, y: 2, z: 3}
+          Spacing: {x: 0.725, y: 1.011, z: 0.725}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194596
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Box
+        Name: Box
+        Prefab: {fileID: 1774491697571013951, guid: 1332598ff4f2aef47bcdb001a853442c, type: 3}
+        SpawnCount: 8
+        HeldScale: 0.16
+        RackLayout:
+          Count: {x: 3, y: 2, z: 2}
+          Spacing: {x: 1, y: 1, z: 1}
+          Offset: {x: 0, y: 0, z: 0}
+    - rid: 3053703724747194597
+      type: {class: ItemSettingsDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: 
+        DefaultPrefab: {fileID: 6812285120347540418, guid: 80c5787914607c948aa826996d1b7211, type: 3}
+        HighlightColor: {r: 0.45, g: 1, b: 0.45, a: 1}
+        FlightDuration: 0.25
+        GhostMaterial: {fileID: 2100000, guid: af9344759d6e12c498b7ef4c2493668d, type: 2}
+    - rid: 3053703724747194598
+      type: {class: PlayerSettingsDef, ns: Game.Scripts.Player, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: 
+        InteractDistance: 3
+        HandsCapacity: 5
+        RepeatInterval: 0.15
+        ThrowSpeed: 3.5
+    - rid: 3053703724747194599
       type: {class: WidgetProps, ns: Game.UI.Base, asm: Game.UI}
       data:
         <Id>k__BackingField: BlackScreen

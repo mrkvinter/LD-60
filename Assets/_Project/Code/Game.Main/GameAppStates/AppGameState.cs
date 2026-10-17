@@ -7,6 +7,7 @@ using Cysharp.Threading.Tasks;
 using Game.Core;
 using Game.Core.Contexts;
 using Game.Main.installers;
+using Game.Scripts.Items;
 using Game.Scripts.SaveLoadSystem;
 using Game.Utilities.Extensions;
 using Game.UI.Base;
@@ -48,6 +49,9 @@ namespace Game.Main.GameAppStates
                 builder.Register<EntityService>(Lifetime.Singleton)
                     .WithParameter<Action<Exception>>(Debug.LogException)
                     .AsImplementedInterfaces().AsSelf();
+                builder.Register<SortingProgress>(Lifetime.Singleton);
+                builder.Register<ResourceStorage>(Lifetime.Singleton);
+                builder.Register<ItemSpawner>(Lifetime.Singleton);
 
                 ExecutorInstaller.Install(builder);
             });
@@ -84,6 +88,8 @@ namespace Game.Main.GameAppStates
             }
 
             objectRegistry.OnRegistered += InitMonoRegistry;
+
+            LifetimeScope.Container.Resolve<ItemSpawner>().Spawn();
 
             LifetimeScope.Container.Resolve<ActionExecutorSystem>();
             LifetimeScope.Container.Resolve<CursorService>();

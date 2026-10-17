@@ -1,0 +1,28 @@
+{
+  "type": "Game.Scripts.Items.TrashDef",
+  "Name": "Box",
+  "Prefab": {
+    "guid": "1332598ff4f2aef47bcdb001a853442c",
+    "fileID": 1774491697571013951
+  },
+  "SpawnCount": 12,
+  "HeldScale": 0.16,
+  "RackLayout": {
+    "Count": {
+      "x": 3,
+      "y": 2,
+      "z": 2
+    },
+    "Spacing": {
+      "x": 1.0,
+      "y": 1.0,
+      "z": 1.0
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "Box"
+}

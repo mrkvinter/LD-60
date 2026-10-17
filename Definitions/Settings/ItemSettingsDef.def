@@ -1,0 +1,18 @@
+{
+  "type": "Game.Scripts.Items.ItemSettingsDef",
+  "DefaultPrefab": {
+    "guid": "80c5787914607c948aa826996d1b7211",
+    "fileID": 6812285120347540418
+  },
+  "HighlightColor": {
+    "r": 0.45,
+    "g": 1.0,
+    "b": 0.45,
+    "a": 1.0
+  },
+  "FlightDuration": 0.25,
+  "GhostMaterial": {
+    "guid": "af9344759d6e12c498b7ef4c2493668d",
+    "fileID": 2100000
+  }
+}

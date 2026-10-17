@@ -1,0 +1,28 @@
+{
+  "type": "Game.Scripts.Items.TrashDef",
+  "Name": "Barrel",
+  "Prefab": {
+    "guid": "a00ad009833fef94d837748a8d651140",
+    "fileID": 425030900545061901
+  },
+  "SpawnCount": 24,
+  "HeldScale": 0.2,
+  "RackLayout": {
+    "Count": {
+      "x": 4,
+      "y": 2,
+      "z": 3
+    },
+    "Spacing": {
+      "x": 0.725,
+      "y": 1.011,
+      "z": 0.725
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "Barrel"
+}

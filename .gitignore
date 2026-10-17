@@ -24,6 +24,13 @@
 *.blend1
 *.blend1.meta
 
+# Blender source files are kept out of the repo
+*.blend
+*.blend.meta
+
+# Backup files (Krita, text editors) ending with ~
+*~
+
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
 /[Mm]emoryCaptures/
