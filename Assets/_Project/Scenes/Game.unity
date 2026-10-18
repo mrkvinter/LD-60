@@ -21216,6 +21216,8 @@ MonoBehaviour:
       Args: '{"building":{"id":"Portal Cable Left"},"comparisonType":5,"count":1}'
     - Id: BuildingBuiltCondition
       Args: '{"building":{"id":"Portal Cable Right"},"comparisonType":5,"count":1}'
+    - Id: BuildingBuiltCondition
+      Args: '{"building":{"id":"Teleport Control Panel"},"comparisonType":5,"count":1}'
     - Id: FilledRacksCondition
       Args: '{"comparisonType":5,"count":8}'
 --- !u!1001 &585147339
@@ -47302,6 +47304,8 @@ MonoBehaviour:
       Args: '{"building":{"id":"Portal Cable Left"},"comparisonType":5,"count":1}'
     - Id: BuildingBuiltCondition
       Args: '{"building":{"id":"Portal Cable Right"},"comparisonType":5,"count":1}'
+    - Id: BuildingBuiltCondition
+      Args: '{"building":{"id":"Teleport Control Panel"},"comparisonType":5,"count":1}'
     - Id: FilledRacksCondition
       Args: '{"comparisonType":3,"count":8}'
 --- !u!64 &1294462741
