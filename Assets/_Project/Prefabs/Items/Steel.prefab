@@ -77,7 +77,7 @@ MonoBehaviour:
     id: Steel
   renderers:
   - {fileID: 8060239334093859213}
-  pickCollider: {fileID: 2641142978882861271}
+  pickCollider: {fileID: 1872206725452809157}
   body: {fileID: 2661069769167976299}
 --- !u!1 &7264908746365904157
 GameObject:
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 17955646603328212}
   - component: {fileID: 3749014534209051403}
   - component: {fileID: 8060239334093859213}
-  - component: {fileID: 2641142978882861271}
+  - component: {fileID: 1872206725452809157}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -170,8 +170,8 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2641142978882861271
-MeshCollider:
+--- !u!65 &1872206725452809157
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -188,7 +188,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -3010651834790420852, guid: 9d6677b49a33a874288a1b495997708c, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 1.9800135, y: 1.9800135, z: 0.96518797}
+  m_Center: {x: 0, y: 0, z: 0.48259398}

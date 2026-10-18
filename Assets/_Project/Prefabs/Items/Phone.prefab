@@ -77,7 +77,7 @@ MonoBehaviour:
     id: Phone
   renderers:
   - {fileID: 6879873182678636964}
-  pickCollider: {fileID: 3784743395728527489}
+  pickCollider: {fileID: 6891753692146821486}
   body: {fileID: 6776784181666542846}
 --- !u!1 &8576567304604717855
 GameObject:
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 4855434472841489675}
   - component: {fileID: 4652976305328388906}
   - component: {fileID: 6879873182678636964}
-  - component: {fileID: 3784743395728527489}
+  - component: {fileID: 6891753692146821486}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -170,8 +170,8 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &3784743395728527489
-MeshCollider:
+--- !u!65 &6891753692146821486
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -188,7 +188,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -4420810282019988501, guid: ae272c2a1d3b765429b88c14caa825d7, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.11321744, y: 0.15157363, z: 0.62141913}
+  m_Center: {x: 0.0000069532543, y: 0.0014888905, z: 0.31070957}
