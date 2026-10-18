@@ -1,6 +1,10 @@
 {
   "type": "Game.Scripts.Notes.NoteDef",
   "Title": "",
-  "Text": "После инцидента X, произошедшего по вашей вине вас сослали в старый блок лаборатории.\r\nТут уже много лет никого не бывало. Ваша задача отчистить здание лаборатории от мусора отсортировав его по полкам.\r\nКрупные предметы на поддоны. Мелкие на стелажи. Ресурсы храняться отдельно, около входа\r\nИ быть может тогда доверие сможет вернуться к вам.\r\nТак же часть мебели была разрушена. Вам придется отремонтировать ее. Используйте ресурсы, что найдете в лаборатории.",
+  "Text": "After Incident X, which was your fault, you have been exiled to the old laboratory wing. No one has set foot here in years.\r\n\r\nYour task: clear the building of clutter and put everything in its proper place. Large items go on the pallets; small ones go on the shelves. Resources are stored separately, by the entrance.\r\n\r\nSome of the furniture has been destroyed, and you will have to repair it. Use whatever resources you find in the lab.\r\n\r\nPerhaps then you will earn back their trust.\r\n\r\nWARNING! UNDER NO CIRCUMSTANCES ARE YOU TO REPAIR THE TELEPORTER.",
+  "ButtonText": null,
+  "ButtonActions": {
+    "Actions": []
+  },
   "Id": "Note01"
 }
