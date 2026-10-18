@@ -8,6 +8,7 @@ using Game.Scripts.Construction;
 using Game.Scripts.Interaction;
 using Game.Scripts.Items;
 using Game.Scripts.Player;
+using Game.Scripts.UI;
 using RG.DefinitionSystem.Core;
 using TMPro;
 using UnityEngine;
@@ -239,6 +240,8 @@ namespace Game.Scripts.Upgrades
 
             pointsText = Text(transform, "Points Popup", 56, TextAlignmentOptions.Top);
             Place(pointsText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -120f), new Vector2(900f, 160f), new Vector2(0.5f, 1f));
+            var popupFont = DefManager.GetSingletonDef<HudSettingsDef>().PopupFont;
+            if (popupFont != null) pointsText.font = popupFont;
             pointsPopup = pointsText.gameObject.AddComponent<CanvasGroup>();
             pointsPopup.alpha = 0f;
             pointsPopup.interactable = false;

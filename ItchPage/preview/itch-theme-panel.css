@@ -1,0 +1,41 @@
+/* approximation of what itch.io generates from the theme panel values + uploaded background (preview only) */
+:root{--itchio_ui_bg: #211b13;--itchio_ui_bg_dark: #1a150f}
+.wrapper{--itchio_font_family: Lato;--itchio_bg_color: #0d0b08;--itchio_bg2_color: rgba(22, 18, 12, 1);--itchio_bg2_sub: #221c14;--itchio_text_color: #f2ebd9;--itchio_link_color: #2ff3ff;--itchio_border_color: #45381f;--itchio_button_color: #ffd21a;--itchio_button_fg_color: #0d0b08;--itchio_button_shadow_color: #8a6a00;background-color:#0d0b08;/*! */ background-image: url(../LabWall_basecolor.png);;background-repeat: repeat;background-position: 50% 0;background-attachment: fixed; /* */}
+.inner_column{color:#f2ebd9;font-family:Lato,Lato,LatoExtended,sans-serif;background-color:rgba(22, 18, 12, 1)}
+.inner_column ::selection{color:#0d0b08;background:#ffd21a}
+.inner_column ::-moz-selection{color:#0d0b08;background:#ffd21a}
+.inner_column h1,.inner_column h2,.inner_column h3,.inner_column h4,.inner_column h5,.inner_column h6{font-family:inherit;font-weight:bold;color:inherit}
+.inner_column a,.inner_column .footer a{color:#2ff3ff}
+.inner_column .button,.inner_column .button:hover,.inner_column .button:active{background-color:#ffd21a;color:#0d0b08;text-shadow:0 1px 0px #8a6a00}
+.inner_column hr{background-color:#45381f}
+.inner_column table{border-color:#45381f}
+.inner_column .redactor-box .redactor-toolbar li a{color:#2ff3ff}
+.inner_column .redactor-box .redactor-toolbar li a:hover,.inner_column .redactor-box .redactor-toolbar li a:active,.inner_column .redactor-box .redactor-toolbar li a.redactor-act{background-color:#ffd21a !important;color:#0d0b08 !important;text-shadow:0 1px 0px #8a6a00 !important}
+.inner_column .redactor-box .redactor-toolbar .re-button-tooltip{text-shadow:none}
+.game_frame{background:#221c14;/*! */  /* */}
+.game_frame .embed_info{background-color:rgba(22, 18, 12, 0.85)}
+.game_loading .loader_bar .loader_bar_slider{background-color:#ffd21a}
+.view_game_page .reward_row,.view_game_page .bundle_row{border-color:#221c14 !important}
+.view_game_page .game_info_panel_widget{background:rgba(34, 28, 20, 1)}
+.view_game_page .star_value .star_fill{color:#ffd21a}
+.view_game_page .rewards .quantity_input{background:rgba(34, 28, 20, 1);border-color:rgba(242, 235, 217, 0.5);color:#f2ebd9}
+.view_game_page .right_col{display:block}
+.game_devlog_page li .meta_row .post_likes{border-color:#221c14}
+.game_devlog_post_page .post_like_button{box-shadow:inset 0 0 0 1px #45381f}
+.game_comments_widget .community_post .post_footer a,.game_comments_widget .community_post .post_footer .vote_btn,.game_comments_widget .community_post .post_header .post_date a,.game_comments_widget .community_post .post_header .edit_message{color:rgba(242, 235, 217, 0.5)}
+.game_comments_widget .community_post .reveal_full_post_btn{background:linear-gradient(to bottom,transparent,#16120c 50%,#16120c);color:#2ff3ff}
+.game_comments_widget .community_post .post_votes{border-color:rgba(242, 235, 217, 0.2)}
+.game_comments_widget .community_post .post_votes .vote_btn:hover{background:rgba(242, 235, 217, 0.05)}
+.game_comments_widget .community_post .post_footer .vote_btn{border-color:rgba(242, 235, 217, 0.5)}
+.game_comments_widget .community_post .post_footer .vote_btn span{color:inherit}
+.game_comments_widget .community_post .post_footer .vote_btn:hover,.game_comments_widget .community_post .post_footer .vote_btn.voted{background-color:#ffd21a;color:#0d0b08;text-shadow:0 1px 0px #8a6a00;border-color:#ffd21a}
+.game_comments_widget .form .redactor-box,.game_comments_widget .form .click_input,.game_comments_widget .form .forms_markdown_input_widget{border-color:rgba(242, 235, 217, 0.5);background:transparent}
+.game_comments_widget .form .redactor-layer,.game_comments_widget .form .redactor-toolbar,.game_comments_widget .form .click_input,.game_comments_widget .form .forms_markdown_input_widget{background:rgba(34, 28, 20, 1)}
+.game_comments_widget .form .forms_markdown_input_widget .markdown_toolbar button{color:inherit;opacity:0.6}
+.game_comments_widget .form .forms_markdown_input_widget .markdown_toolbar button:hover,.game_comments_widget .form .forms_markdown_input_widget .markdown_toolbar button:active{opacity:1;background-color:#ffd21a !important;color:#0d0b08 !important;text-shadow:0 1px 0px #8a6a00 !important}
+.game_comments_widget .form .forms_markdown_input_widget .markdown_toolbar,.game_comments_widget .form .forms_markdown_input_widget li{border-color:rgba(242, 235, 217, 0.5)}
+.game_comments_widget .form textarea{border-color:rgba(242, 235, 217, 0.5);background:rgba(34, 28, 20, 1);color:inherit}
+.game_comments_widget .form .redactor-toolbar{border-color:rgba(242, 235, 217, 0.5)}
+.game_comments_widget .hint{color:rgba(242, 235, 217, 0.5)}
+.game_community_preview_widget .community_topic_row .topic_tag{background-color:#221c14}
+.footer .svgicon,.view_game_page .more_information_toggle .svgicon{fill:#f2ebd9 !important}

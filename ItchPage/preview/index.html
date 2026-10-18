@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Last Overtime — itch page preview</title>
+<!-- itch.io's own stylesheet, so the layout matches the real page -->
+<link rel="stylesheet" href="https://static.itch.io/game.css?1792356060">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,400italic,700,700italic">
+<!-- what the theme panel generates -->
+<link rel="stylesheet" href="itch-theme-panel.css">
+<!-- your Custom CSS -->
+<link rel="stylesheet" href="../itch-page.css">
+<style>
+  /* preview-only toolbar, not part of the page */
+  .pv-bar { position: fixed; z-index: 1000; right: 12px; bottom: 12px; display: flex; gap: 6px;
+    font: 13px/1 system-ui, sans-serif; }
+  .pv-bar button { padding: 8px 10px; border: 1px solid #555; border-radius: 4px; background: #222; color: #ddd; cursor: pointer; }
+  .pv-bar button[aria-pressed="true"] { background: #ddd; color: #111; }
+  body.pv-download .embed_wrapper, body.pv-web .header_buy_row, body.pv-web .pv-uploads { display: none !important; }
+  .iframe_placeholder { display: flex; align-items: center; justify-content: center; height: 100%; }
+  .load_iframe_btn { font-size: 22px; line-height: 50px; padding: 0 28px; }
+</style>
+</head>
+<body class="locale_en game_layout_widget layout_widget no_theme_toggle responsive pv-download">
+<div id="wrapper" class="main wrapper game_page_wrapper">
+  <div id="inner_column" class="inner_column size_large family_lato">
+
+    <div id="header" class="header">
+      <h1 class="game_title">The Last Overtime</h1>
+    </div>
+
+    <div class="view_game_page page_widget base_widget buy_on_top">
+
+      <div class="html_embed_widget base_widget embed_wrapper">
+        <div class="game_frame game_pending" style="width: min(900px, 100% - 20px); aspect-ratio: 16 / 9; margin: 0 auto">
+          <div class="iframe_placeholder"><button class="button load_iframe_btn">Run game</button></div>
+        </div>
+      </div>
+
+      <div class="header_buy_row">
+        <p>A downloadable game for Windows</p>
+        <div class="buy_row"><div class="button_message">
+          <a class="button buy_btn" href="#download">Download Now</a>
+          <span class="buy_message"><span class="sub">Name your own price</span></span>
+        </div></div>
+      </div>
+
+      <div class="columns">
+        <div class="left_col column">
+          <div class="formatted_description user_formatted" id="pv-description">
+            <p>Loading description.html&hellip;</p>
+          </div>
+
+          <div class="more_information_toggle">
+            <div class="toggle_row"><a class="toggle_info_btn" href="javascript:void(0)">More information</a></div>
+            <div class="info_panel_wrapper">
+              <div class="game_info_panel_widget base_widget">
+                <table><tbody>
+                  <tr><td>Status</td><td><a href="#">Released</a></td></tr>
+                  <tr><td>Platforms</td><td><a href="#">Windows</a></td></tr>
+                  <tr><td>Author</td><td><a href="#">you</a></td></tr>
+                  <tr><td>Genre</td><td><a href="#">Simulation</a></td></tr>
+                  <tr><td>Made with</td><td><a href="#">Unity</a></td></tr>
+                  <tr><td>Tags</td><td><a href="#">First-Person</a>, <a href="#">Ludum Dare 60</a>, <a href="#">Cleaning</a></td></tr>
+                </tbody></table>
+              </div>
+            </div>
+          </div>
+
+          <div class="pv-uploads">
+            <h2 id="download">Download</h2>
+            <div class="uploads"><div class="upload_list_widget base_widget">
+              <div class="upload">
+                <a class="button download_btn" href="#">Download</a>
+                <div class="info_column">
+                  <div class="upload_name"><strong class="name">TheLastOvertime_Windows.zip</strong> <span class="file_size"><span>92 MB</span></span></div>
+                </div>
+              </div>
+            </div></div>
+          </div>
+
+          <h2 id="comments">Comments</h2>
+          <div class="game_comments_widget base_widget">
+            <div class="community_post_list_widget">
+              <div class="community_post">
+                <div class="post_grid"><div class="post_content">
+                  <div class="post_header"><span class="post_author"><a href="#">a_player</a></span> <span class="post_date"><a href="#">2 hours ago</a></span></div>
+                  <div class="post_body"><p>Sample comment so you can see the colors.</p></div>
+                </div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="right_col column">
+          <div class="screenshot_list">
+            <a href="screens/01-portal.webp" target="_blank"><img class="screenshot" src="screens/01-portal.webp" alt=""></a>
+            <a href="screens/02-red-door.webp" target="_blank"><img class="screenshot" src="screens/02-red-door.webp" alt=""></a>
+            <a href="screens/03-shelves.webp" target="_blank"><img class="screenshot" src="screens/03-shelves.webp" alt=""></a>
+            <a href="screens/04-corridor.png" target="_blank"><img class="screenshot" src="screens/04-corridor.png" alt=""></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="view_game_footer" class="footer">
+      <a href="#">itch.io</a> &middot; <a href="#">View all by you</a> &middot; <a href="#">Report</a> &middot; <a href="#">Embed</a>
+    </div>
+  </div>
+</div>
+
+<div class="pv-bar">
+  <button data-mode="pv-download" aria-pressed="true">Download build</button>
+  <button data-mode="pv-web" aria-pressed="false">Web build</button>
+</div>
+
+<script>
+  fetch("../description.html")
+    .then(r => r.text())
+    .then(html => { document.getElementById("pv-description").innerHTML = html; })
+    .catch(() => {
+      document.getElementById("pv-description").innerHTML =
+        "<p>Open this page through a local server so it can load description.html.</p>";
+    });
+
+  document.querySelectorAll(".pv-bar button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.body.classList.remove("pv-download", "pv-web");
+      document.body.classList.add(btn.dataset.mode);
+      document.querySelectorAll(".pv-bar button").forEach(b => b.setAttribute("aria-pressed", b === btn));
+    });
+  });
+</script>
+</body>
+</html>

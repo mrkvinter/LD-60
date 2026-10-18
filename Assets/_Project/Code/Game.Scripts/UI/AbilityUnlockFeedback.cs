@@ -1,5 +1,6 @@
 using DG.Tweening;
 using Game.Scripts.Player;
+using RG.DefinitionSystem.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -86,6 +87,9 @@ namespace Game.Scripts.UI
                 _ => (ability.ToString(), string.Empty)
             };
 
+            // Defs are not loaded yet when the scene wakes this object.
+            var font = DefManager.GetSingletonDef<HudSettingsDef>().PopupFont;
+            if (font != null) popupText.font = font;
             popupText.text = $"<size=60%>ABILITY UNLOCKED</size>\n{title}\n<size=55%>{hint}</size>";
 
             popupFade?.Kill();

@@ -1,0 +1,7 @@
+{
+  "type": "Game.Scripts.UI.HudSettingsDef",
+  "PopupFont": {
+    "guid": "854764f9139de6c4caf5a9c27c990ddd",
+    "fileID": 11400000
+  }
+}

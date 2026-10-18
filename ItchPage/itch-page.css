@@ -1,0 +1,541 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,600;1,400&family=Caveat:wght@400;700&family=Saira+Stencil+One&display=swap");
+
+/* =========================================================
+   THE LAST OVERTIME — itch.io page theme
+   Paste into: Edit theme -> Custom CSS
+   Wall texture: upload LabWall_basecolor.png as the theme Background.
+   Everything is scoped to #wrapper (itch.io rule).
+   ========================================================= */
+
+#wrapper {
+  --lo-yellow: #ffd21a;      /* hazard paint */
+  --lo-yellow-hot: #ffe55c;
+  --lo-yellow-glow: rgba(255, 210, 26, .4);
+  --lo-black: #0d0b08;
+  --lo-red: #ff3424;         /* emergency lights */
+  --lo-red-glow: rgba(255, 52, 36, .65);
+  --lo-cyan: #2ff3ff;        /* portal rim */
+  --lo-magenta: #ff2bd6;     /* portal */
+  --lo-panel: #0d0b08;
+  --lo-line: #45381f;
+  --lo-text: #f2ebd9;
+  --lo-muted: #ab9c7c;
+  --lo-paper: #fdfbd9;       /* the note in your hand */
+  --lo-ink: #2c2b27;
+  --lo-hazard: repeating-linear-gradient(-45deg, #ffd21a 0 12px, #0d0b08 12px 24px);
+  --lo-hazard-small: repeating-linear-gradient(-45deg, #ffd21a 0 6px, #0d0b08 6px 12px);
+
+  --lo-font-title: "Saira Stencil One", Impact, "Arial Narrow", sans-serif;
+  --lo-font-label: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --lo-font-body: "Barlow", Lato, "Helvetica Neue", Arial, sans-serif;
+  --lo-font-hand: Caveat, "Segoe Print", "Comic Sans MS", cursive;
+
+  /* itch.io's own variables (buttons, borders, links) */
+  --itchio_link_color: var(--lo-cyan);
+  --itchio_button_color: var(--lo-yellow);
+  --itchio_button_fg_color: var(--lo-black);
+  --itchio_button_shadow_color: #8a6a00;
+  --itchio_button_border_color: #000;
+  --itchio_border_color: var(--lo-line);
+  --itchio_border_radius: 2px;
+
+  /* the wall texture comes from the theme panel (Background -> Upload);
+     here it is only scaled 2x with hard pixels and pinned to the screen */
+  position: relative;
+  z-index: 0;
+  background-color: var(--lo-black);
+  background-repeat: repeat;
+  background-size: 512px 512px;
+  background-attachment: fixed;
+  image-rendering: pixelated;
+}
+
+/* only the wall gets hard pixels, not screenshots or the game */
+#wrapper > * { image-rendering: auto; }
+
+/* lamp light and darkness over the wall */
+#wrapper::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 46% 360px at 50% 0, rgba(255, 196, 70, .18), transparent 80%),
+    radial-gradient(ellipse 130% 95% at 50% 15%, rgba(10, 7, 3, .6), rgba(4, 3, 2, .93) 100%);
+}
+
+#wrapper ::selection { background: var(--lo-yellow); color: var(--lo-black); }
+
+/* ---------- page column ---------- */
+
+/* the column itself is see-through, so the wall shows behind the title */
+#wrapper #inner_column {
+  color: var(--lo-text);
+  font-family: var(--lo-font-body);
+  background: transparent;
+  border: 1px solid #000;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .85);
+}
+
+#wrapper .view_game_page { background: var(--lo-panel); }
+
+#wrapper #inner_column a { color: var(--lo-cyan); text-underline-offset: 3px; }
+#wrapper #inner_column a:hover { color: var(--lo-yellow); }
+
+/* ---------- title (shown when there is no banner image) ---------- */
+
+#wrapper #header {
+  position: relative;
+  padding: 64px 24px 50px;
+  text-align: center;
+  background: radial-gradient(ellipse 55% 110% at 50% 0%, rgba(255, 200, 80, .1), transparent 75%);
+}
+
+#wrapper #header::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 14px;
+  background: var(--lo-hazard);
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
+
+#wrapper #header .game_title {
+  margin: 0;
+  font-family: var(--lo-font-title);
+  font-weight: 400;
+  font-size: 80px;
+  line-height: .95;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--lo-yellow);
+  text-shadow:
+    0 5px 0 #000,
+    0 0 30px rgba(255, 210, 26, .45);
+}
+
+#wrapper #header .game_title::before {
+  content: "Lab 60 \00B7  after hours";
+  display: table;
+  margin: 0 auto 20px;
+  padding: 5px 8px 4px 12px;
+  background: #000;
+  border: 1px solid #2a0d0a;
+  font-family: var(--lo-font-label);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .4em;
+  color: var(--lo-red);
+  text-shadow: 0 0 10px var(--lo-red-glow);
+  box-shadow: 0 0 16px rgba(255, 52, 36, .25);
+}
+
+/* banner image, if you upload one later */
+#wrapper #header img { display: block; margin: 0 auto; max-width: 100%; }
+
+/* ---------- buy / download row on top ---------- */
+
+#wrapper .header_buy_row {
+  background: rgba(0, 0, 0, .45);
+  border-bottom: 1px solid var(--lo-line);
+  font-family: var(--lo-font-label);
+  font-size: 16px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--lo-muted);
+}
+
+#wrapper .buy_message,
+#wrapper .buy_message .sub { color: var(--lo-muted); }
+
+/* ---------- buttons: hazard yellow ---------- */
+
+#wrapper #inner_column .button {
+  background-color: var(--lo-yellow);
+  color: var(--lo-black);
+  border: 0;
+  border-radius: 2px;
+  font-family: var(--lo-font-label);
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-shadow: none;
+  box-shadow: 0 0 0 1px #000, 0 4px 0 #000, 0 0 22px var(--lo-yellow-glow);
+  transition: background-color .15s, box-shadow .15s, transform .08s;
+}
+
+#wrapper #inner_column .button:hover {
+  background-color: var(--lo-yellow-hot);
+  color: #000;
+  box-shadow: 0 0 0 1px #000, 0 4px 0 #000, 0 0 34px rgba(255, 210, 26, .7);
+}
+
+#wrapper #inner_column .button:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 1px #000, 0 1px 0 #000, 0 0 14px var(--lo-yellow-glow);
+}
+
+/* ---------- web build frame (if the game runs in the browser) ---------- */
+
+#wrapper .embed_wrapper { padding: 36px 0 16px; }
+
+/* tight glow: a wide one fills the gap under the hazard tape with purple haze */
+#wrapper .game_frame {
+  background-color: #050403;
+  outline: 1px solid var(--lo-line);
+  box-shadow:
+    0 0 0 6px #050403,
+    0 0 0 8px var(--lo-magenta),
+    0 0 22px 2px rgba(255, 43, 214, .45);
+}
+
+/* ---------- description ---------- */
+
+#wrapper .formatted_description {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+#wrapper .formatted_description p { margin: 0 0 14px; }
+
+#wrapper .custom-lead {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #fff8e6;
+}
+
+#wrapper .custom-shift {
+  margin: 0 0 22px;
+  padding: 8px 12px;
+  border: 1px solid var(--lo-line);
+  border-left: 4px solid var(--lo-red);
+  background: rgba(0, 0, 0, .45);
+  font-family: var(--lo-font-label);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--lo-muted);
+}
+
+#wrapper .custom-blink {
+  color: var(--lo-red);
+  text-shadow: 0 0 10px var(--lo-red-glow);
+  animation: lo-blink 1.2s steps(1) infinite;
+}
+
+@keyframes lo-blink { 50% { opacity: .15; } }
+
+/* section headings: description + itch's own (Download, Comments...) */
+#wrapper .left_col h2,
+#wrapper .formatted_description h3 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 38px;
+  margin-bottom: 14px;
+  font-family: var(--lo-font-label);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--lo-yellow);
+}
+
+#wrapper .left_col h2::before,
+#wrapper .formatted_description h3::before {
+  content: "";
+  flex: none;
+  width: 36px;
+  height: 12px;
+  background: var(--lo-hazard-small);
+  outline: 1px solid #000;
+}
+
+#wrapper .left_col h2::after,
+#wrapper .formatted_description h3::after {
+  content: "";
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(255, 210, 26, .45), transparent);
+}
+
+/* bullet lists: little yellow lamps */
+#wrapper .formatted_description ul {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+#wrapper .formatted_description ul li {
+  position: relative;
+  margin: 8px 0;
+  padding-left: 26px;
+}
+
+#wrapper .formatted_description ul li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: .62em;
+  width: 9px;
+  height: 9px;
+  background: var(--lo-yellow);
+  box-shadow: 0 0 10px var(--lo-yellow-glow);
+}
+
+/* inline keys: <code>LMB</code> */
+#wrapper .formatted_description code {
+  padding: 1px 7px 2px;
+  border: 1px solid #000;
+  border-bottom-width: 3px;
+  border-radius: 4px;
+  background: var(--lo-yellow);
+  font-family: var(--lo-font-label);
+  font-size: .9em;
+  font-weight: 700;
+  color: var(--lo-black);
+}
+
+/* divider: hazard tape */
+#wrapper .formatted_description hr {
+  height: 12px;
+  margin: 38px 0;
+  border: 0;
+  outline: 1px solid #000;
+  background: var(--lo-hazard);
+}
+
+#wrapper .formatted_description img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #000;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .6);
+}
+
+/* ---------- the note: a <blockquote> (the "Quote" button in the editor) ---------- */
+
+#wrapper .formatted_description blockquote {
+  position: relative;
+  max-width: 430px;
+  margin: 30px auto 36px;
+  padding: 26px 34px 24px;
+  border: 0;
+  border-radius: 2px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .5), transparent 30%),
+    var(--lo-paper);
+  color: var(--lo-ink);
+  font-family: var(--lo-font-hand);
+  font-size: 25px;
+  font-style: normal;
+  line-height: 1.22;
+  transform: rotate(-1.4deg);
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, .45),
+    0 22px 36px rgba(0, 0, 0, .65),
+    0 0 60px rgba(255, 210, 26, .1);
+}
+
+#wrapper .formatted_description blockquote p { margin: 0 0 10px; }
+#wrapper #inner_column blockquote a { color: #b03a00; }
+
+#wrapper .custom-note-title {
+  font-size: 32px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+#wrapper .custom-note-sub {
+  margin-top: -10px;
+  font-size: 19px;
+  text-align: center;
+  opacity: .75;
+}
+
+#wrapper .custom-note-sign {
+  text-align: right;
+  font-size: 23px;
+}
+
+/* the controls card, same as the one in the game */
+#wrapper .formatted_description blockquote.custom-card {
+  max-width: 330px;
+  text-align: right;
+  font-size: 23px;
+  transform: rotate(1.6deg);
+}
+
+#wrapper .formatted_description blockquote.custom-card p { margin: 0 0 2px; }
+#wrapper .formatted_description blockquote.custom-card .custom-note-title { margin-bottom: 14px; text-align: center; }
+
+/* "made for Ludum Dare" stamp */
+#wrapper .custom-center { text-align: center; }
+
+#wrapper .custom-stamp {
+  display: inline-block;
+  padding: 8px 18px 6px;
+  border: 3px solid var(--lo-red);
+  border-radius: 3px;
+  font-family: var(--lo-font-label);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--lo-red);
+  transform: rotate(-3deg);
+  box-shadow: inset 0 0 0 2px rgba(255, 52, 36, .25), 0 0 18px rgba(255, 52, 36, .25);
+  text-shadow: 0 0 10px rgba(255, 52, 36, .45);
+}
+
+/* ---------- "More information" table ---------- */
+
+#wrapper .more_information_toggle .toggle_info_btn {
+  font-family: var(--lo-font-label);
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+#wrapper .game_info_panel_widget {
+  background: rgba(0, 0, 0, .45);
+  border: 1px solid var(--lo-line);
+  border-radius: 2px;
+}
+
+#wrapper .game_info_panel_widget td:first-child {
+  font-family: var(--lo-font-label);
+  font-size: 14px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--lo-muted);
+}
+
+#wrapper .game_info_panel_widget tr + tr td { border-top: 1px dashed rgba(255, 210, 26, .14); }
+
+/* ---------- download list ---------- */
+
+#wrapper .upload_list_widget .upload {
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  background: rgba(0, 0, 0, .4);
+  border: 1px solid var(--lo-line);
+  border-left: 4px solid var(--lo-yellow);
+}
+
+#wrapper .upload_list_widget .upload .name {
+  font-family: var(--lo-font-label);
+  font-size: 18px;
+  letter-spacing: .03em;
+  color: var(--lo-text);
+}
+
+#wrapper .upload_list_widget .file_size,
+#wrapper .upload_list_widget .build_row { color: var(--lo-muted); }
+
+/* ---------- screenshots: security cameras ---------- */
+
+#wrapper .screenshot_list {
+  counter-reset: lo-cam;
+  scrollbar-color: var(--lo-yellow) #0e0b08;
+}
+
+#wrapper .screenshot_list a {
+  position: relative;
+  display: block;
+  margin-bottom: 16px;
+  outline: 1px solid var(--lo-line);
+  outline-offset: 3px;
+  counter-increment: lo-cam;
+  transition: outline-color .15s, box-shadow .15s;
+}
+
+#wrapper .screenshot_list a::before {
+  content: "\25CF  CAM 0" counter(lo-cam);
+  position: absolute;
+  top: 8px;
+  left: 9px;
+  z-index: 1;
+  padding: 1px 6px;
+  background: rgba(0, 0, 0, .65);
+  font-family: var(--lo-font-label);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: var(--lo-red);
+  text-shadow: 0 0 8px var(--lo-red-glow);
+  pointer-events: none;
+}
+
+#wrapper .screenshot_list .screenshot {
+  margin: 0;
+  border-radius: 0;
+  transition: filter .2s;
+}
+
+#wrapper .screenshot_list a:hover {
+  outline-color: var(--lo-yellow);
+  box-shadow: 0 0 26px var(--lo-yellow-glow);
+}
+
+#wrapper .screenshot_list a:hover .screenshot { filter: brightness(1.15); }
+
+/* ---------- comments ---------- */
+
+#wrapper textarea,
+#wrapper input[type="text"] {
+  background: #0e0b08;
+  color: var(--lo-text);
+  border: 1px solid var(--lo-line);
+}
+
+#wrapper textarea:focus,
+#wrapper input[type="text"]:focus {
+  border-color: var(--lo-yellow);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--lo-yellow-glow);
+}
+
+/* ---------- footer (keep it visible: itch.io rule) ---------- */
+
+#wrapper #view_game_footer {
+  border-top: 1px solid var(--lo-line);
+  background: rgba(0, 0, 0, .85);
+  color: var(--lo-muted);
+}
+
+#wrapper #view_game_footer a { color: var(--lo-muted); }
+#wrapper #view_game_footer a:hover { color: var(--lo-yellow); }
+
+/* ---------- phones ---------- */
+
+@media (max-width: 700px) {
+  #wrapper { background-size: 384px 384px; }
+  #wrapper #header { padding: 44px 16px 38px; }
+  #wrapper #header .game_title { font-size: 46px; }
+  #wrapper #header .game_title::before { font-size: 12px; letter-spacing: .3em; }
+  #wrapper .formatted_description blockquote { padding: 22px 22px 20px; font-size: 23px; }
+  #wrapper .custom-shift { font-size: 13px; letter-spacing: .1em; }
+  #wrapper .left_col h2 { font-size: 21px; }
+}
+
+/* itch.io turns screenshots into a horizontal strip on narrow screens */
+@media (max-width: 1000px) {
+  #wrapper .screenshot_list a {
+    display: inline-block;
+    margin: 0 8px 10px 0;
+    vertical-align: top;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #wrapper .custom-blink { animation: none; }
+  #wrapper #inner_column .button,
+  #wrapper .screenshot_list a,
+  #wrapper .screenshot_list .screenshot { transition: none; }
+}
