@@ -128,6 +128,8 @@
     btn.addEventListener("click", () => {
       document.body.classList.remove("pv-download", "pv-web");
       document.body.classList.add(btn.dataset.mode);
+      // itch.io puts this class on pages with a web build (it hides the title, among other things)
+      document.body.classList.toggle("embedded_game", btn.dataset.mode === "pv-web");
       document.querySelectorAll(".pv-bar button").forEach(b => b.setAttribute("aria-pressed", b === btn));
     });
   });

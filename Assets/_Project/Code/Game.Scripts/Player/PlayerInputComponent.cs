@@ -82,7 +82,7 @@ namespace Game.Scripts.Player
 
         public void OnCrouch(InputAction.CallbackContext context)
         {
-            crouch = context.ReadValueAsButton();
+            if (context.performed && !IsBlocked) crouch = !crouch;
         }
 
         public void OnInteract(InputAction.CallbackContext context)

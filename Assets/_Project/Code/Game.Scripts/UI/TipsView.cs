@@ -28,7 +28,7 @@ namespace Game.Scripts.UI
             if (abilities == null && !Bind()) return;
 
             builder.Clear();
-            builder.Append("[LMB] Pick up / Put\n[RMB] Take from shelf\n[G] Throw\n");
+            builder.Append("[LMB] Pick up / Put\n[RMB] Take from shelf\n[G] Throw\n[C] Crouch\n");
             builder.Append("Points: ").Append(upgrades.Points);
             AppendAbility(UpgradeKind.Highlight, "Q", "Highlight");
             AppendAbility(UpgradeKind.Distribute, "R", "Sort");

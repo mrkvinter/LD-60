@@ -246,12 +246,14 @@ namespace Game.Scripts.Upgrades
             scaler.matchWidthOrHeight = 0.5f;
             gameObject.AddComponent<GraphicRaycaster>();
 
+            var popupFont = DefManager.GetSingletonDef<HudSettingsDef>().PopupFont;
+
             hoverText = Text(transform, "Hover", 30, TextAlignmentOptions.Top);
             Place(hoverText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -30f), new Vector2(900f, 60f), new Vector2(0.5f, 1f));
+            if (popupFont != null) hoverText.font = popupFont;
 
             pointsText = Text(transform, "Points Popup", 56, TextAlignmentOptions.Top);
             Place(pointsText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -120f), new Vector2(900f, 160f), new Vector2(0.5f, 1f));
-            var popupFont = DefManager.GetSingletonDef<HudSettingsDef>().PopupFont;
             if (popupFont != null) pointsText.font = popupFont;
             pointsPopup = pointsText.gameObject.AddComponent<CanvasGroup>();
             pointsPopup.alpha = 0f;
