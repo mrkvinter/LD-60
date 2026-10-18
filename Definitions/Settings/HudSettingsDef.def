@@ -3,5 +3,9 @@
   "PopupFont": {
     "guid": "854764f9139de6c4caf5a9c27c990ddd",
     "fileID": 11400000
+  },
+  "UpgradePanel": {
+    "guid": "ec9edf726ede8ce4a9de873f6d3290c7",
+    "fileID": 3722573825507831972
   }
 }

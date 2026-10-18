@@ -157,7 +157,8 @@ namespace Game.Scripts.Upgrades
 
         private void RefreshPanel()
         {
-            if (panel.Title != null) panel.Title.text = $"Upgrades    points: {upgrades.Points}";
+            var accent = ColorUtility.ToHtmlStringRGB(panel.Accent);
+            if (panel.Title != null) panel.Title.text = $"UPGRADES   <color=#{accent}>{upgrades.Points}</color> PTS";
 
             for (var i = 0; i < kinds.Length && i < panel.Rows.Count; i++)
             {
@@ -168,12 +169,13 @@ namespace Game.Scripts.Upgrades
                 var next = upgrades.Next(kind);
                 if (row.Text != null)
                 {
-                    row.Text.text = $"{i + 1}. {titles[kind]}   Lv {upgrades.Level(kind)}/{upgrades.MaxLevel(kind)}\n" +
-                                    $"<size=80%>{Describe(kind, upgrades.Current(kind))}  >  {Describe(kind, next)}</size>";
+                    row.Text.text = $"<color=#{accent}>[{i + 1}]</color>  {titles[kind]}   " +
+                                    $"<color=#{accent}>LV {upgrades.Level(kind)}/{upgrades.MaxLevel(kind)}</color>\n" +
+                                    $"<size=75%><alpha=#99>{Describe(kind, upgrades.Current(kind))}  >  {Describe(kind, next)}</size>";
                 }
 
                 if (row.BuyButton != null) row.BuyButton.interactable = upgrades.CanBuy(kind);
-                if (row.BuyLabel != null) row.BuyLabel.text = next == null ? "Max" : $"Buy ({next.Cost})";
+                if (row.BuyLabel != null) row.BuyLabel.text = next == null ? "MAX" : $"BUY  {next.Cost} PTS";
             }
         }
 
