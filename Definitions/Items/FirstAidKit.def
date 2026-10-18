@@ -1,0 +1,34 @@
+{
+  "type": "Game.Scripts.Items.TrashDef",
+  "Name": "First aid kit",
+  "Prefab": {
+    "guid": "a44629bfb8218a149b1a9d2120500a54",
+    "fileID": 4852046141318777294
+  },
+  "SpawnCount": 48,
+  "HeldScale": 0.4,
+  "RackType": 1,
+  "RackLayout": {
+    "Count": {
+      "x": 4,
+      "y": 3,
+      "z": 4
+    },
+    "Spacing": {
+      "x": 0.7,
+      "y": 0.25,
+      "z": 0.46
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "Rotation": {
+      "x": 0.0,
+      "y": 90.0,
+      "z": 0.0
+    }
+  },
+  "Id": "FirstAidKit"
+}

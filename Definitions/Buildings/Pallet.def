@@ -1,0 +1,13 @@
+{
+  "type": "Game.Scripts.Construction.BuildingDef",
+  "Name": "Pallet",
+  "Cost": [
+    {
+      "Resource": {
+        "id": "Wood"
+      },
+      "Count": 6
+    }
+  ],
+  "Id": "Pallet"
+}

@@ -57,6 +57,16 @@
                     "priority": 0
                 },
                 {
+                    "name": "TakeFromRack",
+                    "type": "Button",
+                    "id": "c4a8ee77-dd96-4465-bed5-adc7da9d6c2c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
                     "name": "Throw",
                     "type": "Button",
                     "id": "2530fafe-4ca2-4c6b-9513-e83bf36270ff",
@@ -299,8 +309,30 @@
                 },
                 {
                     "name": "",
-                    "id": "7de87885-244f-4db2-a626-bfb1ad92d548",
+                    "id": "5eb55052-dafe-43d2-8705-a01b3daa4bef",
                     "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "TakeFromRack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5be2c111-26ec-4390-b3c7-ebe64d6c29af",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "TakeFromRack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7de87885-244f-4db2-a626-bfb1ad92d548",
+                    "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",

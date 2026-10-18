@@ -1,0 +1,29 @@
+{
+  "type": "Game.Scripts.Items.TrashDef",
+  "Name": "FanFan drink",
+  "Prefab": {
+    "guid": "eecde539d551a3b4ab08d55eb6e07b5d",
+    "fileID": 5519146213316070502
+  },
+  "SpawnCount": 128,
+  "HeldScale": 0.6,
+  "RackType": 2,
+  "RackLayout": {
+    "Count": {
+      "x": 16,
+      "y": 1,
+      "z": 8
+    },
+    "Spacing": {
+      "x": 0.17,
+      "y": 0.315,
+      "z": 0.17
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "FanFanDrink"
+}

@@ -55,6 +55,7 @@ namespace Game.Integrations.Ecm2
         private readonly Settings settings;
 
         private PlayerInputComponent input;
+        private PlayerAbilitiesComponent abilities;
         private Transform cameraAnchor;
         private float walkSpeed;
         private float pitch;
@@ -73,13 +74,20 @@ namespace Game.Integrations.Ecm2
         public void Initialize()
         {
             input = entity.GetComponent<PlayerInputComponent>();
+            abilities = entity.GetComponent<PlayerAbilitiesComponent>();
             cameraAnchor = entity.GetComponent<CameraAnchorComponent>()?.Transform;
             if (cameraAnchor != null) standingCameraHeight = cameraAnchor.localPosition.y;
 
             if (character == null) return;
 
             character.SetRotationMode(Character.RotationMode.None);
+            character.characterMovement.collisionBehaviourCallback = GetCollisionBehaviour;
             walkSpeed = character.maxWalkSpeed;
+
+            if (abilities == null) return;
+
+            abilities.Changed += ApplyJumpCount;
+            ApplyJumpCount();
         }
 
         public void Tick()
@@ -102,13 +110,33 @@ namespace Game.Integrations.Ecm2
             UpdateCameraHeight();
         }
 
+        public void Teleport(Vector3 position, Quaternion rotation)
+        {
+            if (character == null) return;
+
+            var forward = Vector3.ProjectOnPlane(rotation * Vector3.forward, character.GetUpVector());
+            var heading = forward.sqrMagnitude > 1e-6f
+                ? Quaternion.LookRotation(forward, character.GetUpVector())
+                : character.GetRotation();
+
+            var movement = character.characterMovement;
+            var interpolation = movement.interpolation;
+            movement.interpolation = RigidbodyInterpolation.None;
+            movement.SetPositionAndRotation(position, heading, true);
+            movement.interpolation = interpolation;
+            character.SetVelocity(Vector3.zero);
+
+            pitch = 0f;
+            if (cameraAnchor != null) cameraAnchor.localRotation = Quaternion.identity;
+        }
+
         private void Move()
         {
             var move = input.Move;
             var direction = new Vector3(move.x, 0f, move.y).relativeTo(character.transform, character.GetUpVector());
 
             character.SetMovementDirection(direction);
-            character.maxWalkSpeed = input.Sprint ? walkSpeed * settings.SprintMultiplier : walkSpeed;
+            character.maxWalkSpeed = input.Sprint && Can(PlayerAbility.Sprint) ? walkSpeed * settings.SprintMultiplier : walkSpeed;
         }
 
         private void Look()
@@ -125,11 +153,29 @@ namespace Game.Integrations.Ecm2
 
         private void UpdateJump()
         {
-            if (input.Jump == isJumpHeld) return;
+            var wantsJump = input.Jump && Can(PlayerAbility.Jump);
+            if (wantsJump == isJumpHeld) return;
 
-            isJumpHeld = input.Jump;
+            isJumpHeld = wantsJump;
             if (isJumpHeld) character.Jump();
             else character.StopJumping();
+        }
+
+        // Loose items are rounded junk underfoot: any part of them can be stepped and stood on, else the steep
+        // sides of a log or a crystal stop the player. ECM2 also rides any rigidbody under the feet as a moving
+        // platform; a loose item rolling away would drag the player with it. Collisions with it stay.
+        private const CollisionBehaviour LooseItemBehaviour = CollisionBehaviour.Walkable |
+            CollisionBehaviour.CanStepOn | CollisionBehaviour.CanPerchOn | CollisionBehaviour.CanNotRideOn;
+
+        private static CollisionBehaviour GetCollisionBehaviour(Collider collider) =>
+            collider.attachedRigidbody is { isKinematic: false } ? LooseItemBehaviour : CollisionBehaviour.Default;
+
+        // Without an abilities component nothing is locked.
+        private bool Can(PlayerAbility ability) => abilities == null || abilities.Has(ability);
+
+        private void ApplyJumpCount()
+        {
+            character.jumpMaxCount = Can(PlayerAbility.DoubleJump) ? 2 : 1;
         }
 
         private void ReleaseJump()

@@ -12,7 +12,7 @@ namespace Game.Scripts.Items
         Resource
     }
 
-    public sealed class Rack : Entity, IItemContainer
+    public sealed class Rack : Entity, IItemContainer, IItemReceiver
     {
         private BaseItem[] slots = Array.Empty<BaseItem>();
 
@@ -64,6 +64,8 @@ namespace Game.Scripts.Items
         }
 
         public void Put(BaseItem item, bool instant = false) => Put(item, null, instant);
+
+        void IItemReceiver.Put(BaseItem item, Vector3? viewer) => Put(item, viewer);
 
         public void Put(BaseItem item, Vector3? viewer, bool instant = false)
         {
@@ -131,6 +133,34 @@ namespace Game.Scripts.Items
             return null;
         }
 
+        public BaseItem TakeNearest(Vector3? viewer)
+        {
+            if (Count == 0) return null;
+            if (viewer == null) return TakeLast();
+
+            var layout = LayoutFor(StoredDef);
+            var local = SlotRoot != null ? SlotRoot.InverseTransformPoint(viewer.Value) : viewer.Value;
+            var perLayer = layout.Count.x * layout.Count.z;
+            var layerStart = Array.FindLastIndex(slots, slot => slot != null) / perLayer * perLayer;
+
+            BaseItem nearest = null;
+            var nearestDistance = float.MaxValue;
+            for (var i = layerStart; i < layerStart + perLayer; i++)
+            {
+                if (slots[i] == null) continue;
+
+                var offset = layout.GetPosition(i) - local;
+                offset.y = 0f;
+                if (offset.sqrMagnitude >= nearestDistance) continue;
+
+                nearest = slots[i];
+                nearestDistance = offset.sqrMagnitude;
+            }
+
+            Take(nearest);
+            return nearest;
+        }
+
         private int FindFreeSlot(ItemDef def, Vector3? viewer)
         {
             if (StoredDef != null && !Equals(StoredDef, def)) return -1;
@@ -162,7 +192,8 @@ namespace Game.Scripts.Items
 
         private void PlaceAt(int index, bool instant)
         {
-            slots[index].Place(SlotRoot, LayoutFor(StoredDef).GetPosition(index), Quaternion.identity, instant: instant);
+            var layout = LayoutFor(StoredDef);
+            slots[index].Place(SlotRoot, layout.GetPosition(index), layout.SlotRotation, instant: instant);
         }
     }
 }

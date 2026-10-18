@@ -12,6 +12,9 @@ namespace Game.Scripts.Items
         [InfoBox("@GetItemsInfo()")]
         public GameObject DefaultPrefab;
         public Color HighlightColor = new(1f, 0.85f, 0.4f, 1f);
+
+        [Tooltip("Drawn over items lit by the highlight ability: unlit and seen through walls.")]
+        public Material MarkMaterial;
         [SuffixLabel("s")] public float FlightDuration = 0.25f;
 
         [Tooltip("How long the item in hand takes to hide or show when switching items.")]

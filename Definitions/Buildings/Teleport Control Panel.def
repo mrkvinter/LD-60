@@ -1,0 +1,25 @@
+{
+  "type": "Game.Scripts.Construction.BuildingDef",
+  "Name": "Teleport Control Panel",
+  "Cost": [
+    {
+      "Resource": {
+        "id": "Gear"
+      },
+      "Count": 8
+    },
+    {
+      "Resource": {
+        "id": "Steel"
+      },
+      "Count": 5
+    },
+    {
+      "Resource": {
+        "id": "Rubber"
+      },
+      "Count": 6
+    }
+  ],
+  "Id": "Teleport Control Panel"
+}

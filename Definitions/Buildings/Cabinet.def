@@ -1,0 +1,19 @@
+{
+  "type": "Game.Scripts.Construction.BuildingDef",
+  "Name": "Cabinet",
+  "Cost": [
+    {
+      "Resource": {
+        "id": "Wood"
+      },
+      "Count": 7
+    },
+    {
+      "Resource": {
+        "id": "Steel"
+      },
+      "Count": 7
+    }
+  ],
+  "Id": "Cabinet"
+}

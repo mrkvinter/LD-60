@@ -1,0 +1,15 @@
+{
+  "type": "Game.Scripts.Notes.NoteDef",
+  "Title": "",
+  "Text": "Can't think. Nothing is where it should be, and it presses on me like noise in my head.\nI can't focus until I clean up. I've tried. It doesn't work.\n\nNeed to clean up, clean up, clean up, <alpha=#CC>clean up, <alpha=#99>clean up, <alpha=#66>clean up, <alpha=#40>clean up, <alpha=#1A>clean up",
+  "ButtonText": "End?",
+  "ButtonActions": {
+    "Actions": [
+      {
+        "Id": "RestartGameAction",
+        "Args": "{}"
+      }
+    ]
+  },
+  "Id": "Note_FakeLast"
+}

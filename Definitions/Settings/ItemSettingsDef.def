@@ -14,5 +14,9 @@
   "GhostMaterial": {
     "guid": "af9344759d6e12c498b7ef4c2493668d",
     "fileID": 2100000
+  },
+  "MarkMaterial": {
+    "guid": "184580ff46f0a7e4b8deb73247e3b3af",
+    "fileID": 2100000
   }
 }

@@ -1,0 +1,57 @@
+{
+  "type": "Game.Scripts.Upgrades.UpgradeSettingsDef",
+  "PointsPerFilledRack": 1,
+  "HandsCapacity": [
+    {
+      "Cost": 1,
+      "Amount": 3.0,
+      "Cooldown": 0.0
+    },
+    {
+      "Cost": 1,
+      "Amount": 3.0,
+      "Cooldown": 0.0
+    },
+    {
+      "Cost": 1,
+      "Amount": 3.0,
+      "Cooldown": 0.0
+    }
+  ],
+  "Highlight": [
+    {
+      "Cost": 2,
+      "Amount": 7.0,
+      "Cooldown": 35.0
+    },
+    {
+      "Cost": 1,
+      "Amount": 12.0,
+      "Cooldown": 25.0
+    }
+  ],
+  "Distribute": [
+    {
+      "Cost": 3,
+      "Amount": 0.0,
+      "Cooldown": 60.0
+    },
+    {
+      "Cost": 2,
+      "Amount": 0.0,
+      "Cooldown": 30.0
+    }
+  ],
+  "Pull": [
+    {
+      "Cost": 2,
+      "Amount": 5.0,
+      "Cooldown": 30.0
+    },
+    {
+      "Cost": 2,
+      "Amount": 13.0,
+      "Cooldown": 25.0
+    }
+  ]
+}

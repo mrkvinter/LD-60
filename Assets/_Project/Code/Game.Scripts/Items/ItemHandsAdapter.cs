@@ -19,14 +19,14 @@ namespace Game.Scripts.Items
         public Transform Anchor => anchor;
         public Vector3 SwapOffset => swapOffset;
 
-        public void ShowGhost(BaseItem item, Transform parent, Vector3 localPosition)
+        public void ShowGhost(BaseItem item, Transform parent, Vector3 localPosition, Quaternion localRotation)
         {
             var ghost = GetGhost(item);
             if (shownGhost != ghost) HideGhost();
             if (ghost == null) return;
 
             ghost.transform.SetParent(parent, false);
-            ghost.transform.SetLocalPositionAndRotation(localPosition, Quaternion.identity);
+            ghost.transform.SetLocalPositionAndRotation(localPosition, localRotation);
             ghost.SetActive(true);
             shownGhost = ghost;
         }

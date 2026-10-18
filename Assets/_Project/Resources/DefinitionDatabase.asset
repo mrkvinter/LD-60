@@ -14,34 +14,125 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Defs>k__BackingField: []
   <Definitions>k__BackingField:
-  - rid: 3053703724747194934
-  - rid: 3053703724747194935
-  - rid: 3053703724747194936
-  - rid: 3053703724747194937
-  - rid: 3053703724747194938
-  - rid: 3053703724747194939
-  - rid: 3053703724747194940
-  - rid: 3053703724747194941
-  - rid: 3053703724747194942
-  - rid: 3053703724747194943
-  - rid: 3053703724747194944
-  - rid: 3053703724747194945
-  - rid: 3053703724747194946
-  - rid: 3053703724747194947
-  - rid: 3053703724747194948
-  - rid: 3053703724747194949
-  - rid: 3053703724747194950
-  - rid: 3053703724747194951
-  - rid: 3053703724747194952
+  - rid: 3053703757883506743
+  - rid: 3053703757883506744
+  - rid: 3053703757883506745
+  - rid: 3053703757883506746
+  - rid: 3053703757883506747
+  - rid: 3053703757883506748
+  - rid: 3053703757883506749
+  - rid: 3053703757883506750
+  - rid: 3053703757883506751
+  - rid: 3053703757883506752
+  - rid: 3053703757883506753
+  - rid: 3053703757883506754
+  - rid: 3053703757883506755
+  - rid: 3053703757883506756
+  - rid: 3053703757883506757
+  - rid: 3053703757883506758
+  - rid: 3053703757883506759
+  - rid: 3053703757883506760
+  - rid: 3053703757883506761
+  - rid: 3053703757883506762
+  - rid: 3053703757883506763
+  - rid: 3053703757883506764
+  - rid: 3053703757883506765
+  - rid: 3053703757883506766
+  - rid: 3053703757883506767
+  - rid: 3053703757883506768
+  - rid: 3053703757883506769
+  - rid: 3053703757883506770
+  - rid: 3053703757883506771
+  - rid: 3053703757883506772
+  - rid: 3053703757883506773
+  - rid: 3053703757883506774
+  - rid: 3053703757883506775
+  - rid: 3053703757883506776
+  - rid: 3053703757883506777
+  - rid: 3053703757883506778
+  - rid: 3053703757883506779
+  - rid: 3053703757883506780
   references:
     version: 2
     RefIds:
-    - rid: 3053703724747194934
+    - rid: 3053703757883506743
       type: {class: GameAppSetting, ns: Game.Main.Settings, asm: Game.Main}
       data:
         <Id>k__BackingField: 
         GameScene: Game
-    - rid: 3053703724747194935
+    - rid: 3053703757883506744
+      type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Bridge
+        Name: Bridge
+        Cost:
+        - Resource:
+            id: Wood
+          Count: 6
+    - rid: 3053703757883506745
+      type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Cabinet
+        Name: Cabinet
+        Cost:
+        - Resource:
+            id: Wood
+          Count: 7
+        - Resource:
+            id: Steel
+          Count: 7
+    - rid: 3053703757883506746
+      type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Pallet
+        Name: Pallet
+        Cost:
+        - Resource:
+            id: Wood
+          Count: 6
+    - rid: 3053703757883506747
+      type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Portal Cable Left
+        Name: Portal_Cable_L
+        Cost:
+        - Resource:
+            id: Rubber
+          Count: 5
+    - rid: 3053703757883506748
+      type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Portal Cable Right
+        Name: Portal_Cable_R
+        Cost:
+        - Resource:
+            id: Rubber
+          Count: 5
+    - rid: 3053703757883506749
+      type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Stairs
+        Name: Stairs
+        Cost:
+        - Resource:
+            id: Steel
+          Count: 13
+    - rid: 3053703757883506750
+      type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Teleport Control Panel
+        Name: Teleport Control Panel
+        Cost:
+        - Resource:
+            id: Gear
+          Count: 8
+        - Resource:
+            id: Steel
+          Count: 5
+        - Resource:
+            id: Rubber
+          Count: 6
+    - rid: 3053703757883506751
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Barrel
@@ -54,7 +145,8 @@ MonoBehaviour:
           Count: {x: 4, y: 2, z: 3}
           Spacing: {x: 0.725, y: 1.011, z: 0.725}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194936
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506752
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: BlueCrystal
@@ -67,7 +159,8 @@ MonoBehaviour:
           Count: {x: 13, y: 1, z: 5}
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194937
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506753
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Box
@@ -80,7 +173,8 @@ MonoBehaviour:
           Count: {x: 3, y: 2, z: 2}
           Spacing: {x: 1, y: 1, z: 1}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194938
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506754
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Display
@@ -93,7 +187,8 @@ MonoBehaviour:
           Count: {x: 4, y: 3, z: 3}
           Spacing: {x: 0.72, y: 0.75, z: 0.6}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194939
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506755
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: EnergyDrink
@@ -106,7 +201,36 @@ MonoBehaviour:
           Count: {x: 16, y: 1, z: 8}
           Spacing: {x: 0.17, y: 0.315, z: 0.17}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194940
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506756
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: FanFanDrink
+        Name: FanFan drink
+        Prefab: {fileID: 5519146213316070502, guid: eecde539d551a3b4ab08d55eb6e07b5d, type: 3}
+        SpawnCount: 128
+        HeldScale: 0.6
+        RackType: 2
+        RackLayout:
+          Count: {x: 16, y: 1, z: 8}
+          Spacing: {x: 0.17, y: 0.315, z: 0.17}
+          Offset: {x: 0, y: 0, z: 0}
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506757
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: FirstAidKit
+        Name: First aid kit
+        Prefab: {fileID: 4852046141318777294, guid: a44629bfb8218a149b1a9d2120500a54, type: 3}
+        SpawnCount: 48
+        HeldScale: 0.4
+        RackType: 1
+        RackLayout:
+          Count: {x: 4, y: 3, z: 4}
+          Spacing: {x: 0.7, y: 0.25, z: 0.46}
+          Offset: {x: 0, y: 0, z: 0}
+          Rotation: {x: 0, y: 90, z: 0}
+    - rid: 3053703757883506758
       type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Gear
@@ -119,7 +243,8 @@ MonoBehaviour:
           Count: {x: 4, y: 8, z: 2}
           Spacing: {x: 0.6, y: 0.072, z: 0.6}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194941
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506759
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: GreenBarrel
@@ -132,7 +257,8 @@ MonoBehaviour:
           Count: {x: 4, y: 2, z: 3}
           Spacing: {x: 0.725, y: 1.011, z: 0.725}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194942
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506760
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: GreenCrystal
@@ -145,7 +271,8 @@ MonoBehaviour:
           Count: {x: 13, y: 1, z: 5}
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194943
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506761
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Phone
@@ -158,7 +285,8 @@ MonoBehaviour:
           Count: {x: 12, y: 1, z: 5}
           Spacing: {x: 0.24, y: 0.65, z: 0.32}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194944
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506762
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: PurpleCrystal
@@ -171,7 +299,8 @@ MonoBehaviour:
           Count: {x: 13, y: 1, z: 5}
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194945
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506763
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: RedBarrel
@@ -184,7 +313,8 @@ MonoBehaviour:
           Count: {x: 4, y: 2, z: 3}
           Spacing: {x: 0.725, y: 1.011, z: 0.725}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194946
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506764
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: RedCrystal
@@ -197,7 +327,36 @@ MonoBehaviour:
           Count: {x: 13, y: 1, z: 5}
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194947
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506765
+      type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Rubber
+        Name: Rubber
+        Prefab: {fileID: 1316650152013982548, guid: f8b69d15330698648a4408dc7b398144, type: 3}
+        SpawnCount: 16
+        HeldScale: 0.15
+        RackType: 3
+        RackLayout:
+          Count: {x: 6, y: 1, z: 1}
+          Spacing: {x: 0.48, y: 1.25, z: 1}
+          Offset: {x: 0.216, y: 0.594, z: 0}
+          Rotation: {x: 0, y: 0, z: 90}
+    - rid: 3053703757883506766
+      type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: SpiretDrink
+        Name: Spiret drink
+        Prefab: {fileID: 3707414839763848406, guid: ab427dd67f164ea4a9fe125ff1e5699e, type: 3}
+        SpawnCount: 128
+        HeldScale: 0.6
+        RackType: 2
+        RackLayout:
+          Count: {x: 16, y: 1, z: 8}
+          Spacing: {x: 0.17, y: 0.315, z: 0.17}
+          Offset: {x: 0, y: 0, z: 0}
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506767
       type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Steel
@@ -210,7 +369,8 @@ MonoBehaviour:
           Count: {x: 8, y: 4, z: 2}
           Spacing: {x: 0.34, y: 0.14, z: 0.6}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194948
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506768
       type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Wood
@@ -223,7 +383,8 @@ MonoBehaviour:
           Count: {x: 8, y: 3, z: 2}
           Spacing: {x: 0.35, y: 0.34, z: 0.65}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194949
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506769
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: YellowCrystal
@@ -236,24 +397,153 @@ MonoBehaviour:
           Count: {x: 13, y: 1, z: 5}
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
-    - rid: 3053703724747194950
+          Rotation: {x: 0, y: 0, z: 0}
+    - rid: 3053703757883506770
+      type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Note01
+        Title: 
+        Text: "\u041F\u043E\u0441\u043B\u0435 \u0438\u043D\u0446\u0438\u0434\u0435\u043D\u0442\u0430 X, \u043F\u0440\u043E\u0438\u0437\u043E\u0448\u0435\u0434\u0448\u0435\u0433\u043E \u043F\u043E \u0432\u0430\u0448\u0435\u0439 \u0432\u0438\u043D\u0435 \u0432\u0430\u0441 \u0441\u043E\u0441\u043B\u0430\u043B\u0438 \u0432 \u0441\u0442\u0430\u0440\u044B\u0439 \u0431\u043B\u043E\u043A \u043B\u0430\u0431\u043E\u0440\u0430\u0442\u043E\u0440\u0438\u0438.\r\n\u0422\u0443\u0442 \u0443\u0436\u0435 \u043C\u043D\u043E\u0433\u043E \u043B\u0435\u0442 \u043D\u0438\u043A\u043E\u0433\u043E \u043D\u0435 \u0431\u044B\u0432\u0430\u043B\u043E. \u0412\u0430\u0448\u0430 \u0437\u0430\u0434\u0430\u0447\u0430 \u043E\u0442\u0447\u0438\u0441\u0442\u0438\u0442\u044C \u0437\u0434\u0430\u043D\u0438\u0435 \u043B\u0430\u0431\u043E\u0440\u0430\u0442\u043E\u0440\u0438\u0438 \u043E\u0442 \u043C\u0443\u0441\u043E\u0440\u0430 \u043E\u0442\u0441\u043E\u0440\u0442\u0438\u0440\u043E\u0432\u0430\u0432 \u0435\u0433\u043E \u043F\u043E \u043F\u043E\u043B\u043A\u0430\u043C.\r\n\u041A\u0440\u0443\u043F\u043D\u044B\u0435 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u044B \u043D\u0430 \u043F\u043E\u0434\u0434\u043E\u043D\u044B. \u041C\u0435\u043B\u043A\u0438\u0435 \u043D\u0430 \u0441\u0442\u0435\u043B\u0430\u0436\u0438. \u0420\u0435\u0441\u0443\u0440\u0441\u044B \u0445\u0440\u0430\u043D\u044F\u0442\u044C\u0441\u044F \u043E\u0442\u0434\u0435\u043B\u044C\u043D\u043E, \u043E\u043A\u043E\u043B\u043E \u0432\u0445\u043E\u0434\u0430\r\n\u0418 \u0431\u044B\u0442\u044C \u043C\u043E\u0436\u0435\u0442 \u0442\u043E\u0433\u0434\u0430 \u0434\u043E\u0432\u0435\u0440\u0438\u0435 \u0441\u043C\u043E\u0436\u0435\u0442 \u0432\u0435\u0440\u043D\u0443\u0442\u044C\u0441\u044F \u043A \u0432\u0430\u043C.\r\n\u0422\u0430\u043A \u0436\u0435 \u0447\u0430\u0441\u0442\u044C \u043C\u0435\u0431\u0435\u043B\u0438 \u0431\u044B\u043B\u0430 \u0440\u0430\u0437\u0440\u0443\u0448\u0435\u043D\u0430. \u0412\u0430\u043C \u043F\u0440\u0438\u0434\u0435\u0442\u0441\u044F \u043E\u0442\u0440\u0435\u043C\u043E\u043D\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C \u0435\u0435. \u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0439\u0442\u0435 \u0440\u0435\u0441\u0443\u0440\u0441\u044B, \u0447\u0442\u043E \u043D\u0430\u0439\u0434\u0435\u0442\u0435 \u0432 \u043B\u0430\u0431\u043E\u0440\u0430\u0442\u043E\u0440\u0438\u0438."
+        ButtonText: 
+        ButtonActions:
+          Actions: []
+    - rid: 3053703757883506771
+      type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Note02
+        Title: 
+        Text: "...Marta's been strange today. She says she hears voices in her head. Maybe she's just tired \u2013 none of us have slept in a long time.\r\nIn the evening, she was sitting at the table, eating something. At first I didn't realize what it was. Then I noticed her whole hand was covered in blood. She smiled at me and said it tasted better than the canned food."
+        ButtonText: OK?
+        ButtonActions:
+          Actions: []
+    - rid: 3053703757883506772
+      type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Note03
+        Title: 
+        Text: "03:12 \u2014 Flash in Block B.\r\n03:16 \u2014 Comms down.\r\n03:17 \u2014 Something in the corr"
+        ButtonText: 
+        ButtonActions:
+          Actions: []
+    - rid: 3053703757883506773
+      type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Note_FakeLast
+        Title: 
+        Text: 'Can''t think. Nothing is where it should be, and it presses on me like noise in my head.
+
+          I can''t focus until I clean up. I''ve tried. It doesn''t work.
+
+
+          Need to clean up, clean up, clean up, <alpha=#CC>clean up, <alpha=#99>clean up, <alpha=#66>clean up, <alpha=#40>clean up, <alpha=#1A>clean up'
+        ButtonText: End?
+        ButtonActions:
+          Actions:
+          - Id: RestartGameAction
+            Args: '{}'
+    - rid: 3053703757883506774
+      type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Note_HeAteUs
+        Title: 
+        Text: 'I went hungry for so long, but now they''re talking inside my stomach, and I can hear them.
+
+          Isaac keeps calling my name. He asks why it''s so dark. I don''t know what to tell him.'
+        ButtonText: What?
+        ButtonActions:
+          Actions: []
+    - rid: 3053703757883506775
+      type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: Note_Last
+        Title: 
+        Text: 'Hey, me. You''re probably reading this note for the hundredth time...
+
+          
+
+          Listen, I know this is hard to wrap your head around. But there''s nothing up there. Just an endless nuclear wasteland. Not a single soul.
+
+          
+
+          You and a group of other scientists made it down to the underground lab in Block A_72.
+
+          But unfortunately, one of the group was infected with some unknown virus.
+
+          
+
+          Somehow, you were the only one lucky enough to develop antibodies in time and survive.
+
+          And for years now, you''ve been wandering the lab, not knowing what to do...'
+        ButtonText: 
+        ButtonActions:
+          Actions:
+          - Id: RestartGameAction
+            Args: '{}'
+    - rid: 3053703757883506776
+      type: {class: ConstructionSettingsDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: 
+        GhostMaterial: {fileID: 2100000, guid: 59911a7a16be04245985644951ff9544, type: 2}
+        LabelDistance: 6
+        LabelHeight: 0.3
+        LabelFontSize: 2
+        DoneColor: {r: 0.55, g: 1, b: 0.55, a: 1}
+    - rid: 3053703757883506777
       type: {class: ItemSettingsDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
         DefaultPrefab: {fileID: 6812285120347540418, guid: 80c5787914607c948aa826996d1b7211, type: 3}
         HighlightColor: {r: 0.45, g: 1, b: 0.45, a: 1}
+        MarkMaterial: {fileID: 2100000, guid: 184580ff46f0a7e4b8deb73247e3b3af, type: 2}
         FlightDuration: 0.25
         SwapDuration: 0.15
         GhostMaterial: {fileID: 2100000, guid: af9344759d6e12c498b7ef4c2493668d, type: 2}
-    - rid: 3053703724747194951
+    - rid: 3053703757883506778
       type: {class: PlayerSettingsDef, ns: Game.Scripts.Player, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
         InteractDistance: 3
-        HandsCapacity: 500
+        HandsCapacity: 4
         RepeatInterval: 0.15
         ThrowSpeed: 3.5
-    - rid: 3053703724747194952
+        StartAbilities: 
+    - rid: 3053703757883506779
+      type: {class: UpgradeSettingsDef, ns: Game.Scripts.Upgrades, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: 
+        PointsPerFilledRack: 1
+        HandsCapacity:
+        - Cost: 1
+          Amount: 3
+          Cooldown: 0
+        - Cost: 1
+          Amount: 3
+          Cooldown: 0
+        - Cost: 1
+          Amount: 3
+          Cooldown: 0
+        Highlight:
+        - Cost: 2
+          Amount: 7
+          Cooldown: 35
+        - Cost: 1
+          Amount: 12
+          Cooldown: 25
+        Distribute:
+        - Cost: 3
+          Amount: 0
+          Cooldown: 60
+        - Cost: 2
+          Amount: 0
+          Cooldown: 30
+        Pull:
+        - Cost: 2
+          Amount: 5
+          Cooldown: 30
+        - Cost: 2
+          Amount: 13
+          Cooldown: 25
+    - rid: 3053703757883506780
       type: {class: WidgetProps, ns: Game.UI.Base, asm: Game.UI}
       data:
         <Id>k__BackingField: BlackScreen

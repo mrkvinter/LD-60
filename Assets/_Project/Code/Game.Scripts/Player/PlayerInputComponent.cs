@@ -12,18 +12,31 @@ namespace Game.Scripts.Player
         private readonly PlayerInputActions actions;
         private readonly CursorService cursorService;
 
-        public Vector2 Move { get; private set; }
-        public Vector2 Look { get; private set; }
+        private Vector2 move;
+        private Vector2 look;
+        private bool jump;
+        private bool sprint;
+        private bool crouch;
+        private bool isInteractHeld;
+        private bool isTakeFromRackHeld;
+        private bool isThrowHeld;
+
+        public bool IsBlocked { get; set; }
+
+        public Vector2 Move => IsBlocked ? Vector2.zero : move;
+        public Vector2 Look => IsBlocked ? Vector2.zero : look;
         public bool IsPointerLook { get; private set; } = true;
-        public bool Jump { get; private set; }
-        public bool Sprint { get; private set; }
-        public bool Crouch { get; private set; }
-        public bool IsInteractHeld { get; private set; }
-        public bool IsThrowHeld { get; private set; }
+        public bool Jump => !IsBlocked && jump;
+        public bool Sprint => !IsBlocked && sprint;
+        public bool Crouch => !IsBlocked && crouch;
+        public bool IsInteractHeld => !IsBlocked && isInteractHeld;
+        public bool IsTakeFromRackHeld => !IsBlocked && isTakeFromRackHeld;
+        public bool IsThrowHeld => !IsBlocked && isThrowHeld;
         public float Scroll { get; private set; }
 
         public event Action InteractPressed;
         public event Action InteractReleased;
+        public event Action TakeFromRackPressed;
         public event Action ThrowPressed;
         public event Action<int> Scrolled;
 
@@ -48,41 +61,54 @@ namespace Game.Scripts.Player
 
         public void OnMove(InputAction.CallbackContext context)
         {
-            Move = context.ReadValue<Vector2>();
+            move = context.ReadValue<Vector2>();
         }
 
         public void OnLook(InputAction.CallbackContext context)
         {
-            Look = context.ReadValue<Vector2>();
+            look = context.ReadValue<Vector2>();
             IsPointerLook = context.control?.device is Pointer;
         }
 
         public void OnJump(InputAction.CallbackContext context)
         {
-            Jump = context.ReadValueAsButton();
+            jump = context.ReadValueAsButton();
         }
 
         public void OnSprint(InputAction.CallbackContext context)
         {
-            Sprint = context.ReadValueAsButton();
+            sprint = context.ReadValueAsButton();
         }
 
         public void OnCrouch(InputAction.CallbackContext context)
         {
-            Crouch = context.ReadValueAsButton();
+            crouch = context.ReadValueAsButton();
         }
 
         public void OnInteract(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
-                IsInteractHeld = true;
-                InteractPressed?.Invoke();
+                isInteractHeld = true;
+                if (!IsBlocked) InteractPressed?.Invoke();
             }
             else if (context.canceled)
             {
-                IsInteractHeld = false;
+                isInteractHeld = false;
                 InteractReleased?.Invoke();
+            }
+        }
+
+        public void OnTakeFromRack(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                isTakeFromRackHeld = true;
+                if (!IsBlocked) TakeFromRackPressed?.Invoke();
+            }
+            else if (context.canceled)
+            {
+                isTakeFromRackHeld = false;
             }
         }
 
@@ -90,12 +116,12 @@ namespace Game.Scripts.Player
         {
             if (context.performed)
             {
-                IsThrowHeld = true;
-                ThrowPressed?.Invoke();
+                isThrowHeld = true;
+                if (!IsBlocked) ThrowPressed?.Invoke();
             }
             else if (context.canceled)
             {
-                IsThrowHeld = false;
+                isThrowHeld = false;
             }
         }
 
@@ -103,7 +129,7 @@ namespace Game.Scripts.Player
         {
             Scroll = context.ReadValue<float>();
 
-            if (context.performed && !Mathf.Approximately(Scroll, 0f))
+            if (context.performed && !IsBlocked && !Mathf.Approximately(Scroll, 0f))
             {
                 Scrolled?.Invoke(Scroll > 0f ? 1 : -1);
             }

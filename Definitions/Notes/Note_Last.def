@@ -1,0 +1,15 @@
+{
+  "type": "Game.Scripts.Notes.NoteDef",
+  "Title": "",
+  "Text": "Hey, me. You're probably reading this note for the hundredth time...\r\n\r\nListen, I know this is hard to wrap your head around. But there's nothing up there. Just an endless nuclear wasteland. Not a single soul.\r\n\r\nYou and a group of other scientists made it down to the underground lab in Block A_72.\r\nBut unfortunately, one of the group was infected with some unknown virus.\r\n\r\nSomehow, you were the only one lucky enough to develop antibodies in time and survive.\r\nAnd for years now, you've been wandering the lab, not knowing what to do...",
+  "ButtonText": null,
+  "ButtonActions": {
+    "Actions": [
+      {
+        "Id": "RestartGameAction",
+        "Args": "{}"
+      }
+    ]
+  },
+  "Id": "Note_Last"
+}

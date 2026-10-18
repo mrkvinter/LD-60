@@ -13,13 +13,18 @@ namespace Game.Scripts.Items
 
     public interface IItemView
     {
+        Bounds LocalBounds { get; }
+
         void SetHighlighted(bool highlighted);
+        void SetMarked(bool marked);
         void SetVisible(bool visible);
         void SetMode(ItemMode mode);
         void FlyTo(Transform parent, Vector3 localPosition, Quaternion localRotation, float scale, bool instant);
         void SwapIn(Transform parent, Vector3 localPosition, Quaternion localRotation, float scale, Vector3 fromLocalPosition);
         void SwapOut(Vector3 toLocalPosition);
         void Release(Vector3 position, Quaternion rotation, Vector3 velocity);
+        void Settle();
+        void Consume();
     }
 
     public abstract class BaseItem : Entity
@@ -64,14 +69,29 @@ namespace Game.Scripts.Items
             View.Release(position, rotation, velocity);
         }
 
+        public void Settle()
+        {
+            View.Settle();
+        }
+
         public void SetHighlighted(bool highlighted)
         {
             View.SetHighlighted(highlighted);
         }
 
+        public void SetMarked(bool marked)
+        {
+            View.SetMarked(marked);
+        }
+
         public void SetVisible(bool visible)
         {
             View.SetVisible(visible);
+        }
+
+        public void Consume()
+        {
+            View.Consume();
         }
     }
 }

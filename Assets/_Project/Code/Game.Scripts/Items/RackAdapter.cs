@@ -1,5 +1,6 @@
 using Code.Game.Scripts.EntitySystem;
 using Game.Core.Contexts;
+using Game.Scripts.Upgrades;
 using RG.DefinitionSystem.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace Game.Scripts.Items
         {
             GameServiceLocator.Resolve<SortingProgress>().Register(Entity);
             GameServiceLocator.Resolve<ResourceStorage>().Register(Entity);
+            GameServiceLocator.Resolve<UpgradeService>().Register(Entity);
         }
 
 #if UNITY_EDITOR

@@ -1,0 +1,16 @@
+{
+  "type": "Game.Scripts.Construction.ConstructionSettingsDef",
+  "GhostMaterial": {
+    "guid": "59911a7a16be04245985644951ff9544",
+    "fileID": 2100000
+  },
+  "LabelDistance": 6.0,
+  "LabelHeight": 0.3,
+  "LabelFontSize": 2.0,
+  "DoneColor": {
+    "r": 0.55,
+    "g": 1.0,
+    "b": 0.55,
+    "a": 1.0
+  }
+}

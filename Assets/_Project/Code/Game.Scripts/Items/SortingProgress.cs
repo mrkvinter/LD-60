@@ -35,6 +35,13 @@ namespace Game.Scripts.Items
             total.Value = items.Count;
         }
 
+        public void Unregister(BaseItem item)
+        {
+            if (!items.Remove(item)) return;
+
+            total.Value = items.Count;
+        }
+
         public void Dispose()
         {
             foreach (var rack in racks)

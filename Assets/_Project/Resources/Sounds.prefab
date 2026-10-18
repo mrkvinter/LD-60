@@ -94,6 +94,13 @@ MonoBehaviour:
   - Name: Typing_King
     Clips:
     - {fileID: 8300000, guid: 93fcd1955381ea54c8b6e97952f2bccb, type: 3}
+  - Name: Rumble
+    Clips:
+    - {fileID: 8300000, guid: 18cfce9cdc1bfd540ab1f0abcc397c53, type: 3}
+  - Name: TakeNote
+    Clips:
+    - {fileID: 8300000, guid: 94e164254ad9362459806bb9bdeb304d, type: 3}
+    - {fileID: 8300000, guid: e59b9131f33fb2144a60b27be8b82533, type: 3}
   mixerGroups:
   - Name: default
     Group: {fileID: 24300002, guid: e72cdcda570f21c4e8b3c81257b74d43, type: 2}

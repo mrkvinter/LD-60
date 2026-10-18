@@ -1,7 +1,8 @@
 {
   "type": "Game.Scripts.Player.PlayerSettingsDef",
   "InteractDistance": 3.0,
-  "HandsCapacity": 500,
+  "HandsCapacity": 4,
   "RepeatInterval": 0.15,
-  "ThrowSpeed": 3.5
+  "ThrowSpeed": 3.5,
+  "StartAbilities": []
 }

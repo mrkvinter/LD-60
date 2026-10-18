@@ -1,0 +1,29 @@
+{
+  "type": "Game.Scripts.Items.TrashDef",
+  "Name": "Spiret drink",
+  "Prefab": {
+    "guid": "ab427dd67f164ea4a9fe125ff1e5699e",
+    "fileID": 3707414839763848406
+  },
+  "SpawnCount": 128,
+  "HeldScale": 0.6,
+  "RackType": 2,
+  "RackLayout": {
+    "Count": {
+      "x": 16,
+      "y": 1,
+      "z": 8
+    },
+    "Spacing": {
+      "x": 0.17,
+      "y": 0.315,
+      "z": 0.17
+    },
+    "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    }
+  },
+  "Id": "SpiretDrink"
+}

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Code.Game.Core;
-using Code.Game.Scripts.EntitySystem;
 using RG.DefinitionSystem.Core;
 using UnityEngine;
 
@@ -8,18 +7,29 @@ namespace Game.Scripts.Items
 {
     public sealed class ItemSpawner
     {
-        private const int Attempts = 10;
-        private const float SurfaceOffset = 0.01f;
-
         private readonly ObjectRegistry registry;
 
         public ItemSpawner(ObjectRegistry registry)
         {
             this.registry = registry;
         }
-
+        
         public void Spawn()
         {
+            var layouts = new List<BakedItemLayout>(registry.Get<BakedItemLayout>());
+            if (layouts.Count > 0)
+            {
+                foreach (var layout in layouts)
+                {
+                    layout.Release();
+                }
+
+                return;
+            }
+
+            Debug.LogWarning($"No {nameof(BakedItemLayout)} in the scene; items are scattered at runtime. " +
+                             $"Bake them with {BakedItemLayout.BakeMenu}.");
+
             var defaultPrefab = DefManager.GetSingletonDef<ItemSettingsDef>().DefaultPrefab;
             var items = new List<BaseItem>();
 
@@ -62,35 +72,25 @@ namespace Game.Scripts.Items
                 return;
             }
 
-            foreach (var item in items)
+            var pending = new List<BaseItem>(items);
+            foreach (var item in pending)
             {
-                var (position, rotation) = PickSpot(areas);
-                item.Release(position, rotation, Vector3.zero);
-
-                Physics.SyncTransforms();
+                item.Release(ItemScatter.ParkingSpot, Quaternion.identity, Vector3.zero);
             }
-        }
 
-        private static (Vector3 position, Quaternion rotation) PickSpot(List<ItemScatterArea> areas)
-        {
-            var rotation = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+            Physics.SyncTransforms();
 
-            for (var i = 0; i < Attempts; i++)
+            foreach (var item in pending)
             {
-                var area = areas[Random.Range(0, areas.Count)];
-                if (!Physics.Raycast(area.RandomTopPoint(), Vector3.down, out var hit, area.Height + 1f,
-                        Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
+                var rotation = Random.rotation;
+                if (!ItemScatter.TryPickSpot(areas, item.Def, item.View.LocalBounds, rotation, out var position))
                 {
-                    continue;
+                    position = areas[0].transform.position;
                 }
 
-                var owner = hit.collider.GetComponentInParent<IEntityAdapter>();
-                if (owner != null && owner is not ItemAdapter) continue;
-
-                return (hit.point + Vector3.up * SurfaceOffset, rotation);
+                item.Release(position, rotation, Vector3.zero);
+                Physics.SyncTransforms();
             }
-
-            return (areas[0].transform.position, rotation);
         }
     }
 }

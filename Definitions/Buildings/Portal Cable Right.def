@@ -1,0 +1,13 @@
+{
+  "type": "Game.Scripts.Construction.BuildingDef",
+  "Name": "Portal_Cable_R",
+  "Cost": [
+    {
+      "Resource": {
+        "id": "Rubber"
+      },
+      "Count": 5
+    }
+  ],
+  "Id": "Portal Cable Right"
+}

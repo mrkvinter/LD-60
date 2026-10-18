@@ -145,6 +145,16 @@ namespace Game.Scripts.Inputs
                     ""priority"": 0
                 },
                 {
+                    ""name"": ""TakeFromRack"",
+                    ""type"": ""Button"",
+                    ""id"": ""c4a8ee77-dd96-4465-bed5-adc7da9d6c2c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
                     ""name"": ""Throw"",
                     ""type"": ""Button"",
                     ""id"": ""2530fafe-4ca2-4c6b-9513-e83bf36270ff"",
@@ -387,8 +397,30 @@ namespace Game.Scripts.Inputs
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7de87885-244f-4db2-a626-bfb1ad92d548"",
+                    ""id"": ""5eb55052-dafe-43d2-8705-a01b3daa4bef"",
                     ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""KeyboardMouse"",
+                    ""action"": ""TakeFromRack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5be2c111-26ec-4390-b3c7-ebe64d6c29af"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""TakeFromRack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7de87885-244f-4db2-a626-bfb1ad92d548"",
+                    ""path"": ""<Keyboard>/g"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
@@ -524,6 +556,7 @@ namespace Game.Scripts.Inputs
             m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
             m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
             m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+            m_Player_TakeFromRack = m_Player.FindAction("TakeFromRack", throwIfNotFound: true);
             m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
             m_Player_Crouch = m_Player.FindAction("Crouch", throwIfNotFound: true);
             m_Player_Scroll = m_Player.FindAction("Scroll", throwIfNotFound: true);
@@ -612,6 +645,7 @@ namespace Game.Scripts.Inputs
         private readonly InputAction m_Player_Jump;
         private readonly InputAction m_Player_Sprint;
         private readonly InputAction m_Player_Interact;
+        private readonly InputAction m_Player_TakeFromRack;
         private readonly InputAction m_Player_Throw;
         private readonly InputAction m_Player_Crouch;
         private readonly InputAction m_Player_Scroll;
@@ -646,6 +680,10 @@ namespace Game.Scripts.Inputs
             /// Provides access to the underlying input action "Player/Interact".
             /// </summary>
             public InputAction @Interact => m_Wrapper.m_Player_Interact;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/TakeFromRack".
+            /// </summary>
+            public InputAction @TakeFromRack => m_Wrapper.m_Player_TakeFromRack;
             /// <summary>
             /// Provides access to the underlying input action "Player/Throw".
             /// </summary>
@@ -699,6 +737,9 @@ namespace Game.Scripts.Inputs
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
+                @TakeFromRack.started += instance.OnTakeFromRack;
+                @TakeFromRack.performed += instance.OnTakeFromRack;
+                @TakeFromRack.canceled += instance.OnTakeFromRack;
                 @Throw.started += instance.OnThrow;
                 @Throw.performed += instance.OnThrow;
                 @Throw.canceled += instance.OnThrow;
@@ -734,6 +775,9 @@ namespace Game.Scripts.Inputs
                 @Interact.started -= instance.OnInteract;
                 @Interact.performed -= instance.OnInteract;
                 @Interact.canceled -= instance.OnInteract;
+                @TakeFromRack.started -= instance.OnTakeFromRack;
+                @TakeFromRack.performed -= instance.OnTakeFromRack;
+                @TakeFromRack.canceled -= instance.OnTakeFromRack;
                 @Throw.started -= instance.OnThrow;
                 @Throw.performed -= instance.OnThrow;
                 @Throw.canceled -= instance.OnThrow;
@@ -844,6 +888,13 @@ namespace Game.Scripts.Inputs
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnInteract(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "TakeFromRack" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnTakeFromRack(InputAction.CallbackContext context);
             /// <summary>
             /// Method invoked when associated input action "Throw" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>

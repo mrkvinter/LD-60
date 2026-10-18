@@ -15,6 +15,11 @@ namespace Game.Scripts.Items
         [Tooltip("Shift of the whole grid from the middle of the rack, in meters.")]
         public Vector3 Offset;
 
+        [Tooltip("Turn of every item in its slot around its pivot, in degrees. Fix the pivot shift with Offset.")]
+        public Vector3 Rotation;
+
+        public Quaternion SlotRotation => Quaternion.Euler(Rotation);
+
         public int Capacity => Mathf.Max(0, Count.x) * Mathf.Max(0, Count.y) * Mathf.Max(0, Count.z);
 
         public Vector3Int GetCell(int index)

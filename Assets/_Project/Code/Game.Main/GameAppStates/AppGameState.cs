@@ -7,10 +7,14 @@ using Cysharp.Threading.Tasks;
 using Game.Core;
 using Game.Core.Contexts;
 using Game.Main.installers;
+using Game.Scripts.Construction;
 using Game.Scripts.Items;
+using Game.Scripts.Upgrades;
+using RG.DefinitionSystem.Core;
 using Game.Scripts.SaveLoadSystem;
 using Game.Utilities.Extensions;
 using Game.UI.Base;
+using KvinterGames;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VContainer;
@@ -27,6 +31,7 @@ namespace Game.Main.GameAppStates
         private GameState gameState;
         private ObjectRegistry objectRegistry;
         private Scene scene;
+        private AudioService.LoopSound rumble;
 
         public AppGameState(LifetimeScope parentLifetimeScope)
         {
@@ -51,6 +56,8 @@ namespace Game.Main.GameAppStates
                     .AsImplementedInterfaces().AsSelf();
                 builder.Register<SortingProgress>(Lifetime.Singleton);
                 builder.Register<ResourceStorage>(Lifetime.Singleton);
+                builder.Register<ConstructionProgress>(Lifetime.Singleton);
+                builder.Register(_ => new UpgradeService(DefManager.GetSingletonDef<UpgradeSettingsDef>()), Lifetime.Singleton);
                 builder.Register<ItemSpawner>(Lifetime.Singleton);
 
                 ExecutorInstaller.Install(builder);
@@ -90,9 +97,12 @@ namespace Game.Main.GameAppStates
             objectRegistry.OnRegistered += InitMonoRegistry;
 
             LifetimeScope.Container.Resolve<ItemSpawner>().Spawn();
+            new GameObject(nameof(UpgradeHud)).AddComponent<UpgradeHud>();
 
             LifetimeScope.Container.Resolve<ActionExecutorSystem>();
             LifetimeScope.Container.Resolve<CursorService>();
+
+            rumble = LifetimeScope.Container.Resolve<AudioService>().PlayLoop("Rumble");
 
             await UniTask.DelayFrame(1);
 
@@ -104,6 +114,9 @@ namespace Game.Main.GameAppStates
 
         public async UniTask Exit()
         {
+            rumble?.Stop();
+            rumble = null;
+
             if (objectRegistry != null)
             {
                 objectRegistry.OnRegistered -= InitMonoRegistry;

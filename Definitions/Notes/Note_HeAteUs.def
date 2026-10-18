@@ -1,0 +1,7 @@
+{
+  "type": "Game.Scripts.Notes.NoteDef",
+  "Title": "",
+  "Text": "I went hungry for so long, but now they're talking inside my stomach, and I can hear them.\r\nIsaac keeps calling my name. He asks why it's so dark. I don't know what to tell him.",
+  "ButtonText": "What?",
+  "Id": "Note_HeAteUs"
+}

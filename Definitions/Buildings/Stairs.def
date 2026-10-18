@@ -1,0 +1,13 @@
+{
+  "type": "Game.Scripts.Construction.BuildingDef",
+  "Name": "Stairs",
+  "Cost": [
+    {
+      "Resource": {
+        "id": "Steel"
+      },
+      "Count": 13
+    }
+  ],
+  "Id": "Stairs"
+}

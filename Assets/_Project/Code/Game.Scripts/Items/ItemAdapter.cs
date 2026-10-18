@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Code.Game.Scripts.EntitySystem;
 using DG.Tweening;
 using Game.Core.Contexts;
@@ -14,6 +15,7 @@ namespace Game.Scripts.Items
         private const float HighlightBlend = 0.6f;
         private const float ReleaseSpin = 2f;
         private const float SwapScale = 0.01f;
+        private const float MaxFlightTime = 3f;
 
         private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
 
@@ -27,8 +29,15 @@ namespace Game.Scripts.Items
 
         private MaterialPropertyBlock propertyBlock;
         private Color[] baseColors = Array.Empty<Color>();
+        private Material[][] baseMaterials = Array.Empty<Material[]>();
         private Vector3 baseScale = Vector3.one;
         private bool isVisible = true;
+        private bool isHighlighted;
+        private bool isMarked;
+        private Coroutine flight;
+        private Bounds? localBounds;
+
+        public Bounds LocalBounds => localBounds ??= CaptureLocalBounds(transform.localScale);
 
         public void Setup(DefRef<ItemDef> itemDef)
         {
@@ -43,6 +52,7 @@ namespace Game.Scripts.Items
             }
 
             baseScale = transform.localScale;
+            localBounds = CaptureLocalBounds(baseScale);
             CaptureColors();
             return DefManager.GetDef(def).CreateItem(this);
         }
@@ -81,13 +91,43 @@ namespace Game.Scripts.Items
 
         void IItemView.SetHighlighted(bool highlighted)
         {
+            isHighlighted = highlighted;
+            ApplyTint();
+        }
+
+        void IItemView.SetMarked(bool marked)
+        {
+            if (isMarked == marked) return;
+
+            isMarked = marked;
+            var mark = DefManager.GetSingletonDef<ItemSettingsDef>().MarkMaterial;
+            for (var i = 0; i < renderers.Length; i++)
+            {
+                var target = renderers[i];
+                if (target == null) continue;
+
+                if (!marked || mark == null)
+                {
+                    target.sharedMaterials = baseMaterials[i];
+                    continue;
+                }
+
+                var materials = new Material[baseMaterials[i].Length + 1];
+                baseMaterials[i].CopyTo(materials, 0);
+                materials[^1] = mark;
+                target.sharedMaterials = materials;
+            }
+        }
+
+        private void ApplyTint()
+        {
             var highlight = DefManager.GetSingletonDef<ItemSettingsDef>().HighlightColor;
             for (var i = 0; i < renderers.Length; i++)
             {
                 var target = renderers[i];
                 if (target == null) continue;
 
-                if (!highlighted)
+                if (!isHighlighted)
                 {
                     target.SetPropertyBlock(null);
                     continue;
@@ -109,18 +149,9 @@ namespace Game.Scripts.Items
             if (pickCollider != null) pickCollider.enabled = mode is ItemMode.Loose or ItemMode.Stored;
             if (body == null) return;
 
-            if (mode == ItemMode.Loose)
-            {
-                body.isKinematic = false;
-                body.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
-                body.interpolation = RigidbodyInterpolation.Interpolate;
-            }
-            else
-            {
-                body.collisionDetectionMode = CollisionDetectionMode.Discrete;
-                body.interpolation = RigidbodyInterpolation.None;
-                body.isKinematic = true;
-            }
+            StopFlight();
+            SetPrecise(false);
+            body.isKinematic = mode != ItemMode.Loose;
         }
 
         void IItemView.FlyTo(Transform parent, Vector3 localPosition, Quaternion localRotation, float scale, bool instant)
@@ -177,8 +208,11 @@ namespace Game.Scripts.Items
             transform.SetParent(null, true);
             transform.SetPositionAndRotation(position, rotation);
 
-            var duration = DefManager.GetSingletonDef<ItemSettingsDef>().FlightDuration;
-            transform.DOScale(baseScale, duration).SetEase(Ease.OutCubic);
+            if (transform.localScale != baseScale)
+            {
+                var duration = DefManager.GetSingletonDef<ItemSettingsDef>().FlightDuration;
+                transform.DOScale(baseScale, duration).SetEase(Ease.OutCubic);
+            }
 
             if (body == null) return;
 
@@ -186,6 +220,87 @@ namespace Game.Scripts.Items
             body.rotation = rotation;
             body.linearVelocity = velocity;
             body.angularVelocity = velocity == Vector3.zero ? Vector3.zero : Random.insideUnitSphere * ReleaseSpin;
+
+            StopFlight();
+            flight = StartCoroutine(TrackFlight());
+        }
+
+        void IItemView.Settle()
+        {
+            if (body == null) return;
+
+            StopFlight();
+            SetPrecise(false);
+            body.Sleep();
+        }
+
+        void IItemView.Consume()
+        {
+            transform.DOKill();
+            GameServiceLocator.Resolve<SortingProgress>().Unregister(Entity);
+            Destroy();
+        }
+
+        private IEnumerator TrackFlight()
+        {
+            SetPrecise(true);
+
+            var landBy = Time.time + MaxFlightTime;
+            var wait = new WaitForFixedUpdate();
+            do
+            {
+                yield return wait;
+            } while (!body.IsSleeping() && Time.time < landBy);
+
+            SetPrecise(false);
+            flight = null;
+        }
+
+        private void StopFlight()
+        {
+            if (flight == null) return;
+
+            StopCoroutine(flight);
+            flight = null;
+        }
+
+        private void SetPrecise(bool precise)
+        {
+            body.collisionDetectionMode = precise
+                ? CollisionDetectionMode.ContinuousSpeculative
+                : CollisionDetectionMode.Discrete;
+            body.interpolation = precise ? RigidbodyInterpolation.Interpolate : RigidbodyInterpolation.None;
+        }
+
+        private Bounds CaptureLocalBounds(Vector3 scale)
+        {
+            if (pickCollider == null) return default;
+
+            var box = pickCollider switch
+            {
+                BoxCollider b => new Bounds(b.center, b.size),
+                SphereCollider s => new Bounds(s.center, Vector3.one * (2f * s.radius)),
+                CapsuleCollider c => new Bounds(c.center, CapsuleSize(c)),
+                MeshCollider { sharedMesh: { } mesh } => mesh.bounds,
+                _ => default
+            };
+
+            var toRoot = transform.worldToLocalMatrix * pickCollider.transform.localToWorldMatrix;
+            var result = new Bounds(toRoot.MultiplyPoint3x4(box.center), Vector3.zero);
+            for (var i = 0; i < 8; i++)
+            {
+                var corner = new Vector3(i & 1, (i >> 1) & 1, (i >> 2) & 1) * 2f - Vector3.one;
+                result.Encapsulate(toRoot.MultiplyPoint3x4(box.center + Vector3.Scale(box.extents, corner)));
+            }
+
+            return new Bounds(Vector3.Scale(result.center, scale), Vector3.Scale(result.size, scale));
+        }
+
+        private static Vector3 CapsuleSize(CapsuleCollider capsule)
+        {
+            var size = Vector3.one * (2f * capsule.radius);
+            size[capsule.direction] = Mathf.Max(capsule.height, size.x);
+            return size;
         }
 
         private void SetRenderersEnabled(bool visible)
@@ -202,8 +317,10 @@ namespace Game.Scripts.Items
             if (renderers.Length == 0) renderers = GetComponentsInChildren<Renderer>(true);
 
             baseColors = new Color[renderers.Length];
+            baseMaterials = new Material[renderers.Length][];
             for (var i = 0; i < renderers.Length; i++)
             {
+                baseMaterials[i] = renderers[i] != null ? renderers[i].sharedMaterials : Array.Empty<Material>();
                 var material = renderers[i] != null ? renderers[i].sharedMaterial : null;
                 baseColors[i] = material != null && material.HasProperty(BaseColorId)
                     ? material.GetColor(BaseColorId)

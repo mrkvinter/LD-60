@@ -13,7 +13,7 @@ namespace Game.Scripts.Items
         Transform Anchor { get; }
         Vector3 SwapOffset { get; }
 
-        void ShowGhost(BaseItem item, Transform parent, Vector3 localPosition);
+        void ShowGhost(BaseItem item, Transform parent, Vector3 localPosition, Quaternion localRotation);
         void HideGhost();
     }
 
@@ -29,6 +29,7 @@ namespace Game.Scripts.Items
             None,
             Take,
             Put,
+            TakeFromRack,
             Throw
         }
 
@@ -47,14 +48,16 @@ namespace Game.Scripts.Items
         private BaseItem shown;
 
         public int Count => items.Count;
-        public int Capacity => settings.HandsCapacity;
+        public int Capacity => settings.HandsCapacity + BonusCapacity;
+
+        public int BonusCapacity { get; set; }
         public ItemMode Mode => ItemMode.Held;
         public IReadOnlyList<BaseItem> Items => items;
 
         public int ActiveIndex => activeIndex;
         public BaseItem Active => items.Count > 0 ? items[activeIndex] : null;
 
-        public Rack PutTarget { get; private set; }
+        public IItemReceiver PutTarget { get; private set; }
 
         private Vector3? ViewPosition => view != null ? view.position : null;
 
@@ -76,6 +79,7 @@ namespace Game.Scripts.Items
             if (input == null) return;
 
             input.InteractPressed += OnInteractPressed;
+            input.TakeFromRackPressed += OnTakeFromRackPressed;
             input.ThrowPressed += OnThrowPressed;
             input.Scrolled += OnItemScroll;
         }
@@ -85,6 +89,7 @@ namespace Game.Scripts.Items
             if (input == null) return;
 
             input.InteractPressed -= OnInteractPressed;
+            input.TakeFromRackPressed -= OnTakeFromRackPressed;
             input.ThrowPressed -= OnThrowPressed;
             input.Scrolled -= OnItemScroll;
         }
@@ -95,7 +100,12 @@ namespace Game.Scripts.Items
 
             if (heldAction == HandsAction.None || input == null) return;
 
-            var isHeld = heldAction == HandsAction.Throw ? input.IsThrowHeld : input.IsInteractHeld;
+            var isHeld = heldAction switch
+            {
+                HandsAction.Throw => input.IsThrowHeld,
+                HandsAction.TakeFromRack => input.IsTakeFromRackHeld,
+                _ => input.IsInteractHeld
+            };
             if (!isHeld)
             {
                 heldAction = HandsAction.None;
@@ -106,7 +116,12 @@ namespace Game.Scripts.Items
             if (repeatTimer > 0f) return;
 
             repeatTimer += settings.RepeatInterval;
-            heldAction = heldAction == HandsAction.Throw ? Throw() : Use(heldAction);
+            heldAction = heldAction switch
+            {
+                HandsAction.Throw => Throw(),
+                HandsAction.TakeFromRack => TakeFromRack(),
+                _ => Use(heldAction)
+            };
         }
 
         public void Put(BaseItem item)
@@ -123,6 +138,15 @@ namespace Game.Scripts.Items
 
         public BaseItem TakeLast() => Take(items.Count - 1);
 
+        public bool Remove(BaseItem item)
+        {
+            var index = items.IndexOf(item);
+            if (index < 0) return false;
+
+            Take(index);
+            return true;
+        }
+
         public void Cycle(int step)
         {
             if (items.Count < 2 || step == 0) return;
@@ -133,11 +157,11 @@ namespace Game.Scripts.Items
             Changed?.Invoke();
         }
 
-        public bool TryPutOn(Rack rack)
+        public bool TryPutOn(IItemReceiver receiver)
         {
-            if (Active == null || rack == null || !rack.CanPut(Active)) return false;
+            if (Active == null || receiver == null || !receiver.CanPut(Active)) return false;
 
-            rack.Put(TakeActive(), ViewPosition);
+            receiver.Put(TakeActive(), ViewPosition);
             return true;
         }
 
@@ -165,6 +189,12 @@ namespace Game.Scripts.Items
             heldAction = Use(HandsAction.None);
         }
 
+        private void OnTakeFromRackPressed()
+        {
+            repeatTimer = settings.RepeatInterval;
+            heldAction = TakeFromRack();
+        }
+
         private void OnThrowPressed()
         {
             repeatTimer = settings.RepeatInterval;
@@ -179,9 +209,19 @@ namespace Game.Scripts.Items
         private HandsAction Use(HandsAction action)
         {
             if (action != HandsAction.Take && TryPutOn(PutTarget)) return HandsAction.Put;
-            if (action != HandsAction.Put && TryTake(aim?.Target)) return HandsAction.Take;
+            if (action != HandsAction.Put && aim?.Target is { Container: null } loose && TryTake(loose)) return HandsAction.Take;
 
             return HandsAction.None;
+        }
+
+        private HandsAction TakeFromRack()
+        {
+            if (Count >= Capacity) return HandsAction.None;
+            if (aim?.Target is { Container: Rack } stored) return TryTake(stored) ? HandsAction.TakeFromRack : HandsAction.None;
+            if (ProbeReceiver() is not Rack { Count: > 0 } rack) return HandsAction.None;
+
+            Put(rack.TakeNearest(ViewPosition));
+            return HandsAction.TakeFromRack;
         }
 
         private HandsAction Throw()
@@ -213,11 +253,18 @@ namespace Game.Scripts.Items
         private void UpdatePutTarget()
         {
             var active = Active;
-            var rack = active != null ? ProbeRack() : null;
-            if (rack != null && rack.TryGetNextSlot(active, ViewPosition, out var slot))
+            var receiver = active != null ? ProbeReceiver() : null;
+            if (receiver is Rack rack && rack.TryGetNextSlot(active, ViewPosition, out var slot))
             {
                 PutTarget = rack;
-                rig.ShowGhost(active, rack.SlotRoot, slot);
+                rig.ShowGhost(active, rack.SlotRoot, slot, rack.LayoutFor(active.Def).SlotRotation);
+                return;
+            }
+
+            if (receiver is not Rack && receiver != null && receiver.CanPut(active))
+            {
+                PutTarget = receiver;
+                rig.HideGhost();
                 return;
             }
 
@@ -227,22 +274,23 @@ namespace Game.Scripts.Items
             rig.HideGhost();
         }
 
-        private Rack ProbeRack()
+        private IItemReceiver ProbeReceiver()
         {
             if (view == null) return null;
 
             var count = Physics.RaycastNonAlloc(view.position, view.forward, hits, settings.InteractDistance,
-                Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore);
+                Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
             Array.Sort(hits, 0, count, byDistance);
 
             for (var i = 0; i < count; i++)
             {
                 var entity = hits[i].collider.GetComponentInParent<IEntityAdapter>()?.BaseEntity;
                 if (ReferenceEquals(entity, owner)) continue;
+                if (hits[i].collider.isTrigger && entity is not IItemReceiver) continue;
 
                 return entity switch
                 {
-                    Rack rack => rack,
+                    IItemReceiver receiver => receiver,
                     BaseItem { Container: Rack rack } => rack,
                     _ => null
                 };
