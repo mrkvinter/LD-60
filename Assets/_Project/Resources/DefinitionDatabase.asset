@@ -14,53 +14,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Defs>k__BackingField: []
   <Definitions>k__BackingField:
-  - rid: 3053703757883506743
-  - rid: 3053703757883506744
-  - rid: 3053703757883506745
-  - rid: 3053703757883506746
-  - rid: 3053703757883506747
-  - rid: 3053703757883506748
-  - rid: 3053703757883506749
-  - rid: 3053703757883506750
-  - rid: 3053703757883506751
-  - rid: 3053703757883506752
-  - rid: 3053703757883506753
-  - rid: 3053703757883506754
-  - rid: 3053703757883506755
-  - rid: 3053703757883506756
-  - rid: 3053703757883506757
-  - rid: 3053703757883506758
-  - rid: 3053703757883506759
-  - rid: 3053703757883506760
-  - rid: 3053703757883506761
-  - rid: 3053703757883506762
-  - rid: 3053703757883506763
-  - rid: 3053703757883506764
-  - rid: 3053703757883506765
-  - rid: 3053703757883506766
-  - rid: 3053703757883506767
-  - rid: 3053703757883506768
-  - rid: 3053703757883506769
-  - rid: 3053703757883506770
-  - rid: 3053703757883506771
-  - rid: 3053703757883506772
-  - rid: 3053703757883506773
-  - rid: 3053703757883506774
-  - rid: 3053703757883506775
-  - rid: 3053703757883506776
-  - rid: 3053703757883506777
-  - rid: 3053703757883506778
-  - rid: 3053703757883506779
-  - rid: 3053703757883506780
+  - rid: 3053703757883507005
+  - rid: 3053703757883507006
+  - rid: 3053703757883507007
+  - rid: 3053703757883507008
+  - rid: 3053703757883507009
+  - rid: 3053703757883507010
+  - rid: 3053703757883507011
+  - rid: 3053703757883507012
+  - rid: 3053703757883507013
+  - rid: 3053703757883507014
+  - rid: 3053703757883507015
+  - rid: 3053703757883507016
+  - rid: 3053703757883507017
+  - rid: 3053703757883507018
+  - rid: 3053703757883507019
+  - rid: 3053703757883507020
+  - rid: 3053703757883507021
+  - rid: 3053703757883507022
+  - rid: 3053703757883507023
+  - rid: 3053703757883507024
+  - rid: 3053703757883507025
+  - rid: 3053703757883507026
+  - rid: 3053703757883507027
+  - rid: 3053703757883507028
+  - rid: 3053703757883507029
+  - rid: 3053703757883507030
+  - rid: 3053703757883507031
+  - rid: 3053703757883507032
+  - rid: 3053703757883507033
+  - rid: 3053703757883507034
+  - rid: 3053703757883507035
+  - rid: 3053703757883507036
+  - rid: 3053703757883507037
+  - rid: 3053703757883507038
+  - rid: 3053703757883507039
+  - rid: 3053703757883507040
+  - rid: 3053703757883507041
+  - rid: 3053703757883507042
+  - rid: 3053703757883507043
   references:
     version: 2
     RefIds:
-    - rid: 3053703757883506743
+    - rid: 3053703757883507005
       type: {class: GameAppSetting, ns: Game.Main.Settings, asm: Game.Main}
       data:
         <Id>k__BackingField: 
         GameScene: Game
-    - rid: 3053703757883506744
+    - rid: 3053703757883507006
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Bridge
@@ -69,7 +70,7 @@ MonoBehaviour:
         - Resource:
             id: Wood
           Count: 6
-    - rid: 3053703757883506745
+    - rid: 3053703757883507007
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Cabinet
@@ -81,7 +82,7 @@ MonoBehaviour:
         - Resource:
             id: Steel
           Count: 7
-    - rid: 3053703757883506746
+    - rid: 3053703757883507008
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Pallet
@@ -90,7 +91,7 @@ MonoBehaviour:
         - Resource:
             id: Wood
           Count: 6
-    - rid: 3053703757883506747
+    - rid: 3053703757883507009
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Portal Cable Left
@@ -99,7 +100,7 @@ MonoBehaviour:
         - Resource:
             id: Rubber
           Count: 5
-    - rid: 3053703757883506748
+    - rid: 3053703757883507010
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Portal Cable Right
@@ -108,7 +109,7 @@ MonoBehaviour:
         - Resource:
             id: Rubber
           Count: 5
-    - rid: 3053703757883506749
+    - rid: 3053703757883507011
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Stairs
@@ -117,7 +118,7 @@ MonoBehaviour:
         - Resource:
             id: Steel
           Count: 13
-    - rid: 3053703757883506750
+    - rid: 3053703757883507012
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Teleport Control Panel
@@ -132,7 +133,7 @@ MonoBehaviour:
         - Resource:
             id: Rubber
           Count: 6
-    - rid: 3053703757883506751
+    - rid: 3053703757883507013
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Barrel
@@ -146,7 +147,7 @@ MonoBehaviour:
           Spacing: {x: 0.725, y: 1.011, z: 0.725}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506752
+    - rid: 3053703757883507014
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: BlueCrystal
@@ -160,7 +161,7 @@ MonoBehaviour:
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506753
+    - rid: 3053703757883507015
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Box
@@ -174,7 +175,7 @@ MonoBehaviour:
           Spacing: {x: 1, y: 1, z: 1}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506754
+    - rid: 3053703757883507016
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Display
@@ -188,7 +189,7 @@ MonoBehaviour:
           Spacing: {x: 0.72, y: 0.75, z: 0.6}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506755
+    - rid: 3053703757883507017
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: EnergyDrink
@@ -202,7 +203,7 @@ MonoBehaviour:
           Spacing: {x: 0.17, y: 0.315, z: 0.17}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506756
+    - rid: 3053703757883507018
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: FanFanDrink
@@ -216,7 +217,7 @@ MonoBehaviour:
           Spacing: {x: 0.17, y: 0.315, z: 0.17}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506757
+    - rid: 3053703757883507019
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: FirstAidKit
@@ -230,7 +231,7 @@ MonoBehaviour:
           Spacing: {x: 0.7, y: 0.25, z: 0.46}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 90, z: 0}
-    - rid: 3053703757883506758
+    - rid: 3053703757883507020
       type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Gear
@@ -244,7 +245,7 @@ MonoBehaviour:
           Spacing: {x: 0.6, y: 0.072, z: 0.6}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506759
+    - rid: 3053703757883507021
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: GreenBarrel
@@ -258,7 +259,7 @@ MonoBehaviour:
           Spacing: {x: 0.725, y: 1.011, z: 0.725}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506760
+    - rid: 3053703757883507022
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: GreenCrystal
@@ -272,7 +273,7 @@ MonoBehaviour:
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506761
+    - rid: 3053703757883507023
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Phone
@@ -286,7 +287,7 @@ MonoBehaviour:
           Spacing: {x: 0.24, y: 0.65, z: 0.32}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506762
+    - rid: 3053703757883507024
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: PurpleCrystal
@@ -300,7 +301,7 @@ MonoBehaviour:
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506763
+    - rid: 3053703757883507025
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: RedBarrel
@@ -314,7 +315,7 @@ MonoBehaviour:
           Spacing: {x: 0.725, y: 1.011, z: 0.725}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506764
+    - rid: 3053703757883507026
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: RedCrystal
@@ -328,7 +329,7 @@ MonoBehaviour:
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506765
+    - rid: 3053703757883507027
       type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Rubber
@@ -342,7 +343,7 @@ MonoBehaviour:
           Spacing: {x: 0.48, y: 1.25, z: 1}
           Offset: {x: 0.216, y: 0.594, z: 0}
           Rotation: {x: 0, y: 0, z: 90}
-    - rid: 3053703757883506766
+    - rid: 3053703757883507028
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: SpiretDrink
@@ -356,7 +357,7 @@ MonoBehaviour:
           Spacing: {x: 0.17, y: 0.315, z: 0.17}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506767
+    - rid: 3053703757883507029
       type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Steel
@@ -370,7 +371,7 @@ MonoBehaviour:
           Spacing: {x: 0.34, y: 0.14, z: 0.6}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506768
+    - rid: 3053703757883507030
       type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Wood
@@ -384,7 +385,7 @@ MonoBehaviour:
           Spacing: {x: 0.35, y: 0.34, z: 0.65}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506769
+    - rid: 3053703757883507031
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: YellowCrystal
@@ -398,7 +399,7 @@ MonoBehaviour:
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 3053703757883506770
+    - rid: 3053703757883507032
       type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Note01
@@ -407,7 +408,7 @@ MonoBehaviour:
         ButtonText: 
         ButtonActions:
           Actions: []
-    - rid: 3053703757883506771
+    - rid: 3053703757883507033
       type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Note02
@@ -416,7 +417,7 @@ MonoBehaviour:
         ButtonText: OK?
         ButtonActions:
           Actions: []
-    - rid: 3053703757883506772
+    - rid: 3053703757883507034
       type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Note03
@@ -425,7 +426,7 @@ MonoBehaviour:
         ButtonText: 
         ButtonActions:
           Actions: []
-    - rid: 3053703757883506773
+    - rid: 3053703757883507035
       type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Note_FakeLast
@@ -441,7 +442,7 @@ MonoBehaviour:
           Actions:
           - Id: RestartGameAction
             Args: '{}'
-    - rid: 3053703757883506774
+    - rid: 3053703757883507036
       type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Note_HeAteUs
@@ -452,7 +453,7 @@ MonoBehaviour:
         ButtonText: What?
         ButtonActions:
           Actions: []
-    - rid: 3053703757883506775
+    - rid: 3053703757883507037
       type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Note_Last
@@ -479,7 +480,7 @@ MonoBehaviour:
           Actions:
           - Id: RestartGameAction
             Args: '{}'
-    - rid: 3053703757883506776
+    - rid: 3053703757883507038
       type: {class: ConstructionSettingsDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
@@ -488,7 +489,12 @@ MonoBehaviour:
         LabelHeight: 0.3
         LabelFontSize: 2
         DoneColor: {r: 0.55, g: 1, b: 0.55, a: 1}
-    - rid: 3053703757883506777
+    - rid: 3053703757883507039
+      type: {class: HudSettingsDef, ns: Game.Scripts.UI, asm: Game.Scripts}
+      data:
+        <Id>k__BackingField: 
+        PopupFont: {fileID: 11400000, guid: 854764f9139de6c4caf5a9c27c990ddd, type: 2}
+    - rid: 3053703757883507040
       type: {class: ItemSettingsDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
@@ -498,7 +504,7 @@ MonoBehaviour:
         FlightDuration: 0.25
         SwapDuration: 0.15
         GhostMaterial: {fileID: 2100000, guid: af9344759d6e12c498b7ef4c2493668d, type: 2}
-    - rid: 3053703757883506778
+    - rid: 3053703757883507041
       type: {class: PlayerSettingsDef, ns: Game.Scripts.Player, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
@@ -507,7 +513,7 @@ MonoBehaviour:
         RepeatInterval: 0.15
         ThrowSpeed: 3.5
         StartAbilities: 
-    - rid: 3053703757883506779
+    - rid: 3053703757883507042
       type: {class: UpgradeSettingsDef, ns: Game.Scripts.Upgrades, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
@@ -543,7 +549,7 @@ MonoBehaviour:
         - Cost: 2
           Amount: 13
           Cooldown: 25
-    - rid: 3053703757883506780
+    - rid: 3053703757883507043
       type: {class: WidgetProps, ns: Game.UI.Base, asm: Game.UI}
       data:
         <Id>k__BackingField: BlackScreen

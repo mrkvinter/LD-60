@@ -24,10 +24,6 @@
 *.blend1
 *.blend1.meta
 
-# Blender source files are kept out of the repo
-*.blend
-*.blend.meta
-
 # Backup files (Krita, text editors) ending with ~
 *~
 

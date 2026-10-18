@@ -18,9 +18,9 @@ using UnityEngine.UI;
 namespace Game.Scripts.Upgrades
 {
     /// <summary>
-    /// Screen overlay built in code: the name of what the crosshair is on, a popup for earned points and the upgrade
-    /// panel on Tab. While the panel is open the cursor is free and the player stands still. Points and ability hints
-    /// are on the note in the hand (TipsView).
+    /// Screen overlay: the name of what the crosshair is on, a popup for earned points and the upgrade panel on Tab
+    /// (the UpgradePanel prefab from HudSettingsDef). While the panel is open the cursor is free and the player stands
+    /// still. Points and ability hints are on the note in the hand (TipsView).
     /// </summary>
     public sealed class UpgradeHud : MonoBehaviour
     {
@@ -40,9 +40,6 @@ namespace Game.Scripts.Upgrades
 
         private readonly RaycastHit[] hits = new RaycastHit[16];
         private readonly List<InputAction> actions = new();
-        private readonly TMP_Text[] rowTexts = new TMP_Text[4];
-        private readonly Button[] rowButtons = new Button[4];
-        private readonly TMP_Text[] rowButtonTexts = new TMP_Text[4];
 
         private UpgradeService upgrades;
         private CursorService cursor;
@@ -53,12 +50,13 @@ namespace Game.Scripts.Upgrades
         private Transform view;
 
         private TMP_Text hoverText;
-        private TMP_Text panelTitle;
-        private GameObject panel;
+        private UpgradePanelView panel;
         private TMP_Text pointsText;
         private CanvasGroup pointsPopup;
         private Sequence pointsFade;
         private int pointsShown;
+
+        private bool IsPanelOpen => panel != null && panel.gameObject.activeSelf;
 
         private void Awake()
         {
@@ -67,6 +65,7 @@ namespace Game.Scripts.Upgrades
             playerSettings = DefManager.GetSingletonDef<PlayerSettingsDef>();
 
             BuildCanvas();
+            CreatePanel();
             upgrades.PointsEarned += ShowPointsEarned;
 
             Bind("<Keyboard>/tab", TogglePanel);
@@ -75,7 +74,7 @@ namespace Game.Scripts.Upgrades
                 var kind = kinds[i];
                 Bind($"<Keyboard>/{i + 1}", () =>
                 {
-                    if (panel.activeSelf) upgrades.TryBuy(kind);
+                    if (IsPanelOpen) upgrades.TryBuy(kind);
                 });
             }
         }
@@ -88,7 +87,7 @@ namespace Game.Scripts.Upgrades
             upgrades.PointsEarned -= ShowPointsEarned;
             pointsFade?.Kill();
 
-            if (panel != null && panel.activeSelf) ClosePanel();
+            if (IsPanelOpen) ClosePanel();
         }
 
         private void Update()
@@ -96,7 +95,7 @@ namespace Game.Scripts.Upgrades
             if (player == null && !FindPlayer()) return;
 
             hoverText.text = DescribeAimed();
-            if (panel.activeSelf) RefreshPanel();
+            if (IsPanelOpen) RefreshPanel();
         }
 
         private bool FindPlayer()
@@ -158,15 +157,23 @@ namespace Game.Scripts.Upgrades
 
         private void RefreshPanel()
         {
-            panelTitle.text = $"Upgrades    points: {upgrades.Points}";
-            for (var i = 0; i < kinds.Length; i++)
+            if (panel.Title != null) panel.Title.text = $"Upgrades    points: {upgrades.Points}";
+
+            for (var i = 0; i < kinds.Length && i < panel.Rows.Count; i++)
             {
+                var row = panel.Rows[i];
+                if (row == null) continue;
+
                 var kind = kinds[i];
                 var next = upgrades.Next(kind);
-                rowTexts[i].text = $"{i + 1}. {titles[kind]}   Lv {upgrades.Level(kind)}/{upgrades.MaxLevel(kind)}\n" +
-                                   $"<size=80%>{Describe(kind, upgrades.Current(kind))}  >  {Describe(kind, next)}</size>";
-                rowButtons[i].interactable = upgrades.CanBuy(kind);
-                rowButtonTexts[i].text = next == null ? "Max" : $"Buy ({next.Cost})";
+                if (row.Text != null)
+                {
+                    row.Text.text = $"{i + 1}. {titles[kind]}   Lv {upgrades.Level(kind)}/{upgrades.MaxLevel(kind)}\n" +
+                                    $"<size=80%>{Describe(kind, upgrades.Current(kind))}  >  {Describe(kind, next)}</size>";
+                }
+
+                if (row.BuyButton != null) row.BuyButton.interactable = upgrades.CanBuy(kind);
+                if (row.BuyLabel != null) row.BuyLabel.text = next == null ? "Max" : $"Buy ({next.Cost})";
             }
         }
 
@@ -197,13 +204,15 @@ namespace Game.Scripts.Upgrades
         // Another window (a note) holding the player keeps the panel shut: both would fight over the cursor.
         private void TogglePanel()
         {
-            if (panel.activeSelf) ClosePanel();
+            if (panel == null) return;
+
+            if (IsPanelOpen) ClosePanel();
             else if (input is not { IsBlocked: true }) OpenPanel();
         }
 
         private void OpenPanel()
         {
-            panel.SetActive(true);
+            panel.gameObject.SetActive(true);
             if (input != null) input.IsBlocked = true;
             cursor.ReleaseLock();
             RefreshPanel();
@@ -211,7 +220,7 @@ namespace Game.Scripts.Upgrades
 
         private void ClosePanel()
         {
-            panel.SetActive(false);
+            panel.gameObject.SetActive(false);
             if (input != null) input.IsBlocked = false;
             cursor.RequestLock();
         }
@@ -246,40 +255,26 @@ namespace Game.Scripts.Upgrades
             pointsPopup.alpha = 0f;
             pointsPopup.interactable = false;
             pointsPopup.blocksRaycasts = false;
+        }
 
-            panel = new GameObject("Panel", typeof(RectTransform), typeof(Image));
-            panel.transform.SetParent(transform, false);
-            panel.GetComponent<Image>().color = new Color(0.05f, 0.07f, 0.1f, 0.88f);
-            Place((RectTransform)panel.transform, new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(980f, 560f), new Vector2(0.5f, 0.5f));
-
-            panelTitle = Text(panel.transform, "Title", 40, TextAlignmentOptions.Top);
-            Place(panelTitle.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -24f), new Vector2(900f, 60f), new Vector2(0.5f, 1f));
-
-            for (var i = 0; i < kinds.Length; i++)
+        private void CreatePanel()
+        {
+            var prefab = DefManager.GetSingletonDef<HudSettingsDef>().UpgradePanel;
+            panel = prefab != null ? Instantiate(prefab, transform).GetComponent<UpgradePanelView>() : null;
+            if (panel == null)
             {
-                var y = -110f - i * 100f;
-                rowTexts[i] = Text(panel.transform, $"Row {i + 1}", 28, TextAlignmentOptions.MidlineLeft);
-                Place(rowTexts[i].rectTransform, new Vector2(0f, 1f), new Vector2(40f, y), new Vector2(680f, 90f), new Vector2(0f, 1f));
-
-                var kind = kinds[i];
-                var button = new GameObject($"Buy {i + 1}", typeof(RectTransform), typeof(Image), typeof(Button));
-                button.transform.SetParent(panel.transform, false);
-                button.GetComponent<Image>().color = new Color(0.25f, 0.55f, 0.85f, 1f);
-                Place((RectTransform)button.transform, new Vector2(1f, 1f), new Vector2(-40f, y - 15f), new Vector2(200f, 60f), new Vector2(1f, 1f));
-                rowButtons[i] = button.GetComponent<Button>();
-                rowButtons[i].onClick.AddListener(() => upgrades.TryBuy(kind));
-                rowButtonTexts[i] = Text(button.transform, "Label", 28, TextAlignmentOptions.Center);
-                var labelRect = rowButtonTexts[i].rectTransform;
-                labelRect.anchorMin = Vector2.zero;
-                labelRect.anchorMax = Vector2.one;
-                labelRect.offsetMin = labelRect.offsetMax = Vector2.zero;
+                Debug.LogError($"{nameof(HudSettingsDef)}.{nameof(HudSettingsDef.UpgradePanel)} has no {nameof(UpgradePanelView)}; Tab opens nothing.");
+                return;
             }
 
-            var hint = Text(panel.transform, "Hint", 24, TextAlignmentOptions.Bottom);
-            hint.text = "Fill a rack with trash to earn a point.   1-4 or click to buy,   Tab to close.";
-            Place(hint.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 20f), new Vector2(900f, 40f), new Vector2(0.5f, 0f));
+            for (var i = 0; i < kinds.Length && i < panel.Rows.Count; i++)
+            {
+                var kind = kinds[i];
+                var button = panel.Rows[i] != null ? panel.Rows[i].BuyButton : null;
+                if (button != null) button.onClick.AddListener(() => upgrades.TryBuy(kind));
+            }
 
-            panel.SetActive(false);
+            panel.gameObject.SetActive(false);
         }
 
         private static TMP_Text Text(Transform parent, string name, float size, TextAlignmentOptions alignment)
