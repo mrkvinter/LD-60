@@ -1,0 +1,42 @@
+The old laboratory wing has been sealed for years. Now it's your job to put it back in order. No one has set foot here in a long time, but you're the one who has to clean it up. Why? That's for you to find out. Along with why your fingers look so... appetizing.
+
+**▶ [Play in the browser on itch.io](https://mrkvinter.itch.io/the-last-overtime)**
+
+![02-red-door.png](///raw/969/d/z/73b3b.png)
+
+> **ASSIGNMENT**
+>
+> Clear the building of clutter and put everything in its proper place.
+>
+> Large items go on the pallets; small ones go on the shelves.
+>
+> Resources are stored separately, by the entrance.
+>
+> Some of the furniture has been destroyed. Repair it with whatever resources you find in the lab.
+>
+> **WARNING! UNDER NO CIRCUMSTANCES ARE YOU TO REPAIR THE TELEPORTER.**
+>
+> — Management
+
+![01-portal.png](///raw/969/d/z/73b39.png)
+
+## Your Shift
+
+- Sort items onto the shelves and pallets
+- Build and repair with the resources you find
+- Upgrade your abilities
+- Read the notes left behind
+- Don't repair the teleporter
+
+![03-shelves.png](///raw/969/d/z/73b3d.png)
+
+## Controls
+
+- **WASD** — Walk
+- **Mouse** — Look
+- **LMB** — Pick up / Put
+- **RMB** — Take from shelf
+- **G** — Throw
+- **TAB** — Upgrade
+
+![04-corridor.png](///raw/969/d/z/73b3e.png)

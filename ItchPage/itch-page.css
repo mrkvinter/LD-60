@@ -1,26 +1,9 @@
-/* Fonts straight from Google's servers (Latin). @import gets dropped on itch.io,
-   @font-face does not. Barlow and Saira Stencil One are also picked in the theme panel. */
-@font-face { font-family: "Saira Stencil One"; font-style: normal; font-weight: 400; font-display: swap;
-  src: url(https://fonts.gstatic.com/s/sairastencilone/v19/SLXSc03I6HkvZGJ1GvvipLoYSTEL9DsLYQk.woff2) format("woff2"); }
-@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 500; font-display: swap;
-  src: url(https://fonts.gstatic.com/s/barlowcondensed/v13/HTxwL3I-JCGChYJ8VI-L6OO_au7B4-Lwz3bWuQ.woff2) format("woff2"); }
-@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 600; font-display: swap;
-  src: url(https://fonts.gstatic.com/s/barlowcondensed/v13/HTxwL3I-JCGChYJ8VI-L6OO_au7B4873z3bWuQ.woff2) format("woff2"); }
-@font-face { font-family: "Barlow Condensed"; font-style: normal; font-weight: 700; font-display: swap;
-  src: url(https://fonts.gstatic.com/s/barlowcondensed/v13/HTxwL3I-JCGChYJ8VI-L6OO_au7B46r2z3bWuQ.woff2) format("woff2"); }
-@font-face { font-family: "Barlow"; font-style: normal; font-weight: 400; font-display: swap;
-  src: url(https://fonts.gstatic.com/s/barlow/v13/7cHpv4kjgoGqM7E_DMs5.woff2) format("woff2"); }
-@font-face { font-family: "Barlow"; font-style: italic; font-weight: 400; font-display: swap;
-  src: url(https://fonts.gstatic.com/s/barlow/v13/7cHrv4kjgoGqM7E_Cfs7wH8.woff2) format("woff2"); }
-@font-face { font-family: "Barlow"; font-style: normal; font-weight: 600; font-display: swap;
-  src: url(https://fonts.gstatic.com/s/barlow/v13/7cHqv4kjgoGqM7E30-8s51os.woff2) format("woff2"); }
-@font-face { font-family: "Caveat"; font-style: normal; font-weight: 400 700; font-display: swap;
-  src: url(https://fonts.gstatic.com/s/caveat/v23/Wnz6HAc5bAfYB2Q7ZjYY.woff2) format("woff2"); }
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:ital,wght@0,400;0,600;1,400&family=Caveat:wght@400;700&family=Saira+Stencil+One&display=swap");
 
 /* =========================================================
    THE LAST OVERTIME — itch.io page theme
-   Paste into: Edit theme -> Custom CSS
-   Wall texture: upload LabWall_basecolor.png as the theme Background.
+   itch.io keeps only the first 16384 characters of Custom CSS:
+   paste itch-page.min.css (made by minify.py), not this file.
    Everything is scoped to #wrapper (itch.io rule).
    ========================================================= */
 
@@ -88,19 +71,10 @@
 
 /* ---------- page column ---------- */
 
-/* the column carries its own copy of the wall that scrolls with the page:
-   a fixed wall behind the title looks like a window when you scroll.
-   Only the title area shows it, the content panel below is opaque. */
 #wrapper #inner_column {
   color: var(--lo-text);
   font-family: var(--lo-font-body);
-  background-color: transparent;
-  background-image: inherit;
-  background-repeat: repeat;
-  background-size: 512px 512px;
-  background-position: calc(50% + 128px) 0;
-  background-attachment: scroll;
-  image-rendering: pixelated;
+  background: var(--lo-panel);
   border: 1px solid #000;
   box-shadow: 0 30px 90px rgba(0, 0, 0, .85);
 }
@@ -118,11 +92,14 @@
   position: relative;
   padding: 64px 24px 50px;
   text-align: center;
-  /* lamp light, dark corners and an overall shade on the wall */
+  /* lamp light, dark corners and a shade over the same wall texture.
+     It scrolls with the title: a fixed wall here looks like a window. */
   background:
     radial-gradient(ellipse 55% 100% at 50% 0%, rgba(255, 200, 80, .2), transparent 75%),
     radial-gradient(ellipse 85% 130% at 50% 25%, transparent 45%, rgba(0, 0, 0, .5) 100%),
-    linear-gradient(rgba(10, 7, 3, .6), rgba(10, 7, 3, .6));
+    linear-gradient(rgba(10, 7, 3, .6), rgba(10, 7, 3, .6)),
+    url("https://img.itch.zone/aW1nLzMxMDUzMDI3LnBuZw==/original/%2Fl5uOL.png") calc(50% + 128px) 0 / 512px 512px repeat;
+  image-rendering: pixelated;
 }
 
 #wrapper #header::after {
@@ -172,7 +149,7 @@
 #wrapper #header:not(.has_image) .game_title { display: block; }
 
 /* banner image, if you upload one later */
-#wrapper #header img { display: block; margin: 0 auto; max-width: 100%; }
+#wrapper #header img { display: block; margin: 0 auto; max-width: 100%; image-rendering: auto; }
 
 /* ---------- buy / download row on top ---------- */
 
@@ -355,7 +332,7 @@
   box-shadow: 0 12px 30px rgba(0, 0, 0, .6);
 }
 
-/* the wall texture sits in the description only to get it uploaded: hide it.
+/* the wall texture stays in the description so itch.io keeps the upload: hide it.
    Separate rules on purpose: a browser without :has() would drop the whole list. */
 #wrapper .custom-hidden { display: none; }
 #wrapper .formatted_description img[src*="l5uOL.png"] { display: none; }
@@ -385,34 +362,40 @@
     0 0 60px rgba(255, 210, 26, .1);
 }
 
-#wrapper .formatted_description blockquote p { margin: 0 0 10px; }
 #wrapper #inner_column blockquote a { color: #b03a00; }
 
+/* itch.io flattens a quote into lines with <br>, so the parts of a note are
+   <span class="custom-note-...">, and the warning is <strong>.
+   If even those get stripped, the first line still reads as a title. */
+#wrapper .formatted_description blockquote::first-line { font-size: 1.25em; text-transform: uppercase; }
+
 #wrapper .custom-note-title {
+  display: block;
+  margin-bottom: 10px;
   font-size: 32px;
   text-align: center;
   text-transform: uppercase;
 }
 
-#wrapper .custom-note-sub {
-  margin-top: -10px;
-  font-size: 19px;
-  text-align: center;
-  opacity: .75;
-}
-
 #wrapper .custom-note-sign {
+  display: block;
+  margin-top: 8px;
   text-align: right;
   font-size: 23px;
 }
 
 /* written in red pen */
-#wrapper .formatted_description blockquote .custom-note-warning {
-  margin: 16px 0 12px;
+#wrapper .formatted_description blockquote strong {
+  display: block;
+  margin: 14px 0 6px;
   font-weight: 700;
   color: #c4150a;
   transform: rotate(-1deg);
 }
+
+/* a <br> right after a block would leave an empty line */
+#wrapper .formatted_description blockquote .custom-note-title + br,
+#wrapper .formatted_description blockquote strong + br { display: none; }
 
 /* list item that is a warning: red lamp instead of yellow */
 #wrapper .formatted_description ul li.custom-warn { color: var(--lo-red); font-weight: 600; }
@@ -430,8 +413,38 @@
   transform: rotate(1.6deg);
 }
 
-#wrapper .formatted_description blockquote.custom-card p { margin: 0 0 2px; }
-#wrapper .formatted_description blockquote.custom-card .custom-note-title { margin-bottom: 14px; text-align: center; }
+#wrapper .formatted_description blockquote.custom-card .custom-note-title { margin-bottom: 12px; }
+
+/* big "Rate game" button: a plain link, itch.io strips its own .button class */
+#wrapper #inner_column a.custom-rate {
+  display: inline-block;
+  margin: 18px 0 6px;
+  padding: 16px 44px 14px;
+  background: var(--lo-yellow);
+  border: 2px solid #000;
+  border-radius: 2px;
+  font-family: var(--lo-font-label);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--lo-black);
+  box-shadow: 0 6px 0 #000, 0 0 30px var(--lo-yellow-glow);
+  transition: background-color .15s, box-shadow .15s, transform .08s;
+}
+
+#wrapper #inner_column a.custom-rate:hover {
+  background: var(--lo-yellow-hot);
+  color: #000;
+  box-shadow: 0 6px 0 #000, 0 0 44px rgba(255, 210, 26, .7);
+}
+
+#wrapper #inner_column a.custom-rate:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #000, 0 0 20px var(--lo-yellow-glow);
+}
 
 /* "made for Ludum Dare" stamp */
 #wrapper .custom-center { text-align: center; }
@@ -575,8 +588,7 @@
 
 @media (max-width: 700px) {
   #wrapper { background-size: 384px 384px; }
-  #wrapper #inner_column { background-size: 384px 384px; background-position: calc(50% + 96px) 0; }
-  #wrapper #header { padding: 44px 16px 38px; }
+  #wrapper #header { padding: 44px 16px 38px; background-size: auto, auto, auto, 384px 384px; background-position: 0 0, 0 0, 0 0, calc(50% + 96px) 0; }
   #wrapper #header .game_title { font-size: 46px; }
   #wrapper #header .game_title::before { font-size: 12px; letter-spacing: .3em; }
   #wrapper .formatted_description blockquote { padding: 22px 22px 20px; font-size: 23px; }
