@@ -19,6 +19,8 @@ namespace Game.Scripts.Upgrades
 
         public event Action Changed;
         public event Action<int> PointsEarned;
+        public event Action<Rack> RackFilled;
+        public event Action<UpgradeKind, int, int> Bought;
 
         public UpgradeService(UpgradeSettingsDef settings)
         {
@@ -59,9 +61,11 @@ namespace Game.Scripts.Upgrades
         {
             if (!CanBuy(kind)) return false;
 
-            Points -= Next(kind).Cost;
+            var cost = Next(kind).Cost;
+            Points -= cost;
             levels[kind] = Level(kind) + 1;
             Changed?.Invoke();
+            Bought?.Invoke(kind, levels[kind], cost);
             return true;
         }
 
@@ -99,6 +103,7 @@ namespace Game.Scripts.Upgrades
             // Changed even for zero points: the filled rack count moved.
             if (settings.PointsPerFilledRack > 0) AddPoints(settings.PointsPerFilledRack);
             else Changed?.Invoke();
+            RackFilled?.Invoke(rack);
         }
     }
 }

@@ -7,6 +7,7 @@ using Cysharp.Threading.Tasks;
 using Game.Core;
 using Game.Core.Contexts;
 using Game.Main.installers;
+using Game.Scripts.Analytics;
 using Game.Scripts.Construction;
 using Game.Scripts.Items;
 using Game.Scripts.Upgrades;
@@ -57,6 +58,7 @@ namespace Game.Main.GameAppStates
                 builder.Register<SortingProgress>(Lifetime.Singleton);
                 builder.Register<ResourceStorage>(Lifetime.Singleton);
                 builder.Register<ConstructionProgress>(Lifetime.Singleton);
+                builder.Register<AnalyticsTracker>(Lifetime.Singleton);
                 builder.Register(_ => new UpgradeService(DefManager.GetSingletonDef<UpgradeSettingsDef>()), Lifetime.Singleton);
                 builder.Register<ItemSpawner>(Lifetime.Singleton);
 
@@ -98,6 +100,7 @@ namespace Game.Main.GameAppStates
 
             LifetimeScope.Container.Resolve<ItemSpawner>().Spawn();
             new GameObject(nameof(UpgradeHud)).AddComponent<UpgradeHud>();
+            LifetimeScope.Container.Resolve<AnalyticsTracker>().Start();
 
             LifetimeScope.Container.Resolve<ActionExecutorSystem>();
             LifetimeScope.Container.Resolve<CursorService>();

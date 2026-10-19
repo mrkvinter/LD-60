@@ -20,19 +20,19 @@
   ],
   "Highlight": [
     {
-      "Cost": 2,
+      "Cost": 1,
       "Amount": 7.0,
       "Cooldown": 35.0
     },
     {
-      "Cost": 1,
+      "Cost": 2,
       "Amount": 12.0,
       "Cooldown": 25.0
     }
   ],
   "Distribute": [
     {
-      "Cost": 3,
+      "Cost": 2,
       "Amount": 0.0,
       "Cooldown": 60.0
     },

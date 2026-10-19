@@ -26,6 +26,8 @@ namespace Game.Scripts.Upgrades
     {
         private const float PointsFadeTime = 0.2f;
         private const float PointsHoldTime = 2f;
+        private const float RefuseHoldTime = 1.2f;
+        private static readonly Color refuseColor = new(0.9f, 0.22f, 0.2f, 1f);
 
         private static readonly UpgradeKind[] kinds =
             { UpgradeKind.HandsCapacity, UpgradeKind.Highlight, UpgradeKind.Distribute, UpgradeKind.Pull };
@@ -46,6 +48,7 @@ namespace Game.Scripts.Upgrades
         private PlayerSettingsDef playerSettings;
         private Entity player;
         private AimComponent aim;
+        private ItemHandsComponent hands;
         private PlayerInputComponent input;
         private Transform view;
 
@@ -55,6 +58,9 @@ namespace Game.Scripts.Upgrades
         private CanvasGroup pointsPopup;
         private Sequence pointsFade;
         private int pointsShown;
+        private TMP_Text refuseText;
+        private CanvasGroup refusePopup;
+        private Sequence refuseFade;
 
         private bool IsPanelOpen => panel != null && panel.gameObject.activeSelf;
 
@@ -86,6 +92,8 @@ namespace Game.Scripts.Upgrades
 
             upgrades.PointsEarned -= ShowPointsEarned;
             pointsFade?.Kill();
+            if (hands != null) hands.PutRefused -= ShowPutRefused;
+            refuseFade?.Kill();
 
             if (IsPanelOpen) ClosePanel();
         }
@@ -105,6 +113,8 @@ namespace Game.Scripts.Upgrades
 
             player = adapter.Entity;
             aim = player.GetComponent<AimComponent>();
+            hands = player.GetComponent<ItemHandsComponent>();
+            if (hands != null) hands.PutRefused += ShowPutRefused;
             input = player.GetComponent<PlayerInputComponent>();
             view = player.GetComponent<CameraAnchorComponent>()?.Transform;
             return true;
@@ -153,6 +163,19 @@ namespace Game.Scripts.Upgrades
                 .AppendInterval(PointsHoldTime)
                 .Append(DOTween.To(() => pointsPopup.alpha, value => pointsPopup.alpha = value, 0f, PointsFadeTime * 2f))
                 .OnComplete(() => pointsShown = 0);
+        }
+
+        private void ShowPutRefused(IItemReceiver receiver, BaseItem item)
+        {
+            refuseText.text = PutRefusal.Describe(receiver, item);
+
+            refuseFade?.Kill();
+            refuseText.rectTransform.localScale = Vector3.one;
+            refuseFade = DOTween.Sequence()
+                .Append(DOTween.To(() => refusePopup.alpha, value => refusePopup.alpha = value, 1f, PointsFadeTime * 0.5f))
+                .Join(refuseText.rectTransform.DOPunchScale(Vector3.one * 0.12f, 0.25f, 6))
+                .AppendInterval(RefuseHoldTime)
+                .Append(DOTween.To(() => refusePopup.alpha, value => refusePopup.alpha = value, 0f, PointsFadeTime * 2f));
         }
 
         private void RefreshPanel()
@@ -255,6 +278,15 @@ namespace Game.Scripts.Upgrades
             pointsText = Text(transform, "Points Popup", 56, TextAlignmentOptions.Top);
             Place(pointsText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -120f), new Vector2(900f, 160f), new Vector2(0.5f, 1f));
             if (popupFont != null) pointsText.font = popupFont;
+
+            refuseText = Text(transform, "Refuse Popup", 28, TextAlignmentOptions.Top);
+            Place(refuseText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -80f), new Vector2(1200f, 50f), new Vector2(0.5f, 1f));
+            refuseText.color = refuseColor;
+            if (popupFont != null) refuseText.font = popupFont;
+            refusePopup = refuseText.gameObject.AddComponent<CanvasGroup>();
+            refusePopup.alpha = 0f;
+            refusePopup.interactable = false;
+            refusePopup.blocksRaycasts = false;
             pointsPopup = pointsText.gameObject.AddComponent<CanvasGroup>();
             pointsPopup.alpha = 0f;
             pointsPopup.interactable = false;

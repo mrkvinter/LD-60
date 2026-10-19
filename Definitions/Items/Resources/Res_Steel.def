@@ -5,7 +5,7 @@
     "guid": "af526011feb84cf41b370fed8440b157",
     "fileID": 2207567647213034928
   },
-  "SpawnCount": 32,
+  "SpawnCount": 40,
   "HeldScale": 0.4,
   "RackType": 3,
   "RackLayout": {
@@ -20,6 +20,11 @@
       "z": 0.6
     },
     "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "Rotation": {
       "x": 0.0,
       "y": 0.0,
       "z": 0.0

@@ -52,7 +52,7 @@ namespace Code.Game.Editor.Items
 
             var bodies = new List<Rigidbody>();
             var kinds = new Dictionary<Rigidbody, ItemDef>();
-            var placed = new Dictionary<ItemDef, int>();
+            var placed = CountPlacedByHand();
             int steps = 0, missed = 0, lost = 0, rounds = 0;
             while (rounds < MaxRounds)
             {
@@ -234,6 +234,23 @@ namespace Code.Game.Editor.Items
                 Undo.DestroyObjectImmediate(body.gameObject);
                 return true;
             });
+        }
+
+        // Items put in the scene by hand count toward SpawnCount, else each kind ends up one rack's worth plus extras.
+        private static Dictionary<ItemDef, int> CountPlacedByHand()
+        {
+            var placed = new Dictionary<ItemDef, int>();
+            foreach (var adapter in FindInScenes<ItemAdapter>())
+            {
+                if (adapter.GetComponentInParent<BakedItemLayout>(true) != null) continue;
+
+                var id = new SerializedObject(adapter).FindProperty("def").FindPropertyRelative("id").stringValue;
+                if (string.IsNullOrEmpty(id) || DefManager.GetDef<ItemDef>(id) is not { } def) continue;
+
+                placed[def] = placed.TryGetValue(def, out var count) ? count + 1 : 1;
+            }
+
+            return placed;
         }
 
         private static List<T> FindInScenes<T>() where T : Component

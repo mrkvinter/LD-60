@@ -7,7 +7,7 @@
   },
   "SpawnCount": 24,
   "HeldScale": 0.2,
-  "RackType": "Big",
+  "RackType": 1,
   "RackLayout": {
     "Count": {
       "x": 4,
@@ -20,6 +20,11 @@
       "z": 0.725
     },
     "Offset": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0
+    },
+    "Rotation": {
       "x": 0.0,
       "y": 0.0,
       "z": 0.0

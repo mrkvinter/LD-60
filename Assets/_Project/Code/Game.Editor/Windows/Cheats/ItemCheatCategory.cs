@@ -29,7 +29,7 @@ namespace Code.Game.Editor.Cheats
             var progress = CheatServices.Resolve<SortingProgress>();
             var leftovers = new List<BaseItem>();
 
-            foreach (var item in CollectAll(progress))
+            foreach (var item in CollectLooseAndHeld())
             {
                 var rack = FindRack(progress, item);
                 if (rack != null) rack.Put(item, true);
@@ -60,12 +60,19 @@ namespace Code.Game.Editor.Cheats
 
         private static List<BaseItem> CollectAll(SortingProgress progress)
         {
-            var items = LooseItems();
+            var items = CollectLooseAndHeld();
 
             foreach (var rack in progress.Racks)
             {
                 while (rack.Count > 0) items.Add(rack.TakeLast());
             }
+
+            return items;
+        }
+
+        private static List<BaseItem> CollectLooseAndHeld()
+        {
+            var items = LooseItems();
 
             var hands = FindHands();
             while (hands is { Count: > 0 }) items.Add(hands.TakeLast());
@@ -84,11 +91,26 @@ namespace Code.Game.Editor.Cheats
             return loose;
         }
 
+        // A kind gets only the racks its SpawnCount needs; an extra item is scattered rather than taking a whole rack.
         private static Rack FindRack(SortingProgress progress, BaseItem item)
         {
+            var def = item.Def;
+            var racksOfKind = 0;
             foreach (var rack in progress.Racks)
             {
+                if (!Equals(rack.StoredDef, def)) continue;
                 if (rack.CanPut(item)) return rack;
+
+                racksOfKind++;
+            }
+
+            foreach (var rack in progress.Racks)
+            {
+                if (rack.Count > 0 || !rack.CanPut(item)) continue;
+
+                var capacity = rack.LayoutFor(def).Capacity;
+                var needed = capacity > 0 ? Mathf.Max(1, (def.SpawnCount + capacity - 1) / capacity) : 0;
+                if (racksOfKind < needed) return rack;
             }
 
             return null;

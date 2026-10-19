@@ -62,6 +62,7 @@ namespace Game.Scripts.Items
         private Vector3? ViewPosition => view != null ? view.position : null;
 
         public event Action Changed;
+        public event Action<IItemReceiver, BaseItem> PutRefused;
 
         public ItemHandsComponent(Entity owner, IItemHandsRig rig, PlayerSettingsDef settings)
         {
@@ -187,6 +188,11 @@ namespace Game.Scripts.Items
         {
             repeatTimer = settings.RepeatInterval;
             heldAction = Use(HandsAction.None);
+
+            if (heldAction == HandsAction.None && Active is { } active && ProbeReceiver() is { } receiver && !receiver.CanPut(active))
+            {
+                PutRefused?.Invoke(receiver, active);
+            }
         }
 
         private void OnTakeFromRackPressed()

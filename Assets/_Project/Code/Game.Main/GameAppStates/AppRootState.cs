@@ -91,6 +91,7 @@ namespace Game.Main.GameAppStates
                 // builder.Register<GameCheatFlags>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
                 DefInstaller.Install(builder, definitionDatabase);
                 MessagePipeInstaller.Install(builder);
+                AnalyticsInstaller.Install(builder);
             });
 
             return lifetimeScope;

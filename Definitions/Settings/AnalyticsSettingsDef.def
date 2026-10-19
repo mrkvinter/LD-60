@@ -1,0 +1,6 @@
+{
+  "type": "Game.Scripts.Analytics.AnalyticsSettingsDef",
+  "PostHogHost": "https://eu.i.posthog.com",
+  "PostHogApiKey": "phc_yXMaDQpNRVVRzuManQEnJaBF9quvHLWdeh2Jexf7BPc6",
+  "SendFromEditor": false
+}

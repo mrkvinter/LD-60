@@ -1,3 +1,4 @@
+using System;
 using Code.Cursor;
 using Code.Game.Core.ExecutorSystem;
 using DG.Tweening;
@@ -41,6 +42,8 @@ namespace Game.Scripts.UI
 
         public bool IsOpen { get; private set; }
 
+        public event Action<NoteDef> Shown;
+
         private void Awake()
         {
             noteShown = note.anchoredPosition;
@@ -77,6 +80,7 @@ namespace Game.Scripts.UI
             cursor.ReleaseLock();
 
             Slide(handShown + Vector2.down * hideDistance, noteShown, Ease.OutCubic);
+            Shown?.Invoke(def);
             return true;
         }
 
