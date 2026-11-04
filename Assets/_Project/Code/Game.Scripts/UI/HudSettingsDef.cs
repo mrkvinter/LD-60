@@ -9,7 +9,7 @@ namespace Game.Scripts.UI
     public sealed class HudSettingsDef : SingletonDefinition
     {
         public TMP_FontAsset PopupFont;
-        public GameObject UpgradePanel;
+        public GameObject UpgradeHud;
         public GameObject PauseMenu;
         public GameObject ThanksScreen;
     }

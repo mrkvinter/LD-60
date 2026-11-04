@@ -1,9 +1,12 @@
+using Code.Game.Core;
+using Game.Scripts.SaveLoadSystem;
+using Game.Utilities.Extensions;
 using UnityEngine;
 
 namespace Game.Scripts.Player
 {
     /// <summary>Gives the player an ability when they walk into it, then disappears. Not an item.</summary>
-    public sealed class SyringePickup : MonoBehaviour
+    public sealed class SyringePickup : ObjectRegistry.MonoRegistered<SyringePickup>, IPersistent
     {
         private const float PlayerCenterHeight = 0.9f;
 
@@ -24,7 +27,18 @@ namespace Game.Scripts.Player
             if ((center - transform.position).sqrMagnitude > radius * radius) return;
 
             abilities.Unlock(ability);
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+        }
+
+        // Hidden, not destroyed: a picked syringe stays registered to save that it was picked.
+        public void Save(GameSaveData data)
+        {
+            if (!gameObject.activeSelf) data.PickedSyringes.Add(transform.GetHierarchyPath());
+        }
+
+        public void Load(GameSaveData data)
+        {
+            if (data.PickedSyringes.Contains(transform.GetHierarchyPath())) gameObject.SetActive(false);
         }
 
         private void OnDrawGizmosSelected()

@@ -5,6 +5,7 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "Game.Scripts",
+        "Kvintessential.Saves",
         "Kvintessential.Entities",
         "DefinitionSystem.Core",
         "VContainer"

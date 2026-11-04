@@ -1,5 +1,6 @@
 using Code.Game.Core;
 using Game.Scripts.Player;
+using Game.Scripts.SaveLoadSystem;
 using Game.Scripts.UI;
 using KvinterGames;
 using RG.DefinitionSystem.Core;
@@ -8,7 +9,7 @@ using UnityEngine;
 namespace Game.Scripts.Notes
 {
     /// <summary>A note lying in the level: walking into it opens it in the hand, then it disappears. Not an item.</summary>
-    public sealed class NotePickup : MonoBehaviour
+    public sealed class NotePickup : ObjectRegistry.MonoRegistered<NotePickup>, IPersistent
     {
         private const float PlayerCenterHeight = 0.9f;
 
@@ -31,7 +32,18 @@ namespace Game.Scripts.Notes
             if (!view.TryShow(DefManager.GetDef(note))) return;
 
             G.AudioService.Sound("TakeNote").WithRandomPitch(0.05f).Play();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+        }
+
+        // Hidden, not destroyed: a read note stays registered to save that it was read.
+        public void Save(GameSaveData data)
+        {
+            if (!gameObject.activeSelf) data.ReadNotes.Add(note.Id);
+        }
+
+        public void Load(GameSaveData data)
+        {
+            if (data.ReadNotes.Contains(note.Id)) gameObject.SetActive(false);
         }
 
         private void OnDrawGizmosSelected()

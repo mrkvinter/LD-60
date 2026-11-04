@@ -2,16 +2,18 @@ using System;
 using System.Collections.Generic;
 using Game.Scripts.Construction;
 using Game.Scripts.Items;
+using Game.Scripts.SaveLoadSystem;
 
 namespace Game.Scripts.Upgrades
 {
     /// <summary>Points earned by filling racks with trash and by building, and the upgrade levels bought with them.</summary>
-    public sealed class UpgradeService : IDisposable
+    public sealed class UpgradeService : IDisposable, IPersistent
     {
         private readonly UpgradeSettingsDef settings;
         private readonly Dictionary<UpgradeKind, int> levels = new();
         private readonly Dictionary<Rack, Action> racks = new();
         private readonly HashSet<Rack> filled = new();
+        private readonly HashSet<string> loadedFilled = new();
         private readonly Dictionary<ConstructionSite, Action> sites = new();
 
         public int Points { get; private set; }
@@ -80,6 +82,43 @@ namespace Game.Scripts.Upgrades
             PointsEarned?.Invoke(points);
         }
 
+        public void Save(GameSaveData data)
+        {
+            var saved = new SaveData { Points = Points, Levels = new Dictionary<UpgradeKind, int>(levels) };
+            foreach (var rack in filled)
+            {
+                if (rack.Id != null) saved.FilledRacks.Add(rack.Id);
+            }
+
+            data.Upgrades = saved;
+        }
+
+        // Points are set, not added: whatever racks and sites paid while loading is overwritten.
+        public void Load(GameSaveData data)
+        {
+            var saved = data.Upgrades;
+            if (saved == null) return;
+
+            Points = Math.Max(0, saved.Points);
+
+            levels.Clear();
+            foreach (var (kind, level) in saved.Levels ?? new Dictionary<UpgradeKind, int>())
+            {
+                var clamped = Math.Clamp(level, 0, MaxLevel(kind));
+                if (clamped > 0) levels[kind] = clamped;
+            }
+
+            loadedFilled.Clear();
+            loadedFilled.UnionWith(saved.FilledRacks ?? new List<string>());
+            filled.Clear();
+            foreach (var rack in racks.Keys)
+            {
+                if (IsLoadedFilled(rack)) filled.Add(rack);
+            }
+
+            Changed?.Invoke();
+        }
+
         public void Register(Rack rack)
         {
             if (racks.ContainsKey(rack)) return;
@@ -87,8 +126,21 @@ namespace Game.Scripts.Upgrades
             void OnChanged() => CheckFilled(rack);
             racks[rack] = OnChanged;
             rack.Changed += OnChanged;
+
+            // A rack that paid before the save, e.g. one inside a building that loads later.
+            if (IsLoadedFilled(rack)) filled.Add(rack);
             CheckFilled(rack);
         }
+
+        [Serializable]
+        public class SaveData
+        {
+            public int Points;
+            public Dictionary<UpgradeKind, int> Levels = new();
+            public List<string> FilledRacks = new();
+        }
+
+        private bool IsLoadedFilled(Rack rack) => rack.Id != null && loadedFilled.Contains(rack.Id);
 
         public void Register(BuildingDef building, ConstructionSite site)
         {

@@ -4,9 +4,9 @@
     "guid": "854764f9139de6c4caf5a9c27c990ddd",
     "fileID": 11400000
   },
-  "UpgradePanel": {
-    "guid": "ec9edf726ede8ce4a9de873f6d3290c7",
-    "fileID": 3722573825507831972
+  "UpgradeHud": {
+    "guid": "57c389e174c1f14498a42bde2f2638e3",
+    "fileID": 8118549617571024469
   },
   "PauseMenu": {
     "guid": "0c3d0d134eb78ad43b66dc06b14c36db",

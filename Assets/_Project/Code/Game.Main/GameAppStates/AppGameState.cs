@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Code.Cursor;
 using Code.Game.Core;
 using Code.Game.Core.ExecutorSystem;
@@ -35,6 +36,9 @@ namespace Game.Main.GameAppStates
         private Scene scene;
         private AudioService.LoopSound rumble;
 
+        private readonly HashSet<IPersistent> persistents = new();
+        private GameSaveData loaded;
+
         public AppGameState(LifetimeScope parentLifetimeScope)
         {
             this.parentLifetimeScope = parentLifetimeScope;
@@ -58,10 +62,12 @@ namespace Game.Main.GameAppStates
                     .AsImplementedInterfaces().AsSelf();
                 builder.Register<SortingProgress>(Lifetime.Singleton);
                 builder.Register<ResourceStorage>(Lifetime.Singleton);
-                builder.Register<ConstructionProgress>(Lifetime.Singleton);
+                builder.Register<ConstructionProgress>(Lifetime.Singleton).AsSelf().As<IPostLoad>();
                 builder.Register<AnalyticsTracker>(Lifetime.Singleton);
-                builder.Register(_ => new UpgradeService(DefManager.GetSingletonDef<UpgradeSettingsDef>()), Lifetime.Singleton);
-                builder.Register<ItemSpawner>(Lifetime.Singleton);
+                builder.Register(_ => new UpgradeService(DefManager.GetSingletonDef<UpgradeSettingsDef>()), Lifetime.Singleton)
+                    .AsSelf().As<IPersistent>();
+                builder.RegisterEntryPoint<AutoSaveService>().AsSelf();
+                builder.RegisterEntryPoint<UpgradeHud>().AsSelf();
 
                 ExecutorInstaller.Install(builder);
             });
@@ -97,11 +103,15 @@ namespace Game.Main.GameAppStates
                 }
             }
 
-            objectRegistry.OnRegistered += InitMonoRegistry;
+            foreach (var registryObject in objectRegistry.Enumerate())
+            {
+                if (registryObject is IPersistent persistent) persistents.Add(persistent);
+            }
 
-            LifetimeScope.Container.Resolve<ItemSpawner>().Spawn();
-            new GameObject(nameof(UpgradeHud)).AddComponent<UpgradeHud>();
-            LifetimeScope.Container.Resolve<AnalyticsTracker>().Start();
+            persistents.UnionWith(LifetimeScope.Container.ResolveAll<IPersistent>());
+
+            objectRegistry.OnRegistered += InitMonoRegistry;
+            objectRegistry.OnUnregistered += DeinitMonoRegistry;
 
             LifetimeScope.Container.Resolve<ActionExecutorSystem>();
             LifetimeScope.Container.Resolve<CursorService>();
@@ -118,6 +128,11 @@ namespace Game.Main.GameAppStates
             {
                 Load(saveData);
             }
+
+            // After the load, so restoring racks and buildings shows no points popups and sends no analytics.
+            LifetimeScope.Container.Resolve<UpgradeHud>().Start();
+            LifetimeScope.Container.Resolve<AnalyticsTracker>().Start();
+            LifetimeScope.Container.Resolve<AutoSaveService>().Start();
         }
 
         public async UniTask Exit()
@@ -128,7 +143,11 @@ namespace Game.Main.GameAppStates
             if (objectRegistry != null)
             {
                 objectRegistry.OnRegistered -= InitMonoRegistry;
+                objectRegistry.OnUnregistered -= DeinitMonoRegistry;
             }
+
+            persistents.Clear();
+            loaded = null;
 
             if (gameState != null)
             {
@@ -146,7 +165,7 @@ namespace Game.Main.GameAppStates
         public GameSaveData Save()
         {
             var gameSaveData = new GameSaveData();
-            foreach (var persistent in LifetimeScope.Container.ResolveAll<IPersistent>())
+            foreach (var persistent in persistents)
             {
                 persistent.Save(gameSaveData);
             }
@@ -154,20 +173,45 @@ namespace Game.Main.GameAppStates
             return gameSaveData;
         }
 
+        // An object that turns up after the load, e.g. a rack inside a building the save had built, loads on arrival.
         private void InitMonoRegistry(ObjectRegistry.MonoRegistered monoRegistered)
         {
+            if (monoRegistered is IPersistent persistent) persistents.Add(persistent);
+
             UniTask.DelayFrame(1).ContinueWith(() =>
             {
                 monoRegistered.Initialize();
                 monoRegistered.PostInitialize();
+
+                if (loaded == null || monoRegistered is not IPersistent arrived) return;
+
+                arrived.Load(loaded);
+                (arrived as IPostLoad)?.PostLoad();
             }).Forget();
+        }
+
+        private void DeinitMonoRegistry(ObjectRegistry.MonoRegistered monoRegistered)
+        {
+            if (monoRegistered is IPersistent persistent) persistents.Remove(persistent);
         }
 
         private void Load(GameSaveData gameSaveData)
         {
-            foreach (var persistent in LifetimeScope.Container.ResolveAll<IPersistent>())
+            loaded = gameSaveData;
+
+            foreach (var persistent in persistents)
             {
                 persistent.Load(gameSaveData);
+            }
+
+            foreach (var persistent in persistents)
+            {
+                (persistent as IPostLoad)?.PostLoad();
+            }
+
+            foreach (var postLoad in LifetimeScope.Container.ResolveAll<IPostLoad>())
+            {
+                postLoad.PostLoad();
             }
         }
     }

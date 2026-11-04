@@ -1,6 +1,8 @@
 using Code.Game.Scripts.EntitySystem;
 using Game.Core.Contexts;
+using Game.Scripts.SaveLoadSystem;
 using Game.Scripts.Upgrades;
+using Game.Utilities.Extensions;
 using RG.DefinitionSystem.Core;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -10,7 +12,7 @@ using RG.DefinitionSystem.UnityAdapter;
 
 namespace Game.Scripts.Items
 {
-    public sealed class RackAdapter : EntityAdapter<Rack>
+    public sealed class RackAdapter : EntityAdapter<Rack>, IPersistent
     {
         [Tooltip("Takes only items of this type. None means any.")]
         [SerializeField] private RackType type;
@@ -30,13 +32,29 @@ namespace Game.Scripts.Items
 
         public Transform SlotRoot => slotRoot != null ? slotRoot : transform;
 
-        protected override Rack CreateEntity() => new(SlotRoot, type, filter, ownLayout ? layout : null);
+        protected override Rack CreateEntity() => new(SlotRoot, type, filter, ownLayout ? layout : null, transform.GetHierarchyPath());
 
         protected override void OnEntityInitialized()
         {
             GameServiceLocator.Resolve<SortingProgress>().Register(Entity);
             GameServiceLocator.Resolve<ResourceStorage>().Register(Entity);
             GameServiceLocator.Resolve<UpgradeService>().Register(Entity);
+        }
+
+        public void Save(GameSaveData data)
+        {
+            if (Entity?.Save() is not { } saved) return;
+
+            if (data.Racks.ContainsKey(Entity.Id)) Debug.LogError($"Two racks at '{Entity.Id}': only one of them is saved.", this);
+            data.Racks[Entity.Id] = saved;
+        }
+
+        public void Load(GameSaveData data)
+        {
+            if (Entity != null && data.Racks.TryGetValue(Entity.Id, out var saved))
+            {
+                Entity.Load(saved, GameServiceLocator.Resolve<SortingProgress>().Find);
+            }
         }
 
 #if UNITY_EDITOR

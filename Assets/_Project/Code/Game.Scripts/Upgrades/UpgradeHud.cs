@@ -2,33 +2,25 @@ using System;
 using System.Collections.Generic;
 using Code.Cursor;
 using Code.Game.Scripts.EntitySystem;
-using DG.Tweening;
-using Game.Core.Contexts;
 using Game.Scripts.Construction;
 using Game.Scripts.Interaction;
 using Game.Scripts.Items;
 using Game.Scripts.Player;
 using Game.Scripts.UI;
 using RG.DefinitionSystem.Core;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
+using VContainer.Unity;
+using Object = UnityEngine.Object;
 
 namespace Game.Scripts.Upgrades
 {
     /// <summary>
-    /// Screen overlay: the name of what the crosshair is on, a popup for earned points and the upgrade panel on Tab
-    /// (the UpgradePanel prefab from HudSettingsDef). While the panel is open the cursor is free and the player stands
-    /// still. Points and ability hints are on the note in the hand (TipsView).
+    /// Fills the HUD view (HudSettingsDef.UpgradeHud): the name of what the crosshair is on, a popup for earned points
+    /// and the upgrade panel on Tab. While the panel is open the cursor is free and the player stands still.
     /// </summary>
-    public sealed class UpgradeHud : MonoBehaviour
+    public sealed class UpgradeHud : ITickable, IDisposable
     {
-        private const float PointsFadeTime = 0.2f;
-        private const float PointsHoldTime = 2f;
-        private const float RefuseHoldTime = 1.2f;
-        private static readonly Color refuseColor = new(0.9f, 0.22f, 0.2f, 1f);
-
         private static readonly UpgradeKind[] kinds =
             { UpgradeKind.HandsCapacity, UpgradeKind.Highlight, UpgradeKind.Distribute, UpgradeKind.Pull };
 
@@ -42,37 +34,44 @@ namespace Game.Scripts.Upgrades
 
         private readonly RaycastHit[] hits = new RaycastHit[16];
         private readonly List<InputAction> actions = new();
+        private readonly UpgradeService upgrades;
+        private readonly CursorService cursor;
+        private readonly PlayerSettingsDef playerSettings;
 
-        private UpgradeService upgrades;
-        private CursorService cursor;
-        private PlayerSettingsDef playerSettings;
+        private UpgradeHudView view;
         private Entity player;
         private AimComponent aim;
         private ItemHandsComponent hands;
         private PlayerInputComponent input;
-        private Transform view;
+        private Transform cameraView;
 
-        private TMP_Text hoverText;
-        private UpgradePanelView panel;
-        private TMP_Text pointsText;
-        private CanvasGroup pointsPopup;
-        private Sequence pointsFade;
-        private int pointsShown;
-        private TMP_Text refuseText;
-        private CanvasGroup refusePopup;
-        private Sequence refuseFade;
-
-        private bool IsPanelOpen => panel != null && panel.gameObject.activeSelf;
-
-        private void Awake()
+        public UpgradeHud(UpgradeService upgrades, CursorService cursor)
         {
-            upgrades = GameServiceLocator.Resolve<UpgradeService>();
-            cursor = GameServiceLocator.Resolve<CursorService>();
+            this.upgrades = upgrades;
+            this.cursor = cursor;
             playerSettings = DefManager.GetSingletonDef<PlayerSettingsDef>();
+        }
 
-            BuildCanvas();
-            CreatePanel();
-            upgrades.PointsEarned += ShowPointsEarned;
+        public void Start()
+        {
+            if (view != null) return;
+
+            var prefab = DefManager.GetSingletonDef<HudSettingsDef>().UpgradeHud;
+            view = prefab != null ? Object.Instantiate(prefab).GetComponent<UpgradeHudView>() : null;
+            if (view == null)
+            {
+                Debug.LogError($"{nameof(HudSettingsDef)}.{nameof(HudSettingsDef.UpgradeHud)} has no {nameof(UpgradeHudView)}; there is no HUD.");
+                return;
+            }
+
+            for (var i = 0; i < kinds.Length && i < view.Panel.Rows.Count; i++)
+            {
+                var kind = kinds[i];
+                var button = view.Panel.Rows[i] != null ? view.Panel.Rows[i].BuyButton : null;
+                if (button != null) button.onClick.AddListener(() => upgrades.TryBuy(kind));
+            }
+
+            upgrades.PointsEarned += OnPointsEarned;
 
             Bind("<Keyboard>/tab", TogglePanel);
             for (var i = 0; i < kinds.Length; i++)
@@ -85,38 +84,51 @@ namespace Game.Scripts.Upgrades
             }
         }
 
-        private void OnDestroy()
+        public void Tick()
+        {
+            if (view == null || (player == null && !FindPlayer())) return;
+
+            view.SetHover(DescribeAimed());
+            if (IsPanelOpen) RefreshPanel();
+        }
+
+        public void Dispose()
         {
             foreach (var action in actions) action.Dispose();
             actions.Clear();
 
-            upgrades.PointsEarned -= ShowPointsEarned;
-            pointsFade?.Kill();
-            if (hands != null) hands.PutRefused -= ShowPutRefused;
-            refuseFade?.Kill();
+            upgrades.PointsEarned -= OnPointsEarned;
+            if (hands != null) hands.PutRefused -= OnPutRefused;
+
+            if (view == null) return;
 
             if (IsPanelOpen) ClosePanel();
+            Object.Destroy(view.gameObject);
         }
 
-        private void Update()
-        {
-            if (player == null && !FindPlayer()) return;
+        private bool IsPanelOpen => view != null && view.IsPanelOpen;
 
-            hoverText.text = DescribeAimed();
-            if (IsPanelOpen) RefreshPanel();
+        private void OnPointsEarned(int points)
+        {
+            if (view != null) view.ShowPointsEarned(points);
+        }
+
+        private void OnPutRefused(IItemReceiver receiver, BaseItem item)
+        {
+            if (view != null) view.ShowRefused(PutRefusal.Describe(receiver, item));
         }
 
         private bool FindPlayer()
         {
-            var adapter = FindFirstObjectByType<PlayerAdapter>();
+            var adapter = Object.FindFirstObjectByType<PlayerAdapter>();
             if (adapter == null || adapter.Entity == null) return false;
 
             player = adapter.Entity;
             aim = player.GetComponent<AimComponent>();
             hands = player.GetComponent<ItemHandsComponent>();
-            if (hands != null) hands.PutRefused += ShowPutRefused;
+            if (hands != null) hands.PutRefused += OnPutRefused;
             input = player.GetComponent<PlayerInputComponent>();
-            view = player.GetComponent<CameraAnchorComponent>()?.Transform;
+            cameraView = player.GetComponent<CameraAnchorComponent>()?.Transform;
             return true;
         }
 
@@ -124,9 +136,9 @@ namespace Game.Scripts.Upgrades
         private string DescribeAimed()
         {
             if (aim?.Target != null) return aim.Target.Def.Name;
-            if (view == null) return string.Empty;
+            if (cameraView == null) return string.Empty;
 
-            var count = Physics.RaycastNonAlloc(view.position, view.forward, hits, playerSettings.InteractDistance,
+            var count = Physics.RaycastNonAlloc(cameraView.position, cameraView.forward, hits, playerSettings.InteractDistance,
                 Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide);
             Array.Sort(hits, 0, count, Comparer<RaycastHit>.Create((a, b) => a.distance.CompareTo(b.distance)));
 
@@ -149,37 +161,9 @@ namespace Game.Scripts.Upgrades
             return string.Empty;
         }
 
-        // Points that come while the popup is up add to it, so filling several racks at once reads as one sum.
-        private void ShowPointsEarned(int points)
-        {
-            pointsShown += points;
-            pointsText.text = $"+{pointsShown} {(pointsShown == 1 ? "POINT" : "POINTS")}\n<size=50%>[TAB] Upgrade</size>";
-
-            pointsFade?.Kill();
-            pointsText.rectTransform.localScale = Vector3.one;
-            pointsFade = DOTween.Sequence()
-                .Append(DOTween.To(() => pointsPopup.alpha, value => pointsPopup.alpha = value, 1f, PointsFadeTime))
-                .Join(pointsText.rectTransform.DOPunchScale(Vector3.one * 0.2f, 0.35f, 6))
-                .AppendInterval(PointsHoldTime)
-                .Append(DOTween.To(() => pointsPopup.alpha, value => pointsPopup.alpha = value, 0f, PointsFadeTime * 2f))
-                .OnComplete(() => pointsShown = 0);
-        }
-
-        private void ShowPutRefused(IItemReceiver receiver, BaseItem item)
-        {
-            refuseText.text = PutRefusal.Describe(receiver, item);
-
-            refuseFade?.Kill();
-            refuseText.rectTransform.localScale = Vector3.one;
-            refuseFade = DOTween.Sequence()
-                .Append(DOTween.To(() => refusePopup.alpha, value => refusePopup.alpha = value, 1f, PointsFadeTime * 0.5f))
-                .Join(refuseText.rectTransform.DOPunchScale(Vector3.one * 0.12f, 0.25f, 6))
-                .AppendInterval(RefuseHoldTime)
-                .Append(DOTween.To(() => refusePopup.alpha, value => refusePopup.alpha = value, 0f, PointsFadeTime * 2f));
-        }
-
         private void RefreshPanel()
         {
+            var panel = view.Panel;
             var accent = ColorUtility.ToHtmlStringRGB(panel.Accent);
             if (panel.Title != null) panel.Title.text = $"UPGRADES   <color=#{accent}>{upgrades.Points}</color> PTS";
 
@@ -229,7 +213,7 @@ namespace Game.Scripts.Upgrades
         // Another window (a note) holding the player keeps the panel shut: both would fight over the cursor.
         private void TogglePanel()
         {
-            if (panel == null) return;
+            if (view == null) return;
 
             if (IsPanelOpen) ClosePanel();
             else if (input is not { IsBlocked: true }) OpenPanel();
@@ -237,7 +221,7 @@ namespace Game.Scripts.Upgrades
 
         private void OpenPanel()
         {
-            panel.gameObject.SetActive(true);
+            view.SetPanelOpen(true);
             if (input != null) input.IsBlocked = true;
             cursor.ReleaseLock();
             RefreshPanel();
@@ -245,7 +229,7 @@ namespace Game.Scripts.Upgrades
 
         private void ClosePanel()
         {
-            panel.gameObject.SetActive(false);
+            view.SetPanelOpen(false);
             if (input != null) input.IsBlocked = false;
             cursor.RequestLock();
         }
@@ -256,81 +240,6 @@ namespace Game.Scripts.Upgrades
             action.performed += _ => perform();
             action.Enable();
             actions.Add(action);
-        }
-
-        private void BuildCanvas()
-        {
-            var canvas = gameObject.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 10;
-            var scaler = gameObject.AddComponent<CanvasScaler>();
-            scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1920f, 1080f);
-            scaler.matchWidthOrHeight = 0.5f;
-            gameObject.AddComponent<GraphicRaycaster>();
-
-            var popupFont = DefManager.GetSingletonDef<HudSettingsDef>().PopupFont;
-
-            hoverText = Text(transform, "Hover", 30, TextAlignmentOptions.Top);
-            Place(hoverText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -30f), new Vector2(900f, 60f), new Vector2(0.5f, 1f));
-            if (popupFont != null) hoverText.font = popupFont;
-
-            pointsText = Text(transform, "Points Popup", 56, TextAlignmentOptions.Top);
-            Place(pointsText.rectTransform, new Vector2(0.5f, 1f), new Vector2(0f, -120f), new Vector2(900f, 160f), new Vector2(0.5f, 1f));
-            if (popupFont != null) pointsText.font = popupFont;
-
-            refuseText = Text(transform, "Refuse Popup", 28, TextAlignmentOptions.Top);
-            Place(refuseText.rectTransform, new Vector2(0.5f, 0.5f), new Vector2(0f, -80f), new Vector2(1200f, 50f), new Vector2(0.5f, 1f));
-            refuseText.color = refuseColor;
-            if (popupFont != null) refuseText.font = popupFont;
-            refusePopup = refuseText.gameObject.AddComponent<CanvasGroup>();
-            refusePopup.alpha = 0f;
-            refusePopup.interactable = false;
-            refusePopup.blocksRaycasts = false;
-            pointsPopup = pointsText.gameObject.AddComponent<CanvasGroup>();
-            pointsPopup.alpha = 0f;
-            pointsPopup.interactable = false;
-            pointsPopup.blocksRaycasts = false;
-        }
-
-        private void CreatePanel()
-        {
-            var prefab = DefManager.GetSingletonDef<HudSettingsDef>().UpgradePanel;
-            panel = prefab != null ? Instantiate(prefab, transform).GetComponent<UpgradePanelView>() : null;
-            if (panel == null)
-            {
-                Debug.LogError($"{nameof(HudSettingsDef)}.{nameof(HudSettingsDef.UpgradePanel)} has no {nameof(UpgradePanelView)}; Tab opens nothing.");
-                return;
-            }
-
-            for (var i = 0; i < kinds.Length && i < panel.Rows.Count; i++)
-            {
-                var kind = kinds[i];
-                var button = panel.Rows[i] != null ? panel.Rows[i].BuyButton : null;
-                if (button != null) button.onClick.AddListener(() => upgrades.TryBuy(kind));
-            }
-
-            panel.gameObject.SetActive(false);
-        }
-
-        private static TMP_Text Text(Transform parent, string name, float size, TextAlignmentOptions alignment)
-        {
-            var go = new GameObject(name, typeof(RectTransform));
-            go.transform.SetParent(parent, false);
-            var text = go.AddComponent<TextMeshProUGUI>();
-            text.fontSize = size;
-            text.alignment = alignment;
-            text.textWrappingMode = TextWrappingModes.NoWrap;
-            text.raycastTarget = false;
-            return text;
-        }
-
-        private static void Place(RectTransform rect, Vector2 anchor, Vector2 position, Vector2 size, Vector2 pivot)
-        {
-            rect.anchorMin = rect.anchorMax = anchor;
-            rect.pivot = pivot;
-            rect.anchoredPosition = position;
-            rect.sizeDelta = size;
         }
     }
 }

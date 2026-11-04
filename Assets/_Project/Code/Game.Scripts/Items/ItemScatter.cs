@@ -13,6 +13,35 @@ namespace Game.Scripts.Items
         /// <summary>Out of the level, where an item waiting for its spot is not in the way of the casts.</summary>
         public static readonly Vector3 ParkingSpot = Vector3.down * 1000f;
 
+        public static void Scatter(IEnumerable<BaseItem> items, IReadOnlyList<ItemScatterArea> areas)
+        {
+            if (areas.Count == 0)
+            {
+                Debug.LogError($"No {nameof(ItemScatterArea)} in the scene; items stay where they are.");
+                return;
+            }
+
+            var pending = new List<BaseItem>(items);
+            foreach (var item in pending)
+            {
+                item.Release(ParkingSpot, Quaternion.identity, Vector3.zero);
+            }
+
+            Physics.SyncTransforms();
+
+            foreach (var item in pending)
+            {
+                var rotation = Random.rotation;
+                if (!TryPickSpot(areas, item.Def, item.View.LocalBounds, rotation, out var position))
+                {
+                    position = areas[0].transform.position;
+                }
+
+                item.Release(position, rotation, Vector3.zero);
+                Physics.SyncTransforms();
+            }
+        }
+
         /// <summary>
         /// Lays an item with this collision box and rotation on top of whatever is under a random point of an
         /// area that takes it, touching nothing. The rotation is random in every axis, so it may rest on a corner

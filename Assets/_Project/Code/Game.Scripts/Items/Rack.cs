@@ -30,15 +30,48 @@ namespace Game.Scripts.Items
 
         public IReadOnlyList<BaseItem> Slots => slots;
 
+        public string Id { get; }
+
         public event Action Changed;
 
         public Rack(Transform slotRoot, RackType type = RackType.None, RackFilter filter = RackFilter.Any,
-            RackLayout layout = null)
+            RackLayout layout = null, string id = null)
         {
             SlotRoot = slotRoot;
             Type = type;
             Filter = filter;
             Layout = layout;
+            Id = id;
+        }
+
+        public SaveData Save()
+        {
+            if (Count == 0) return null;
+
+            var ids = new List<int>();
+            foreach (var item in slots)
+            {
+                if (item != null && item.Id >= 0) ids.Add(item.Id);
+            }
+
+            return new SaveData { Items = ids.ToArray() };
+        }
+
+        public void Load(SaveData data, Func<int, BaseItem> find)
+        {
+            if (data?.Items == null) return;
+
+            foreach (var id in data.Items)
+            {
+                var item = find(id);
+                if (item != null && item.Container == null && CanPut(item)) Put(item, instant: true);
+            }
+        }
+
+        [Serializable]
+        public class SaveData
+        {
+            public int[] Items;
         }
 
         public bool Accepts(BaseItem item) =>

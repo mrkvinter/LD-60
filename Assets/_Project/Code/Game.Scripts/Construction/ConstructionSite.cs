@@ -24,6 +24,7 @@ namespace Game.Scripts.Construction
     {
         private readonly BuildRequirement[] requirements;
         private readonly int[] delivered;
+        private readonly List<int> consumed = new();
 
         public string Name { get; }
         public IReadOnlyList<BuildRequirement> Requirements => requirements;
@@ -52,16 +53,58 @@ namespace Game.Scripts.Construction
             }
 
             delivered[index]++;
+            if (item.Id >= 0) consumed.Add(item.Id);
             item.Consume();
             Changed?.Invoke();
 
-            for (var i = 0; i < requirements.Length; i++)
-            {
-                if (delivered[i] < requirements[i].Count) return;
-            }
+            if (!AllDelivered()) return;
 
             IsBuilt = true;
             Built?.Invoke();
+        }
+
+        public SaveData Save()
+        {
+            if (delivered.All(count => count == 0)) return null;
+
+            return new SaveData { Delivered = (int[])delivered.Clone(), Consumed = consumed.ToArray() };
+        }
+
+        // No Built: what the save already paid for must not pay again.
+        public void Load(SaveData data, Func<int, BaseItem> find)
+        {
+            if (data == null || IsBuilt) return;
+
+            for (var i = 0; i < requirements.Length && i < (data.Delivered?.Length ?? 0); i++)
+            {
+                delivered[i] = Math.Clamp(data.Delivered[i], 0, requirements[i].Count);
+            }
+
+            foreach (var id in data.Consumed ?? Array.Empty<int>())
+            {
+                consumed.Add(id);
+                find(id)?.Consume();
+            }
+
+            IsBuilt = AllDelivered();
+            Changed?.Invoke();
+        }
+
+        [Serializable]
+        public class SaveData
+        {
+            public int[] Delivered;
+            public int[] Consumed;
+        }
+
+        private bool AllDelivered()
+        {
+            for (var i = 0; i < requirements.Length; i++)
+            {
+                if (delivered[i] < requirements[i].Count) return false;
+            }
+
+            return true;
         }
 
         /// <summary>Builds at once as if every resource had been put in. For cheats.</summary>

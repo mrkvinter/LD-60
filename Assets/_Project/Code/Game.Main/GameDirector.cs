@@ -47,8 +47,8 @@ namespace Game.Main
         {
             await ShowLoadingScreen();
             await appRootState.AppGameState.Exit();
-            var saveData = appRootState.SaveLoadService.HasSave(MainSaveName) ? appRootState.SaveLoadService.Load(MainSaveName) : null;
-            await appRootState.AppGameState.Enter(saveData);
+            appRootState.SaveLoadService.RemoveSave(MainSaveName);
+            await appRootState.AppGameState.Enter();
             loadingScreen.Hide();
         }).Forget();
 

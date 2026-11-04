@@ -3,6 +3,7 @@ using System.Collections;
 using Code.Game.Scripts.EntitySystem;
 using DG.Tweening;
 using Game.Core.Contexts;
+using Game.Scripts.SaveLoadSystem;
 using RG.DefinitionSystem.Core;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -10,7 +11,7 @@ using Random = UnityEngine.Random;
 
 namespace Game.Scripts.Items
 {
-    public sealed class ItemAdapter : EntityAdapter<BaseItem>, IItemView
+    public sealed class ItemAdapter : EntityAdapter<BaseItem>, IItemView, IPersistent
     {
         private const float HighlightBlend = 0.6f;
         private const float ReleaseSpin = 2f;
@@ -39,6 +40,10 @@ namespace Game.Scripts.Items
 
         public Bounds LocalBounds => localBounds ??= CaptureLocalBounds(transform.localScale);
 
+        public Pose Pose => new(transform.position, transform.rotation);
+
+        public int Id { get; set; } = -1;
+
         public void Setup(DefRef<ItemDef> itemDef)
         {
             def = itemDef;
@@ -54,12 +59,25 @@ namespace Game.Scripts.Items
             baseScale = transform.localScale;
             localBounds = CaptureLocalBounds(baseScale);
             CaptureColors();
-            return DefManager.GetDef(def).CreateItem(this);
+
+            var item = DefManager.GetDef(def).CreateItem(this);
+            item.Id = Id;
+            return item;
         }
 
         protected override void OnEntityInitialized()
         {
             GameServiceLocator.Resolve<SortingProgress>().Register(Entity);
+        }
+
+        public void Save(GameSaveData data)
+        {
+            if (Id >= 0 && Entity?.Save() is { } saved) data.Items[Id] = saved;
+        }
+
+        public void Load(GameSaveData data)
+        {
+            if (Id >= 0 && Entity != null && data.Items.TryGetValue(Id, out var saved)) Entity.Load(saved);
         }
 
         public GameObject CreateGhost(Material material)

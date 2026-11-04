@@ -58,12 +58,12 @@ namespace Game.Main.GameAppStates
 
             RootLifetimeScope.Container.Resolve<CanvasService>().RegisterCanvas(CanvasTarget.Main, mainCanvas);
 
-            var saveStorage = new FileSaveStorage();
+            var saveStorage = new PlayerPrefsSaveStorage();
 #if UNITY_EDITOR
             var debugSaves = new DebugSaveLoadService();
             debugSaves.ReplaceSaveIfNeeded(saveStorage, GameDirector.MainSaveName);
 #endif
-            saveLoadService = new SaveLoadService(new NewtonsoftJsonSaveSerializer(), saveStorage);
+            saveLoadService = new SaveLoadService(new GameSaveSerializer(), saveStorage);
 #if UNITY_EDITOR
             new SaveCaptureService(debugSaves).Attach(saveLoadService, saveStorage);
 #endif

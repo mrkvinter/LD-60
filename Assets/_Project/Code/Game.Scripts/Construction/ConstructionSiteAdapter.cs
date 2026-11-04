@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using Code.Game.Scripts.EntitySystem;
 using Game.Core.Contexts;
+using Game.Scripts.Items;
+using Game.Scripts.SaveLoadSystem;
 using Game.Scripts.Upgrades;
+using Game.Utilities.Extensions;
 using RG.DefinitionSystem.Core;
 using TMPro;
 using UnityEngine;
@@ -15,7 +18,7 @@ namespace Game.Scripts.Construction
     /// Keeps <see cref="built"/> off until the site gets its resources. Until then a see-through copy of it stands in
     /// its place: no solid colliders, only a trigger the hands aim at, and a label with what is still missing.
     /// </summary>
-    public sealed class ConstructionSiteAdapter : EntityAdapter<ConstructionSite>
+    public sealed class ConstructionSiteAdapter : EntityAdapter<ConstructionSite>, IPersistent
     {
         [SerializeField] private DefRef<BuildingDef> building;
 
@@ -81,6 +84,23 @@ namespace Game.Scripts.Construction
             var bounds = CreateGhost();
             CreateLabel(bounds);
             Refresh();
+        }
+
+        public void Save(GameSaveData data)
+        {
+            if (Entity?.Save() is not { } saved) return;
+
+            var key = transform.GetHierarchyPath();
+            if (data.Sites.ContainsKey(key)) Debug.LogError($"Two construction sites at '{key}': only one of them is saved.", this);
+            data.Sites[key] = saved;
+        }
+
+        public void Load(GameSaveData data)
+        {
+            if (Entity == null || !data.Sites.TryGetValue(transform.GetHierarchyPath(), out var saved)) return;
+
+            Entity.Load(saved, GameServiceLocator.Resolve<SortingProgress>().Find);
+            if (Entity.IsBuilt) ShowBuilt();
         }
 
         private void Update()

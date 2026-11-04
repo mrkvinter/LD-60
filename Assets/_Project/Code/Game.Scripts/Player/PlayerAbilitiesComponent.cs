@@ -30,6 +30,24 @@ namespace Game.Scripts.Player
 
         public bool Has(PlayerAbility ability) => unlocked.Contains(ability);
 
+        public SaveData Save() => new() { Abilities = new List<PlayerAbility>(unlocked) };
+
+        // No Unlocked: the unlock feedback is for a syringe picked up just now.
+        public void Load(SaveData data)
+        {
+            if (data?.Abilities == null) return;
+
+            var added = false;
+            foreach (var ability in data.Abilities) added |= Add(ability);
+            if (added) Changed?.Invoke();
+        }
+
+        [Serializable]
+        public class SaveData
+        {
+            public List<PlayerAbility> Abilities = new();
+        }
+
         /// <summary>Returns false when the player already had it.</summary>
         public bool Unlock(PlayerAbility ability)
         {

@@ -25,7 +25,9 @@
         "Executors",
         "ValueTables",
         "Kvintessential.Core",
-        "Kvintessential.Entities"
+        "Kvintessential.Entities",
+        "Kvintessential.Saves",
+        "Kvintessential.Saves.Newtonsoft"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

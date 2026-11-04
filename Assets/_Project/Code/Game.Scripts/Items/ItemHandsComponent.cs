@@ -135,6 +135,34 @@ namespace Game.Scripts.Items
             Changed?.Invoke();
         }
 
+        public SaveData Save()
+        {
+            var ids = new List<int>();
+            foreach (var item in items)
+            {
+                if (item.Id >= 0) ids.Add(item.Id);
+            }
+
+            return new SaveData { Items = ids.ToArray() };
+        }
+
+        public void Load(SaveData data, Func<int, BaseItem> find)
+        {
+            if (data?.Items == null) return;
+
+            foreach (var id in data.Items)
+            {
+                var item = find(id);
+                if (item != null && item.Container == null) Put(item);
+            }
+        }
+
+        [Serializable]
+        public class SaveData
+        {
+            public int[] Items;
+        }
+
         public BaseItem TakeActive() => Take(activeIndex);
 
         public BaseItem TakeLast() => Take(items.Count - 1);

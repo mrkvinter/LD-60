@@ -36,13 +36,13 @@ namespace Code.Game.Editor.Cheats
                 else leftovers.Add(item);
             }
 
-            if (leftovers.Count > 0) CheatServices.Resolve<ItemSpawner>().Scatter(leftovers);
+            if (leftovers.Count > 0) ItemScatter.Scatter(leftovers, ScatterAreas());
         }
 
         public static void ScatterAll()
         {
             var progress = CheatServices.Resolve<SortingProgress>();
-            CheatServices.Resolve<ItemSpawner>().Scatter(CollectAll(progress));
+            ItemScatter.Scatter(CollectAll(progress), ScatterAreas());
         }
 
         public static void FillHands()
@@ -57,6 +57,8 @@ namespace Code.Game.Editor.Cheats
                 hands.Put(item);
             }
         }
+
+        private static ItemScatterArea[] ScatterAreas() => Object.FindObjectsByType<ItemScatterArea>();
 
         private static List<BaseItem> CollectAll(SortingProgress progress)
         {

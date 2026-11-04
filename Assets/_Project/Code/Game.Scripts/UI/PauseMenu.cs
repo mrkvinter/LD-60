@@ -88,6 +88,8 @@ namespace Game.Scripts.UI
         {
             if (IsOpen || !FindInput() || input.IsBlocked) return;
 
+            RootServiceLocator.Resolve<IGameDirector>().SaveGame();
+
             panel.SetActive(true);
             input.IsBlocked = true;
             cursor.ReleaseLock();

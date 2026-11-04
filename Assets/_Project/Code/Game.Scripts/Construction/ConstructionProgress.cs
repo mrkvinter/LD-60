@@ -1,15 +1,19 @@
 using System;
 using System.Collections.Generic;
+using Game.Scripts.SaveLoadSystem;
 
 namespace Game.Scripts.Construction
 {
     /// <summary>The construction sites on the level by building; tells when one of them gets built.</summary>
-    public sealed class ConstructionProgress : IDisposable
+    public sealed class ConstructionProgress : IDisposable, IPostLoad
     {
         private readonly List<(BuildingDef Building, ConstructionSite Site, Action OnBuilt)> sites = new();
 
         public event Action Changed;
         public event Action<BuildingDef> Built;
+
+        // Loaded sites come up built without Built; whatever counts them has to look again.
+        public void PostLoad() => Changed?.Invoke();
 
         public void Register(BuildingDef building, ConstructionSite site)
         {
