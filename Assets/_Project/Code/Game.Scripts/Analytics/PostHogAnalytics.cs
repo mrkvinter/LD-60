@@ -33,7 +33,8 @@ namespace Game.Scripts.Analytics
         {
             this.apiKey = apiKey;
             this.source = source;
-            batchUrl = string.IsNullOrEmpty(host) ? null : $"{host.TrimEnd('/')}/batch/";
+            // Browsers get 503 without CORS headers from /batch/ on another origin; /i/v0/e/ takes the same batch.
+            batchUrl = string.IsNullOrEmpty(host) ? null : $"{host.TrimEnd('/')}/i/v0/e/";
             userId = LoadUserId();
 
             if (!IsConfigured)

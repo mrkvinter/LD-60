@@ -415,35 +415,75 @@
 
 #wrapper .formatted_description blockquote.custom-card .custom-note-title { margin-bottom: 12px; }
 
-/* big "Rate game" button: a plain link, itch.io strips its own .button class */
+/* "Support this game" and "Rate game": one size, side by side under the web build */
+#wrapper #inner_column .donate_btn,
 #wrapper #inner_column a.custom-rate {
   display: inline-block;
+  box-sizing: border-box;
+  width: 210px;
+  height: 48px;
+  padding: 0 12px;
+  font-size: 20px;
+  line-height: 48px;
+  text-align: center;
+  vertical-align: top;
+}
+
+#wrapper #inner_column .donate_btn {
+  background-color: transparent;
+  color: var(--lo-yellow);
+  box-shadow: inset 0 0 0 2px var(--lo-yellow), 0 4px 0 #000;
+}
+
+#wrapper #inner_column .donate_btn:hover {
+  background-color: rgba(255, 210, 26, .14);
+  color: var(--lo-yellow-hot);
+  box-shadow: inset 0 0 0 2px var(--lo-yellow-hot), 0 4px 0 #000, 0 0 18px var(--lo-yellow-glow);
+}
+
+#wrapper #inner_column a.custom-rate {
   margin: 18px 0 6px;
-  padding: 16px 44px 14px;
-  background: var(--lo-yellow);
-  border: 2px solid #000;
+  background-color: var(--lo-yellow);
   border-radius: 2px;
   font-family: var(--lo-font-label);
-  font-size: 28px;
   font-weight: 700;
-  line-height: 1;
-  letter-spacing: .14em;
+  letter-spacing: .1em;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--lo-black);
-  box-shadow: 0 6px 0 #000, 0 0 30px var(--lo-yellow-glow);
+  box-shadow: 0 0 0 1px #000, 0 4px 0 #000, 0 0 22px var(--lo-yellow-glow);
   transition: background-color .15s, box-shadow .15s, transform .08s;
 }
 
 #wrapper #inner_column a.custom-rate:hover {
-  background: var(--lo-yellow-hot);
+  background-color: var(--lo-yellow-hot);
   color: #000;
-  box-shadow: 0 6px 0 #000, 0 0 44px rgba(255, 210, 26, .7);
+  box-shadow: 0 0 0 1px #000, 0 4px 0 #000, 0 0 34px rgba(255, 210, 26, .7);
 }
 
 #wrapper #inner_column a.custom-rate:active {
-  transform: translateY(4px);
-  box-shadow: 0 2px 0 #000, 0 0 20px var(--lo-yellow-glow);
+  transform: translateY(3px);
+  box-shadow: 0 0 0 1px #000, 0 1px 0 #000, 0 0 14px var(--lo-yellow-glow);
+}
+
+/* the link lives in the description; anchor positioning pins it next to Support.
+   Without anchor support, or without a Support button, it stays in the description. */
+@supports (anchor-name: --a) {
+  #wrapper #inner_column .view_game_page:has(.donate_btn) { position: relative; }
+  #wrapper #inner_column .view_game_page:has(.donate_btn) .donate_btn { anchor-name: --lo-support; margin-right: 224px; }
+  #wrapper #inner_column .view_game_page:has(.donate_btn) a.custom-rate {
+    position: absolute;
+    position-anchor: --lo-support;
+    top: anchor(top);
+    left: calc(anchor(right) + 14px);
+    margin: 0;
+  }
+  #wrapper #inner_column .view_game_page:has(.donate_btn) p:has(> a.custom-rate) { margin: 0; }
+
+  @media (max-width: 600px) {
+    #wrapper #inner_column .view_game_page:has(.donate_btn) .donate_btn { margin-right: 0; margin-bottom: 62px; }
+    #wrapper #inner_column .view_game_page:has(.donate_btn) a.custom-rate { top: calc(anchor(bottom) + 14px); left: anchor(left); }
+  }
 }
 
 /* "made for Ludum Dare" stamp */
@@ -548,6 +588,11 @@
   margin: 0;
   border-radius: 0;
   transition: filter .2s;
+}
+
+/* itch.io serves GIFs at their own size marked as 2x, so on hi-dpi screens they come out narrow */
+@media (min-width: 1001px) {
+  #wrapper .screenshot_list .screenshot { width: 100%; height: auto; }
 }
 
 #wrapper .screenshot_list a:hover {

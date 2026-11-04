@@ -6,8 +6,8 @@
   "ButtonActions": {
     "Actions": [
       {
-        "Id": "RestartGameAction",
-        "Args": "{}"
+        "Id": "ThanksForPlayingGameAction",
+        "Args": "{\"restart\":false,\"point\":\"Room_TeleportPoint\"}"
       }
     ]
   },

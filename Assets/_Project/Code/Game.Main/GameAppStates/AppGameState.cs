@@ -10,6 +10,7 @@ using Game.Main.installers;
 using Game.Scripts.Analytics;
 using Game.Scripts.Construction;
 using Game.Scripts.Items;
+using Game.Scripts.UI;
 using Game.Scripts.Upgrades;
 using RG.DefinitionSystem.Core;
 using Game.Scripts.SaveLoadSystem;
@@ -106,6 +107,10 @@ namespace Game.Main.GameAppStates
             LifetimeScope.Container.Resolve<CursorService>();
 
             rumble = LifetimeScope.Container.Resolve<AudioService>().PlayLoop("Rumble");
+
+            var hudSettings = DefManager.GetSingletonDef<HudSettingsDef>();
+            UnityEngine.Object.Instantiate(hudSettings.ThanksScreen);
+            UnityEngine.Object.Instantiate(hudSettings.PauseMenu).GetComponent<PauseMenu>().SetAmbience(rumble.AudioSource);
 
             await UniTask.DelayFrame(1);
 

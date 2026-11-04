@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Last Overtime — split cover</title>
+<style>
+  /* fills the window: itch 630x500, Ludum Dare 640x512 (both rendered at 2x) */
+  @font-face { font-family: "Saira Stencil One"; font-weight: 400;
+    src: url(https://fonts.gstatic.com/s/sairastencilone/v19/SLXSc03I6HkvZGJ1GvvipLoYSTEL9DsLYQk.woff2) format("woff2"); }
+
+  html, body { margin: 0; width: 100vw; height: 100vh; overflow: hidden; background: #0d0b08; }
+
+  .cover { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+  /* the same Cover_Camera shot before and after the cleanup */
+  .shot {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* the clean shot fades in around --wipe; cover-split.html?wipe=1.2 is all dirty, ?wipe=-0.2 all clean */
+  .shot.clean {
+    --wipe: 1.2;
+    --band: .15;
+    -webkit-mask-image: linear-gradient(90deg, transparent calc((var(--wipe) - var(--band)) * 100%), #000 calc((var(--wipe) + var(--band)) * 100%));
+    mask-image: linear-gradient(90deg, transparent calc((var(--wipe) - var(--band)) * 100%), #000 calc((var(--wipe) + var(--band)) * 100%));
+  }
+
+  /* dark at the top for the title over the empty ceiling, dark corners; the pile below stays clear */
+  .shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgba(8, 6, 3, .8) 0%, rgba(8, 6, 3, .35) 18%, transparent 30%),
+      radial-gradient(ellipse 85% 75% at 50% 45%, transparent 60%, rgba(0, 0, 0, .45) 100%);
+  }
+
+  .title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 36px;
+    margin: 0;
+    text-align: center;
+    white-space: nowrap;
+    font-family: "Saira Stencil One", Impact, sans-serif;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: .03em;
+    text-transform: uppercase;
+    color: #ffd21a;
+    text-shadow: 0 4px 0 #000, 0 0 24px rgba(255, 210, 26, .45);
+  }
+
+  .hazard {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 16px;
+    background: repeating-linear-gradient(-45deg, #ffd21a 0 12px, #0d0b08 12px 24px);
+    border-bottom: 2px solid #000;
+  }
+</style>
+</head>
+<body>
+  <div class="cover">
+    <img class="shot" src="split-dirty.png" alt="">
+    <img class="shot clean" src="split-clean.png" alt="">
+    <div class="shade"></div>
+    <h1 class="title">The Last Overtime</h1>
+    <div class="hazard"></div>
+  </div>
+  <script>
+    const wipe = new URLSearchParams(location.search).get("wipe");
+    if (wipe !== null) document.querySelector(".shot.clean").style.setProperty("--wipe", wipe);
+  </script>
+</body>
+</html>

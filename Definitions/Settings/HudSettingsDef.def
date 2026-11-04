@@ -7,5 +7,13 @@
   "UpgradePanel": {
     "guid": "ec9edf726ede8ce4a9de873f6d3290c7",
     "fileID": 3722573825507831972
+  },
+  "PauseMenu": {
+    "guid": "0c3d0d134eb78ad43b66dc06b14c36db",
+    "fileID": 2647311058265725990
+  },
+  "ThanksScreen": {
+    "guid": "065f11f4bf232a94eb4acbd36e553cbd",
+    "fileID": 5360153935490831327
   }
 }

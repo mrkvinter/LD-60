@@ -1,6 +1,7 @@
 using System;
 using Code.Cursor;
 using Code.Game.Core.ExecutorSystem;
+using Code.Game.Core.ExecutorSystem.Actions;
 using DG.Tweening;
 using Game.Core.Contexts;
 using Game.Scripts.Notes;
@@ -26,6 +27,9 @@ namespace Game.Scripts.UI
         [SerializeField] private TMP_Text text;
         [SerializeField] private Button closeButton;
 
+        [Tooltip("Shown only for notes with a SecondButtonText.")]
+        [SerializeField] private Button secondButton;
+
         [Tooltip("How far below its place a hand hides, in canvas pixels.")]
         [SerializeField] private float hideDistance = 800f;
 
@@ -34,6 +38,7 @@ namespace Game.Scripts.UI
         private Vector2 noteShown;
         private Vector2 handShown;
         private TMP_Text closeLabel;
+        private TMP_Text secondLabel;
         private string defaultCloseText;
         private PlayerInputComponent input;
         private CursorService cursor;
@@ -52,14 +57,18 @@ namespace Game.Scripts.UI
 
             closeLabel = closeButton.GetComponentInChildren<TMP_Text>(true);
             if (closeLabel != null) defaultCloseText = closeLabel.text;
+            secondLabel = secondButton.GetComponentInChildren<TMP_Text>(true);
+            secondButton.gameObject.SetActive(false);
 
             closeButton.onClick.AddListener(OnCloseClicked);
+            secondButton.onClick.AddListener(OnSecondClicked);
         }
 
         private void OnDestroy()
         {
             slide?.Kill();
             closeButton.onClick.RemoveListener(OnCloseClicked);
+            secondButton.onClick.RemoveListener(OnSecondClicked);
         }
 
         /// <summary>Opens the note unless a note or a menu is open already.</summary>
@@ -72,6 +81,10 @@ namespace Game.Scripts.UI
             {
                 closeLabel.text = string.IsNullOrWhiteSpace(def.ButtonText) ? defaultCloseText : def.ButtonText;
             }
+
+            var hasSecondButton = !string.IsNullOrWhiteSpace(def.SecondButtonText);
+            secondButton.gameObject.SetActive(hasSecondButton);
+            if (hasSecondButton) secondLabel.text = def.SecondButtonText;
 
             shown = def;
             IsOpen = true;
@@ -98,14 +111,17 @@ namespace Game.Scripts.UI
 
         // The note's actions run once it is closed, so one that moves the player on (a restart, a teleport) finds the
         // controls given back.
-        private void OnCloseClicked()
+        private void OnCloseClicked() => CloseAndRun(shown?.ButtonActions ?? default);
+
+        private void OnSecondClicked() => CloseAndRun(shown?.SecondButtonActions ?? default);
+
+        private void CloseAndRun(GameActionJunction actions)
         {
-            var def = shown;
             Close();
 
-            if (def?.ButtonActions.Actions is { Length: > 0 })
+            if (actions.Actions is { Length: > 0 })
             {
-                GameServiceLocator.Resolve<ActionExecutorSystem>().Execute(def.ButtonActions);
+                GameServiceLocator.Resolve<ActionExecutorSystem>().Execute(actions);
             }
         }
 

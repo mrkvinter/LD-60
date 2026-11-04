@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
+using Game.Scripts.Construction;
 using Game.Scripts.Items;
 
 namespace Game.Scripts.Upgrades
 {
-    /// <summary>Points earned by filling racks with trash, and the upgrade levels bought with them.</summary>
+    /// <summary>Points earned by filling racks with trash and by building, and the upgrade levels bought with them.</summary>
     public sealed class UpgradeService : IDisposable
     {
         private readonly UpgradeSettingsDef settings;
         private readonly Dictionary<UpgradeKind, int> levels = new();
         private readonly Dictionary<Rack, Action> racks = new();
         private readonly HashSet<Rack> filled = new();
+        private readonly Dictionary<ConstructionSite, Action> sites = new();
 
         public int Points { get; private set; }
 
@@ -88,10 +90,21 @@ namespace Game.Scripts.Upgrades
             CheckFilled(rack);
         }
 
+        public void Register(BuildingDef building, ConstructionSite site)
+        {
+            if (building == null || site == null || building.Points <= 0 || sites.ContainsKey(site)) return;
+
+            void OnBuilt() => AddPoints(building.Points);
+            sites[site] = OnBuilt;
+            site.Built += OnBuilt;
+        }
+
         public void Dispose()
         {
             foreach (var (rack, handler) in racks) rack.Changed -= handler;
             racks.Clear();
+            foreach (var (site, handler) in sites) site.Built -= handler;
+            sites.Clear();
         }
 
         // Once per rack: taking items off and filling it again gives nothing.

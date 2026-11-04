@@ -17,7 +17,8 @@
     font: 13px/1 system-ui, sans-serif; }
   .pv-bar button { padding: 8px 10px; border: 1px solid #555; border-radius: 4px; background: #222; color: #ddd; cursor: pointer; }
   .pv-bar button[aria-pressed="true"] { background: #ddd; color: #111; }
-  body.pv-download .embed_wrapper, body.pv-web .header_buy_row, body.pv-web .pv-uploads { display: none !important; }
+  body.pv-download .embed_wrapper, body.pv-download .pv-web-only, body.pv-web .header_buy_row, body.pv-web .pv-uploads { display: none !important; }
+  .donate { margin: 20px 0; text-align: center; }
   .iframe_placeholder { display: flex; align-items: center; justify-content: center; height: 100%; }
   .load_iframe_btn { font-size: 22px; line-height: 50px; padding: 0 28px; }
 </style>
@@ -37,6 +38,8 @@
           <div class="iframe_placeholder"><button class="button load_iframe_btn">Run game</button></div>
         </div>
       </div>
+
+      <div class="donate pv-web-only"><a class="button donate_btn" href="#">Support This Game</a></div>
 
       <div class="header_buy_row">
         <p>A downloadable game for Windows</p>
@@ -124,12 +127,19 @@
         "<p>Open this page through a local server so it can load description.html.</p>";
     });
 
+  // itch.io only renders the Support row on web build pages; a hidden copy would still match :has()
+  const donate = document.querySelector(".donate");
+  const embed = document.querySelector(".embed_wrapper");
+  donate.remove();
+
   document.querySelectorAll(".pv-bar button").forEach(btn => {
     btn.addEventListener("click", () => {
+      const web = btn.dataset.mode === "pv-web";
       document.body.classList.remove("pv-download", "pv-web");
       document.body.classList.add(btn.dataset.mode);
       // itch.io puts this class on pages with a web build (it hides the title, among other things)
-      document.body.classList.toggle("embedded_game", btn.dataset.mode === "pv-web");
+      document.body.classList.toggle("embedded_game", web);
+      if (web) embed.after(donate); else donate.remove();
       document.querySelectorAll(".pv-bar button").forEach(b => b.setAttribute("aria-pressed", b === btn));
     });
   });

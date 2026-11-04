@@ -2483,7 +2483,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Fill a rack with trash to earn a point.   1-4 or click to buy,   Tab to close.
+  m_text: Fill a rack with trash or repair something to earn a point.   1-4 or click to buy,   Tab to close.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 854764f9139de6c4caf5a9c27c990ddd, type: 2}
   m_sharedMaterial: {fileID: 448897036963757092, guid: 854764f9139de6c4caf5a9c27c990ddd, type: 2}

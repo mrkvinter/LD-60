@@ -17,12 +17,14 @@ namespace Game.Scripts.Actions
         [ValueDropdown(nameof(PointIds))]
         [SerializeField] private string point;
 
-        public override void Execute()
+        public override void Execute() => Teleport(point);
+
+        public static void Teleport(string pointId)
         {
-            var target = TeleportPoint.Find(point);
+            var target = TeleportPoint.Find(pointId);
             if (target == null)
             {
-                Debug.LogError($"{nameof(TeleportPlayerGameAction)}: no {nameof(TeleportPoint)} with id '{point}'.");
+                Debug.LogError($"{nameof(TeleportPlayerGameAction)}: no {nameof(TeleportPoint)} with id '{pointId}'.");
                 return;
             }
 
@@ -31,7 +33,7 @@ namespace Game.Scripts.Actions
             movement?.Teleport(target.transform.position, target.transform.rotation);
         }
 
-        private static IEnumerable<string> PointIds()
+        public static IEnumerable<string> PointIds()
         {
             foreach (var teleportPoint in Object.FindObjectsByType<TeleportPoint>(FindObjectsInactive.Include, FindObjectsSortMode.None))
             {

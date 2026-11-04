@@ -11,6 +11,9 @@ namespace Game.Scripts.Construction
     {
         public string Name;
         public ResourceCost[] Cost = Array.Empty<ResourceCost>();
+
+        [Tooltip("Points for building it. Racks give 0: they pay off once filled.")]
+        [Min(0)] public int Points = 1;
     }
 
     [Serializable]

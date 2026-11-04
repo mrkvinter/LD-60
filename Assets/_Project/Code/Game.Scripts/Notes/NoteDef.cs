@@ -16,5 +16,11 @@ namespace Game.Scripts.Notes
 
         [Tooltip("Run after the close button closes the note.")]
         public GameActionJunction ButtonActions;
+
+        [Tooltip("Text on the second button. Empty: the note has only the close button.")]
+        public string SecondButtonText;
+
+        [Tooltip("Run after the second button closes the note.")]
+        public GameActionJunction SecondButtonActions;
     }
 }

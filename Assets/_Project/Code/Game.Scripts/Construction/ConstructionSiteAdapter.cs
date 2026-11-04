@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Code.Game.Scripts.EntitySystem;
 using Game.Core.Contexts;
+using Game.Scripts.Upgrades;
 using RG.DefinitionSystem.Core;
 using TMPro;
 using UnityEngine;
@@ -67,7 +68,9 @@ namespace Game.Scripts.Construction
         protected override void OnEntityInitialized()
         {
             settings = DefManager.GetSingletonDef<ConstructionSettingsDef>();
-            GameServiceLocator.Resolve<ConstructionProgress>().Register(DefManager.GetDef(building), Entity);
+            var def = DefManager.GetDef(building);
+            GameServiceLocator.Resolve<ConstructionProgress>().Register(def, Entity);
+            GameServiceLocator.Resolve<UpgradeService>().Register(def, Entity);
 
             if (Entity.IsBuilt || built == null)
             {

@@ -10,5 +10,7 @@ namespace Game.Scripts.UI
     {
         public TMP_FontAsset PopupFont;
         public GameObject UpgradePanel;
+        public GameObject PauseMenu;
+        public GameObject ThanksScreen;
     }
 }
