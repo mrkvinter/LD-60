@@ -5,7 +5,7 @@
     "guid": "eecde539d551a3b4ab08d55eb6e07b5d",
     "fileID": 5519146213316070502
   },
-  "SpawnCount": 640,
+  "SpawnCount": 128,
   "HeldScale": 0.6,
   "RackType": 2,
   "RackLayout": {

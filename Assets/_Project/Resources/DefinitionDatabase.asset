@@ -14,55 +14,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Defs>k__BackingField: []
   <Definitions>k__BackingField:
-  - rid: 8418586801498488980
-  - rid: 8418586801498488981
-  - rid: 8418586801498488982
-  - rid: 8418586801498488983
-  - rid: 8418586801498488984
-  - rid: 8418586801498488985
-  - rid: 8418586801498488986
-  - rid: 8418586801498488987
-  - rid: 8418586801498488988
-  - rid: 8418586801498488989
-  - rid: 8418586801498488990
-  - rid: 8418586801498488991
-  - rid: 8418586801498488992
-  - rid: 8418586801498488993
-  - rid: 8418586801498488994
-  - rid: 8418586801498488995
-  - rid: 8418586801498488996
-  - rid: 8418586801498488997
-  - rid: 8418586801498488998
-  - rid: 8418586801498488999
-  - rid: 8418586801498489000
-  - rid: 8418586801498489001
-  - rid: 8418586801498489002
-  - rid: 8418586801498489003
-  - rid: 8418586801498489004
-  - rid: 8418586801498489005
-  - rid: 8418586801498489006
-  - rid: 8418586801498489007
-  - rid: 8418586801498489008
-  - rid: 8418586801498489009
-  - rid: 8418586801498489010
-  - rid: 8418586801498489011
-  - rid: 8418586801498489012
-  - rid: 8418586801498489013
-  - rid: 8418586801498489014
-  - rid: 8418586801498489015
-  - rid: 8418586801498489016
-  - rid: 8418586801498489017
-  - rid: 8418586801498489018
-  - rid: 8418586801498489019
+  - rid: 8418586801498489020
+  - rid: 8418586801498489021
+  - rid: 8418586801498489022
+  - rid: 8418586801498489023
+  - rid: 8418586801498489024
+  - rid: 8418586801498489025
+  - rid: 8418586801498489026
+  - rid: 8418586801498489027
+  - rid: 8418586801498489028
+  - rid: 8418586801498489029
+  - rid: 8418586801498489030
+  - rid: 8418586801498489031
+  - rid: 8418586801498489032
+  - rid: 8418586801498489033
+  - rid: 8418586801498489034
+  - rid: 8418586801498489035
+  - rid: 8418586801498489036
+  - rid: 8418586801498489037
+  - rid: 8418586801498489038
+  - rid: 8418586801498489039
+  - rid: 8418586801498489040
+  - rid: 8418586801498489041
+  - rid: 8418586801498489042
+  - rid: 8418586801498489043
+  - rid: 8418586801498489044
+  - rid: 8418586801498489045
+  - rid: 8418586801498489046
+  - rid: 8418586801498489047
+  - rid: 8418586801498489048
+  - rid: 8418586801498489049
+  - rid: 8418586801498489050
+  - rid: 8418586801498489051
+  - rid: 8418586801498489052
+  - rid: 8418586801498489053
+  - rid: 8418586801498489054
+  - rid: 8418586801498489055
+  - rid: 8418586801498489056
+  - rid: 8418586801498489057
+  - rid: 8418586801498489058
+  - rid: 8418586801498489059
   references:
     version: 2
     RefIds:
-    - rid: 8418586801498488980
+    - rid: 8418586801498489020
       type: {class: GameAppSetting, ns: Game.Main.Settings, asm: Game.Main}
       data:
         <Id>k__BackingField: 
         GameScene: Game
-    - rid: 8418586801498488981
+    - rid: 8418586801498489021
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Bridge
@@ -72,7 +72,7 @@ MonoBehaviour:
             id: Wood
           Count: 6
         Points: 1
-    - rid: 8418586801498488982
+    - rid: 8418586801498489022
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Cabinet
@@ -85,7 +85,7 @@ MonoBehaviour:
             id: Steel
           Count: 7
         Points: 0
-    - rid: 8418586801498488983
+    - rid: 8418586801498489023
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Pallet
@@ -95,7 +95,7 @@ MonoBehaviour:
             id: Wood
           Count: 6
         Points: 0
-    - rid: 8418586801498488984
+    - rid: 8418586801498489024
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Portal Cable Left
@@ -105,7 +105,7 @@ MonoBehaviour:
             id: Rubber
           Count: 5
         Points: 1
-    - rid: 8418586801498488985
+    - rid: 8418586801498489025
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Portal Cable Right
@@ -115,7 +115,7 @@ MonoBehaviour:
             id: Rubber
           Count: 5
         Points: 1
-    - rid: 8418586801498488986
+    - rid: 8418586801498489026
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Stairs
@@ -125,7 +125,7 @@ MonoBehaviour:
             id: Steel
           Count: 13
         Points: 1
-    - rid: 8418586801498488987
+    - rid: 8418586801498489027
       type: {class: BuildingDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Teleport Control Panel
@@ -141,13 +141,13 @@ MonoBehaviour:
             id: Rubber
           Count: 6
         Points: 1
-    - rid: 8418586801498488988
+    - rid: 8418586801498489028
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Barrel
         Name: Barrel
         Prefab: {fileID: 425030900545061901, guid: a00ad009833fef94d837748a8d651140, type: 3}
-        SpawnCount: 240
+        SpawnCount: 24
         HeldScale: 0.2
         RackType: 1
         RackLayout:
@@ -155,13 +155,13 @@ MonoBehaviour:
           Spacing: {x: 0.725, y: 1.011, z: 0.725}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498488989
+    - rid: 8418586801498489029
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: BlueCrystal
         Name: Blue crystal
         Prefab: {fileID: 1603035558619468363, guid: 217a28b758e22c04c98de051b5d7fd95, type: 3}
-        SpawnCount: 650
+        SpawnCount: 65
         HeldScale: 0.35
         RackType: 2
         RackLayout:
@@ -169,13 +169,13 @@ MonoBehaviour:
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498488990
+    - rid: 8418586801498489030
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Box
         Name: Box
         Prefab: {fileID: 1774491697571013951, guid: 1332598ff4f2aef47bcdb001a853442c, type: 3}
-        SpawnCount: 360
+        SpawnCount: 12
         HeldScale: 0.16
         RackType: 1
         RackLayout:
@@ -183,13 +183,13 @@ MonoBehaviour:
           Spacing: {x: 1, y: 1, z: 1}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498488991
+    - rid: 8418586801498489031
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Display
         Name: Display
         Prefab: {fileID: 6801515090761715587, guid: bb4eb6f5e30d32c4ba03f6b78a496ef4, type: 3}
-        SpawnCount: 720
+        SpawnCount: 36
         HeldScale: 0.3
         RackType: 1
         RackLayout:
@@ -197,13 +197,13 @@ MonoBehaviour:
           Spacing: {x: 0.72, y: 0.75, z: 0.6}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498488992
+    - rid: 8418586801498489032
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: EnergyDrink
         Name: Energy drink
         Prefab: {fileID: 3351485915588059920, guid: 9df847a6379a4bf44b7ed96c995ad91c, type: 3}
-        SpawnCount: 640
+        SpawnCount: 128
         HeldScale: 0.6
         RackType: 2
         RackLayout:
@@ -211,13 +211,13 @@ MonoBehaviour:
           Spacing: {x: 0.17, y: 0.315, z: 0.17}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498488993
+    - rid: 8418586801498489033
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: FanFanDrink
         Name: FanFan drink
         Prefab: {fileID: 5519146213316070502, guid: eecde539d551a3b4ab08d55eb6e07b5d, type: 3}
-        SpawnCount: 640
+        SpawnCount: 128
         HeldScale: 0.6
         RackType: 2
         RackLayout:
@@ -225,13 +225,13 @@ MonoBehaviour:
           Spacing: {x: 0.17, y: 0.315, z: 0.17}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498488994
+    - rid: 8418586801498489034
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: FirstAidKit
         Name: First aid kit
         Prefab: {fileID: 4852046141318777294, guid: a44629bfb8218a149b1a9d2120500a54, type: 3}
-        SpawnCount: 480
+        SpawnCount: 48
         HeldScale: 0.4
         RackType: 1
         RackLayout:
@@ -239,13 +239,13 @@ MonoBehaviour:
           Spacing: {x: 0.7, y: 0.25, z: 0.46}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 90, z: 0}
-    - rid: 8418586801498488995
+    - rid: 8418586801498489035
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: GreenBarrel
         Name: Green barrel
         Prefab: {fileID: 2621707190641151006, guid: 4cfee693cd90f3c4889d559818109cd5, type: 3}
-        SpawnCount: 240
+        SpawnCount: 24
         HeldScale: 0.2
         RackType: 1
         RackLayout:
@@ -253,7 +253,7 @@ MonoBehaviour:
           Spacing: {x: 0.725, y: 1.011, z: 0.725}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498488996
+    - rid: 8418586801498489036
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: GreenCrystal
@@ -267,7 +267,7 @@ MonoBehaviour:
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498488997
+    - rid: 8418586801498489037
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Phone
@@ -281,7 +281,7 @@ MonoBehaviour:
           Spacing: {x: 0.24, y: 0.65, z: 0.32}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498488998
+    - rid: 8418586801498489038
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: PurpleCrystal
@@ -295,13 +295,13 @@ MonoBehaviour:
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498488999
+    - rid: 8418586801498489039
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: RedBarrel
         Name: Red barrel
         Prefab: {fileID: 8861099243402403150, guid: 7afbea1e49654b343b35899d5e6a1be1, type: 3}
-        SpawnCount: 240
+        SpawnCount: 24
         HeldScale: 0.2
         RackType: 1
         RackLayout:
@@ -309,7 +309,7 @@ MonoBehaviour:
           Spacing: {x: 0.725, y: 1.011, z: 0.725}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498489000
+    - rid: 8418586801498489040
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: RedCrystal
@@ -323,7 +323,7 @@ MonoBehaviour:
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498489001
+    - rid: 8418586801498489041
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: SpiretDrink
@@ -337,7 +337,7 @@ MonoBehaviour:
           Spacing: {x: 0.17, y: 0.315, z: 0.17}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498489002
+    - rid: 8418586801498489042
       type: {class: TrashDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: YellowCrystal
@@ -351,7 +351,7 @@ MonoBehaviour:
           Spacing: {x: 0.23, y: 0.6, z: 0.27}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498489003
+    - rid: 8418586801498489043
       type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Note01
@@ -382,7 +382,7 @@ MonoBehaviour:
         SecondButtonText: 
         SecondButtonActions:
           Actions: []
-    - rid: 8418586801498489004
+    - rid: 8418586801498489044
       type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Note02
@@ -394,7 +394,7 @@ MonoBehaviour:
         SecondButtonText: 
         SecondButtonActions:
           Actions: []
-    - rid: 8418586801498489005
+    - rid: 8418586801498489045
       type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Note03
@@ -406,7 +406,7 @@ MonoBehaviour:
         SecondButtonText: 
         SecondButtonActions:
           Actions: []
-    - rid: 8418586801498489006
+    - rid: 8418586801498489046
       type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Note_FakeLast
@@ -425,7 +425,7 @@ MonoBehaviour:
         SecondButtonText: 
         SecondButtonActions:
           Actions: []
-    - rid: 8418586801498489007
+    - rid: 8418586801498489047
       type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Note_HeAteUs
@@ -439,7 +439,7 @@ MonoBehaviour:
         SecondButtonText: 
         SecondButtonActions:
           Actions: []
-    - rid: 8418586801498489008
+    - rid: 8418586801498489048
       type: {class: NoteDef, ns: Game.Scripts.Notes, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Note_Last
@@ -471,14 +471,14 @@ MonoBehaviour:
           Actions:
           - Id: ThanksForPlayingGameAction
             Args: '{"restart":true,"point":""}'
-    - rid: 8418586801498489009
+    - rid: 8418586801498489049
       type: {class: AnalyticsSettingsDef, ns: Game.Scripts.Analytics, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
         PostHogHost: https://eu.i.posthog.com
         PostHogApiKey: phc_yXMaDQpNRVVRzuManQEnJaBF9quvHLWdeh2Jexf7BPc6
         SendFromEditor: 0
-    - rid: 8418586801498489010
+    - rid: 8418586801498489050
       type: {class: ConstructionSettingsDef, ns: Game.Scripts.Construction, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
@@ -487,7 +487,7 @@ MonoBehaviour:
         LabelHeight: 0.3
         LabelFontSize: 2
         DoneColor: {r: 0.55, g: 1, b: 0.55, a: 1}
-    - rid: 8418586801498489011
+    - rid: 8418586801498489051
       type: {class: HudSettingsDef, ns: Game.Scripts.UI, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
@@ -495,7 +495,7 @@ MonoBehaviour:
         UpgradeHud: {fileID: 8118549617571024469, guid: 57c389e174c1f14498a42bde2f2638e3, type: 3}
         PauseMenu: {fileID: 2647311058265725990, guid: 0c3d0d134eb78ad43b66dc06b14c36db, type: 3}
         ThanksScreen: {fileID: 5360153935490831327, guid: 065f11f4bf232a94eb4acbd36e553cbd, type: 3}
-    - rid: 8418586801498489012
+    - rid: 8418586801498489052
       type: {class: ItemSettingsDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
@@ -505,16 +505,16 @@ MonoBehaviour:
         FlightDuration: 0.25
         SwapDuration: 0.15
         GhostMaterial: {fileID: 2100000, guid: af9344759d6e12c498b7ef4c2493668d, type: 2}
-    - rid: 8418586801498489013
+    - rid: 8418586801498489053
       type: {class: PlayerSettingsDef, ns: Game.Scripts.Player, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
         InteractDistance: 3
-        HandsCapacity: 400
+        HandsCapacity: 4
         RepeatInterval: 0.15
         ThrowSpeed: 3.5
         StartAbilities: 
-    - rid: 8418586801498489014
+    - rid: 8418586801498489054
       type: {class: UpgradeSettingsDef, ns: Game.Scripts.Upgrades, asm: Game.Scripts}
       data:
         <Id>k__BackingField: 
@@ -550,19 +550,19 @@ MonoBehaviour:
         - Cost: 2
           Amount: 13
           Cooldown: 25
-    - rid: 8418586801498489015
+    - rid: 8418586801498489055
       type: {class: WidgetProps, ns: Game.UI.Base, asm: Game.UI}
       data:
         <Id>k__BackingField: BlackScreen
         <Prefab>k__BackingField: {fileID: 1347306929960347767, guid: b56a4ea3a08e44d4986caad26499e8c7, type: 3}
         <Target>k__BackingField: 1
-    - rid: 8418586801498489016
+    - rid: 8418586801498489056
       type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Gear
         Name: Gear
         Prefab: {fileID: 8916877870217832583, guid: 5780b89afb86b9849bebd5f8d2b26aa9, type: 3}
-        SpawnCount: 120
+        SpawnCount: 12
         HeldScale: 0.4
         RackType: 3
         RackLayout:
@@ -570,7 +570,7 @@ MonoBehaviour:
           Spacing: {x: 0.6, y: 0.072, z: 0.6}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498489017
+    - rid: 8418586801498489057
       type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Steel
@@ -584,13 +584,13 @@ MonoBehaviour:
           Spacing: {x: 0.34, y: 0.14, z: 0.6}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498489018
+    - rid: 8418586801498489058
       type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Wood
         Name: Wood
         Prefab: {fileID: 3098431755472036023, guid: b50b8cdf5642ea2469a0ebaee3b74c81, type: 3}
-        SpawnCount: 200
+        SpawnCount: 40
         HeldScale: 0.4
         RackType: 3
         RackLayout:
@@ -598,13 +598,13 @@ MonoBehaviour:
           Spacing: {x: 0.35, y: 0.34, z: 0.65}
           Offset: {x: 0, y: 0, z: 0}
           Rotation: {x: 0, y: 0, z: 0}
-    - rid: 8418586801498489019
+    - rid: 8418586801498489059
       type: {class: ResourceDef, ns: Game.Scripts.Items, asm: Game.Scripts}
       data:
         <Id>k__BackingField: Rubber
         Name: Rubber
         Prefab: {fileID: 1316650152013982548, guid: f8b69d15330698648a4408dc7b398144, type: 3}
-        SpawnCount: 200
+        SpawnCount: 20
         HeldScale: 0.15
         RackType: 3
         RackLayout:
