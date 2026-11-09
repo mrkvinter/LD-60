@@ -7,7 +7,7 @@
     "Actions": [
       {
         "Id": "ThanksForPlayingGameAction",
-        "Args": "{\"restart\":false,\"point\":\"Room_TeleportPoint\"}"
+        "Args": "{\"restart\":false,\"point\":\"Lab_TeleportPoint\"}"
       }
     ]
   },
