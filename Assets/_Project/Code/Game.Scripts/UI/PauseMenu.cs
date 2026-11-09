@@ -18,6 +18,7 @@ namespace Game.Scripts.UI
         [SerializeField] private GameObject panel;
         [SerializeField] private Button continueButton;
         [SerializeField] private Button restartButton;
+        [SerializeField] private Button quitButton;
         [SerializeField] private Slider volumeSlider;
         [SerializeField] private Slider ambienceSlider;
 
@@ -57,6 +58,11 @@ namespace Game.Scripts.UI
 
             continueButton.onClick.AddListener(Close);
             restartButton.onClick.AddListener(Restart);
+#if UNITY_WEBGL && !UNITY_EDITOR
+            quitButton.gameObject.SetActive(false);
+#else
+            quitButton.onClick.AddListener(Quit);
+#endif
             volumeSlider.onValueChanged.AddListener(SetVolume);
             ambienceSlider.onValueChanged.AddListener(SetAmbienceVolume);
 
@@ -115,6 +121,16 @@ namespace Game.Scripts.UI
 
             PlayerPrefs.Save();
             RootServiceLocator.Resolve<IGameDirector>().RestartGame();
+        }
+
+        private void Quit()
+        {
+            PlayerPrefs.Save();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
 
         private void SetVolume(float value)
